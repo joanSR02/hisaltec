@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+:root{
+    --color-body-principal:rgb(151,194,30);
+    --color-texto-principal: aliceblue;
+    --color-texto-secundario: rgb(132,132,132);
+    --color-texto-terciario: black;
+}
+.dark-mode{
+    --color-body-principal:rgb(151,194,30);
+    --color-texto-principal: aliceblue;
+    --color-texto-secundario: rgb(132,132,132);
+    --color-texto-terciario: black;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    appearance: 0;
+    border: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+html{
+    font-size: 14px;
+}
+li{
+    list-style-type: none;
+}
+/**********hero_1**********/
+.hero_1{
+    background-color: var(--color-body-principal);
+    width: 100%;
+}
+.contenedor{
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.25rem 1rem;
+    align-items: center;/*Centrar verticalmente los elementos de contenedor*/
+}
+.hero_1 .contenedor nav{
+    margin-right: auto
+}
+.hero_1 .contenedor nav ul{
+    display: flex;
+    margin-right: auto;
+    gap: 1rem;
+}
+.hero_1 .contenedor nav ul li a{
+    color: var(--color-texto-principal);
+    font-weight: bold; /* Texto en negrita */
+}
+/**********hero_2**********/
+/******************Buscador (temporal)***********************/
+.search_box {
+    margin-left: auto;/*Margen derecho automatico para separar lo maximo posible al otro elemento*/
+    position: relative; /* Establece el contenedor como posición relativa */
+    display: inline-block; /* Para que ocupe solo el ancho necesario */
+}
+.search_box input[type="search"] {
+    padding: 8px 15px; /* Ajusta el espacio entre las letras y los bordes */
+    /*padding-right: 30px;  Ajusta el espacio para el icono */
+    border-radius: 20px; /* Aplica bordes circulares */
+    border: 1px solid #ccc; /* Añade un borde */
+}
+.search_box .fa-search {
+    position: absolute; /* Posiciona el icono absolutamente */
+    top: 50%; /* Lo coloca verticalmente en el centro */
+    right: 10px; /* Ajusta la distancia desde el borde derecho entre el icono y el borde del buscador*/
+    transform: translateY(-50%); /* Corrige la posición vertical */
+    color: #333; /* Cambia el color del icono según sea necesario */
+}
+/* Eliminar el botón de borrar predeterminado */
+.search_box input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+.search_box input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+/******************************************************/
+
+.login_register{
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+}
+.login_register, .login_register ul li a{
+    color: var(--color-texto-secundario);
+}
+/**********hero_3**********/
+.hero_3 .contenedor nav ul{
+    display: flex;
+    margin-right: auto;
+    gap: 1rem;
+}
+.hero_3 .contenedor nav ul li a{
+    color: var(--color-texto-terciario);
+    font-weight: bold; /* Texto en negrita */
+}
+.favoritos_compras{
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+    color: var(--color-texto-secundario);
+}
+
+/****************************************main****************************************/
+/**********Publicidad**********/
+#conteItemsCarrusel{
+    height: 50vh;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+.carrusel{
+    height: 100%;
+    position: relative;/*Para que flechasCarrusel se posicione encima de este*/
+}
+.tarjetaCarrusel{
+    background-color: rgb(150, 187, 187);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flechasCarrusel{
+    height: 100%;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+#tarjetaCarrusel-1{
+    background-color: #d662d0;
+}
+#tarjetaCarrusel-2{
+    background-color: #463d7a;
+}
+#tarjetaCarrusel-2{
+    background-color: #0b4622;
+}
+.flecha{
+    color: white;
+}
+#contePuntos{
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    bottom: 0;
+}
+#contePuntos > a{
+    font-size: 1.5em;
+    text-decoration: none;/*Elimina cualquier subrayado predeterminado de los enlaces*/
+    color: white;
+}
+.img-carrusel{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
