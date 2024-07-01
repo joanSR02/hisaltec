@@ -38,6 +38,22 @@
                         dark_mode
                     </span>
                 </div>
+                <div class="menu">
+                    <span class="material-icons-sharp">
+                        menu
+                    </span>
+                </div>
+                <div class="logo">
+                    <img src="./assets/images/logo.png" alt="Logo" style="height: 50px;">
+                </div>
+                <div class="favoritos_compras">
+                    <span class="material-icons-sharp">
+                        favorite
+                    </span>
+                    <span class="material-icons-sharp">
+                        shopping_cart
+                    </span>
+                </div>
             </div>
         </div>
         <div class="hero_2">
@@ -96,76 +112,292 @@
         </div>
     </header>
     <main>
-        <section>
-            <!--<div id=conteItemsCarrusel class="contenedor">
-                <div class="carrusel" id="carrusel-1">
-                    <div class="tarjetaCarrusel" id="tarjetaCarrusel-1">
-                        <img src="./images/1.jpg" alt="image">
+        <!--Carrusel-->
+        <section class="carousel">
+            <div class="list"><!--Esta es el bloque donde estarán todos los items o dispositivos que el usuario podra visualizar-->
+                <div class="item"><!--Item1-->
+                    <img src="assets/images/img1.png"><!--La imagen del dispositivo o equipo-->
+                    <div class="introduce"><!--Aqui va la información que el usuario vera primero, se podria decir que es el gancho-->
+                        <div class="title">PLACA DE DESARROLLO</div>
+                        <div class="topic">Raspberry Pi 5</div>
+                        <div class="des">
+                            <!-- 20 lorem -->
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, laborum cumque dignissimos quidem atque et eligendi aperiam voluptates beatae maxime.
+                        </div>
+                        <button class="seeMore">VER MAS &#8599</button><!--Es el botón para ver mas sobre el dispositivo &#8599 es un caracter de flecha diagonal hacia la esquina superior derecha-->
                     </div>
-                    <div class="flechasCarrusel" id="flechasCarrusel-1">
-                        <a href="#carrusel-3" class="flecha" class="img-carrusel">
-                            <span class="material-icons-sharp">
-                                chevron_left
-                            </span>
-                        </a>
-                        <a href="#carrusel-2" class="flecha">
-                            <span class="material-icons-sharp">
-                                navigate_next
-                            </span>
-                        </a>
-                        <div id="contePuntos">
-                            <a href="#carrusel-1">°</a>
-                            <a href="#carrusel-2">°</a>
-                            <a href="#carrusel-3">°</a>
+                    <div class="detail"><!--Es el bloque de detalles cuando le damos ver mas-->
+                        <div class="title">Aerphone GHTK</div><!--Es el titulo-->
+                        <div class="des"><!--Es un parrafo donde se habla del equipo-->
+                            <!-- lorem 50 -->
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, reiciendis suscipit nobis nulla animi, modi explicabo quod corrupti impedit illo, accusantium in eaque nam quia adipisci aut distinctio porro eligendi. Reprehenderit nostrum consequuntur ea! Accusamus architecto dolores modi ducimus facilis quas voluptatibus! Tempora ratione accusantium magnam nulla tenetur autem beatae.
+                        </div>
+                        <div class="specifications"><!--Son las especificaciones, recomendaria hacerlo con tablas pero esta hecho asi-->
+                            <div>
+                                <p>Used Time</p>
+                                <p>6 hours</p>
+                            </div>
+                            <div>
+                                <p>Charging port</p>
+                                <p>Type-C</p>
+                            </div>
+                            <div>
+                                <p>Compatible</p>
+                                <p>Android</p>
+                            </div>
+                            <div>
+                                <p>Bluetooth</p>
+                                <p>5.3</p>
+                            </div>
+                            <div>
+                                <p>Controlled</p>
+                                <p>Touch</p>
+                            </div>
+                        </div>
+                        <div class="checkout"><!--En este bloque van los botones para añadir el equipo al carrito y otro para ver mas del equipo-->
+                            <button>ADD TO CART</button>
+                            <button>CHECKOUT</button>
                         </div>
                     </div>
                 </div>
-                <div class="carrusel" id="carrusel-2">
-                    <div class="tarjetaCarrusel" id="tarjetaCarrusel-2">
-                        <img src="./images/2.jpg" alt="image" class="img-carrusel">
+    
+                <div class="item"><!--Item2-->
+                    <img src="assets/images/img2.png">
+                    <div class="introduce">
+                        <div class="title">PLACA DE DESARROLLO</div>
+                        <div class="topic">Raspberry Pi Zero 2W</div>
+                        <div class="des">
+                            <!-- 20 lorem -->
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, laborum cumque dignissimos quidem atque et eligendi aperiam voluptates beatae maxime.
+                        </div>
+                        <button class="seeMore">VER MAS &#8599</button>
                     </div>
-                    <div class="flechasCarrusel" id="flechasCarrusel-2">
-                        <a href="#carrusel-1" class="flecha">
-                            <span class="material-icons-sharp">
-                                chevron_left
-                            </span>
-                        </a>
-                        <a href="#carrusel-3" class="flecha">
-                            <span class="material-icons-sharp">
-                                navigate_next
-                            </span>
-                        </a>
-                        <div id="contePuntos">
-                            <a href="#carrusel-1">°</a>
-                            <a href="#carrusel-2">°</a>
-                            <a href="#carrusel-3">°</a>
+                    <div class="detail">
+                        <div class="title">Aerphone GHTK</div>
+                        <div class="des">
+                            <!-- lorem 50 -->
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, reiciendis suscipit nobis nulla animi, modi explicabo quod corrupti impedit illo, accusantium in eaque nam quia adipisci aut distinctio porro eligendi. Reprehenderit nostrum consequuntur ea! Accusamus architecto dolores modi ducimus facilis quas voluptatibus! Tempora ratione accusantium magnam nulla tenetur autem beatae.
+                        </div>
+                        <div class="specifications">
+                            <div>
+                                <p>Used Time</p>
+                                <p>6 hours</p>
+                            </div>
+                            <div>
+                                <p>Charging port</p>
+                                <p>Type-C</p>
+                            </div>
+                            <div>
+                                <p>Compatible</p>
+                                <p>Android</p>
+                            </div>
+                            <div>
+                                <p>Bluetooth</p>
+                                <p>5.3</p>
+                            </div>
+                            <div>
+                                <p>Controlled</p>
+                                <p>Touch</p>
+                            </div>
+                        </div>
+                        <div class="checkout">
+                            <button>ADD TO CART</button>
+                            <button>CHECKOUT</button>
                         </div>
                     </div>
                 </div>
-                <div class="carrusel" id="carrusel-3">
-                    <div class="tarjetaCarrusel" id="tarjetaCarrusel-3">
-                        <img src="./images/3.jpg" alt="image" class="img-carrusel">
+    
+                <div class="item"><!--Item3-->
+                    <img src="assets/images/img3.png">
+                    <div class="introduce">
+                        <div class="title">PLACA DE DESARROLLO</div>
+                        <div class="topic">Arduino Mega</div>
+                        <div class="des">
+                            <!-- 20 lorem -->
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, laborum cumque dignissimos quidem atque et eligendi aperiam voluptates beatae maxime.
+                        </div>
+                        <button class="seeMore">VER MAS &#8599</button>
                     </div>
-                    <div class="flechasCarrusel" id="flechasCarrusel-3">
-                        <a href="#carrusel-2" class="flecha">
-                            <span class="material-icons-sharp">
-                                chevron_left
-                            </span>
-                        </a>
-                        <a href="#carrusel-1" class="flecha">
-                            <span class="material-icons-sharp">
-                                navigate_next
-                            </span>
-                        </a>
-                        <div id="contePuntos">
-                            <a href="#carrusel-1">°</a>
-                            <a href="#carrusel-2">°</a>
-                            <a href="#carrusel-3">°</a>
+                    <div class="detail">
+                        <div class="title">Aerphone GHTK</div>
+                        <div class="des">
+                            <!-- lorem 50 -->
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, reiciendis suscipit nobis nulla animi, modi explicabo quod corrupti impedit illo, accusantium in eaque nam quia adipisci aut distinctio porro eligendi. Reprehenderit nostrum consequuntur ea! Accusamus architecto dolores modi ducimus facilis quas voluptatibus! Tempora ratione accusantium magnam nulla tenetur autem beatae.
+                        </div>
+                        <div class="specifications">
+                            <div>
+                                <p>Used Time</p>
+                                <p>6 hours</p>
+                            </div>
+                            <div>
+                                <p>Charging port</p>
+                                <p>Type-C</p>
+                            </div>
+                            <div>
+                                <p>Compatible</p>
+                                <p>Android</p>
+                            </div>
+                            <div>
+                                <p>Bluetooth</p>
+                                <p>5.3</p>
+                            </div>
+                            <div>
+                                <p>Controlled</p>
+                                <p>Touch</p>
+                            </div>
+                        </div>
+                        <div class="checkout">
+                            <button>ADD TO CART</button>
+                            <button>CHECKOUT</button>
                         </div>
                     </div>
                 </div>
-            </div>-->
+    
+                <div class="item"><!--Item4-->
+                    <img src="assets/images/img4.png">
+                    <div class="introduce">
+                        <div class="title">DEPURADOR</div>
+                        <div class="topic">Pickit3</div>
+                        <div class="des">
+                            <!-- 20 lorem -->
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, laborum cumque dignissimos quidem atque et eligendi aperiam voluptates beatae maxime.
+                        </div>
+                        <button class="seeMore">VER MAS &#8599</button>
+                    </div>
+                    <div class="detail">
+                        <div class="title">Aerphone GHTK</div>
+                        <div class="des">
+                            <!-- lorem 50 -->
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, reiciendis suscipit nobis nulla animi, modi explicabo quod corrupti impedit illo, accusantium in eaque nam quia adipisci aut distinctio porro eligendi. Reprehenderit nostrum consequuntur ea! Accusamus architecto dolores modi ducimus facilis quas voluptatibus! Tempora ratione accusantium magnam nulla tenetur autem beatae.
+                        </div>
+                        <div class="specifications">
+                            <div>
+                                <p>Used Time</p>
+                                <p>6 hours</p>
+                            </div>
+                            <div>
+                                <p>Charging port</p>
+                                <p>Type-C</p>
+                            </div>
+                            <div>
+                                <p>Compatible</p>
+                                <p>Android</p>
+                            </div>
+                            <div>
+                                <p>Bluetooth</p>
+                                <p>5.3</p>
+                            </div>
+                            <div>
+                                <p>Controlled</p>
+                                <p>Touch</p>
+                            </div>
+                        </div>
+                        <div class="checkout">
+                            <button>ADD TO CART</button>
+                            <button>CHECKOUT</button>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="item"><!--Item5-->
+                    <img src="assets/images/img5.png">
+                    <div class="introduce">
+                        <div class="title">PLACA DE DESARROLLO</div>
+                        <div class="topic">ESP32 Devkit V1</div>
+                        <div class="des">
+                            <!-- 20 lorem -->
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, laborum cumque dignissimos quidem atque et eligendi aperiam voluptates beatae maxime.
+                        </div>
+                        <button class="seeMore">VER MAS &#8599</button>
+                    </div>
+                    <div class="detail">
+                        <div class="title">Aerphone GHTK</div>
+                        <div class="des">
+                            <!-- lorem 50 -->
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, reiciendis suscipit nobis nulla animi, modi explicabo quod corrupti impedit illo, accusantium in eaque nam quia adipisci aut distinctio porro eligendi. Reprehenderit nostrum consequuntur ea! Accusamus architecto dolores modi ducimus facilis quas voluptatibus! Tempora ratione accusantium magnam nulla tenetur autem beatae.
+                        </div>
+                        <div class="specifications">
+                            <div>
+                                <p>Used Time</p>
+                                <p>6 hours</p>
+                            </div>
+                            <div>
+                                <p>Charging port</p>
+                                <p>Type-C</p>
+                            </div>
+                            <div>
+                                <p>Compatible</p>
+                                <p>Android</p>
+                            </div>
+                            <div>
+                                <p>Bluetooth</p>
+                                <p>5.3</p>
+                            </div>
+                            <div>
+                                <p>Controlled</p>
+                                <p>Touch</p>
+                            </div>
+                        </div>
+                        <div class="checkout">
+                            <button>ADD TO CART</button>
+                            <button>CHECKOUT</button>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="item"><!--Item6-->
+                    <img src="assets/images/img6.png">
+                    <div class="introduce">
+                        <div class="title">PLACA DE DESARROLLO</div>
+                        <div class="topic">Raspberry Pi 4</div>
+                        <div class="des">
+                            <!-- 20 lorem -->
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, laborum cumque dignissimos quidem atque et eligendi aperiam voluptates beatae maxime.
+                        </div>
+                        <button class="seeMore">VER MAS &#8599</button>
+                    </div>
+                    <div class="detail">
+                        <div class="title">Aerphone GHTK</div>
+                        <div class="des">
+                            <!-- lorem 50 -->
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor, reiciendis suscipit nobis nulla animi, modi explicabo quod corrupti impedit illo, accusantium in eaque nam quia adipisci aut distinctio porro eligendi. Reprehenderit nostrum consequuntur ea! Accusamus architecto dolores modi ducimus facilis quas voluptatibus! Tempora ratione accusantium magnam nulla tenetur autem beatae.
+                        </div>
+                        <div class="specifications">
+                            <div>
+                                <p>Used Time</p>
+                                <p>6 hours</p>
+                            </div>
+                            <div>
+                                <p>Charging port</p>
+                                <p>Type-C</p>
+                            </div>
+                            <div>
+                                <p>Compatible</p>
+                                <p>Android</p>
+                            </div>
+                            <div>
+                                <p>Bluetooth</p>
+                                <p>5.3</p>
+                            </div>
+                            <div>
+                                <p>Controlled</p>
+                                <p>Touch</p>
+                            </div>
+                        </div>
+                        <div class="checkout">
+                            <button>ADD TO CART</button>
+                            <button>CHECKOUT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="arrows"><!--En este bloque van las flechas-->
+                <button id="prev"><</button><!--Boton de anterior-->
+                <button id="next">></button><!--Boton de siguiente-->
+                <button id="back">VER TODO  &#8599</button><!--Boton de retorno-->
+            </div>
         </section>
+        <!--Productos destacados-->
         <section class="Productos-destacados contenedor">
             <div>
                 <h2>PRODUCTOS DESTACADOS</h2>
@@ -186,9 +418,75 @@
                 <h2>CURSOS DESTACADOS</h2>
             </div>
         </section>
+        <section class="tutorial-compra">
+            <div class="contenedor">
+                <h2>¿CÓMO COMPRAR?</h2>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/mw--PScFSiQ?si=7GE8JlRJzCleCUj-" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </section>
     </main>
     <aside></aside>
-    <footer></footer>
-    
+    <footer>
+        <div class="logo">
+            <img src="assets/images/logo.png" alt="Brand Logo" style="height: 50px;">
+        </div>
+        <div class="centrar-bloques-footer">
+            <div class="bloques-footer">
+                <div class="contacto-footer bloque-footer">
+                    <h4>CONTACTO</h4>
+                    <p><span class="material-icons-sharp" style="color: #97C21E">place</span> Mi casita Lima-Perú</p>
+                    <p><span class="material-icons-sharp" style="color: #97C21E">smartphone</span> Personal: 940075724</p>
+                    <p><span class="material-icons-sharp" style="color: #97C21E">calendar_today</span> Horario de atención:<br>    L-V: 9:30am - pm<br>    Dom: 11:00am - 4:00pm</p>
+                    <p><span class="material-icons-sharp" style="color: #97C21E">email</span> E-mail: joansalcedorodrigues@gmail.com</p>
+                </div>
+                <div class="tipos_envio-footer bloque-footer">
+                    <h4>TIPOS DE ENVÍOS</h4>
+                    <p><span class="material-icons-sharp" style="color: #97C21E">airport_shuttle</span> Envios nacionales desde 10 dólares</p>
+                    <p><span class="material-icons-sharp" style="color: #97C21E">flight_takeoff</span> Envios internacionales desde 45 dólares</p>
+                </div>
+                <div class="bloque-footer">
+                    <div class="subbloque-footer">
+                        <span class="material-icons-sharp">
+                            payments
+                        </span>
+                        <div class="texto-icono-footer">
+                            <h4>Pagos</h4>
+                            <p>seguros</p>
+                        </div>
+                    </div>
+                    <div class="subbloque-footer">
+                        <span class="material-icons-sharp">
+                            support_agent
+                        </span>
+                        <div class="texto-icono-footer">
+                            <h4>24/7</h4>
+                            <p>soporte</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bloque-footer">
+                    <div class="subbloque-footer">
+                        <span class="material-icons-sharp">
+                            delivery_dining
+                        </span>
+                        <div class="texto-icono-footer">
+                            <h4>Entregas</h4>
+                            <p>a domicilio</p>
+                        </div>
+                    </div>
+                    <div class="subbloque-footer">
+                        <span class="material-icons-sharp">
+                            assignment_return
+                        </span>
+                        <div class="texto-icono-footer">
+                            <h4>Devolución</h4>
+                            <p>10 días</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
