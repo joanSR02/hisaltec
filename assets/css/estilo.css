@@ -30,12 +30,53 @@
     --item5-transform: translate(120%,30%) scale(0.3);
     --item5-filter: blur(40px);
     --item5-zIndex: 7;
-    --item5-opacity: 0;}
+    --item5-opacity: 0;
+
+    /*Estilo sidebar*/
+    --color-barra-lateral:rgb(255,255,255);
+
+    --color-texto:rgb(0,0,0);
+    --color-texto-menu:rgb(134,136,144);
+
+    --color-menu-hover:rgb(238,238,238);
+    --color-menu-hover-texto:rgb(0,0,0);
+
+    --color-boton:rgb(0,0,0);
+    --color-boton-texto:rgb(255,255,255);
+
+    --color-linea:rgb(180,180,180);
+
+    --color-switch-base :rgb(201,202,206);
+    --color-switch-circulo:rgb(241,241,241);
+
+    --color-scroll:rgb(192,192,192);
+    --color-scroll-hover:rgb(134,134,134);
+}
 .dark-mode{
     --color-body-principal:rgb(151,194,30);
     --color-texto-principal: aliceblue;
     --color-texto-secundario: rgb(132,132,132);
     --color-texto-terciario: black;
+
+    /*Estilo sidebar*/
+    --color-barra-lateral:rgb(44,45,49);
+
+    --color-texto:rgb(255,255,255);
+    --color-texto-menu:rgb(110,110,117);
+
+    --color-menu-hover:rgb(0,0,0);
+    --color-menu-hover-texto:rgb(238,238,238);
+
+    --color-boton:rgb(255,255,255);
+    --color-boton-texto:rgb(0,0,0);
+
+    --color-linea:rgb(90,90,90);
+
+    --color-switch-base :rgb(39,205,64);
+    --color-switch-circulo:rgb(255,255,255);
+
+    --color-scroll:rgb(68,69,74);
+    --color-scroll-hover:rgb(85,85,85);
 }
 
 *{
@@ -55,7 +96,7 @@ html{
     font-size: 16px;
 }
 li{
-    list-style-type: none;
+    list-style-type: none;/*elimina los marcadores como puntos*/
 }
 /**********hero_1**********/
 .hero_1{
@@ -78,8 +119,40 @@ li{
     color: var(--color-texto-principal);
     font-weight: bold; /* Texto en negrita */
 }
+.hero_1 .menu{
+    cursor: pointer;
+}
 .hero_1 .contenedor .menu,.hero_1 .contenedor .logo,.hero_1 .contenedor .favoritos_compras{
     display: none;
+}
+/*--->switch*/
+.hero_1 .modo-oscuro .switch{/*el switch esta en el bloque de modo oscuro*/
+    display: flex;/*display flex para que los hijos bloque se coloque horizontalmente*/
+    align-items: center;/*centraremos horizontalmente los elementos hijos*/
+    justify-content: center;/*centraremos verticalmente los elementos hijos(solo esta base)*/
+    min-width: 50px;/*el ancho minimo sera de 45 pixeles*/
+    cursor: pointer;/*cuando el cursor este sobre este elemento pasara a ser un puntero*/
+}
+.hero_1 .modo-oscuro .base{
+    position: relative;/*tendra position relative porque estarea en su posicion normal respecto a la posicion del documento, ademas esto me permite decir que el bloque hijo se posicione respecto a este bloque padre, la verdad no habria diferencia entre que sea position absolute o position relative en este caso porque el elemento que se posicionara sobre este es el hijo*/
+    display: flex;/*display flex para poder centrar su elemento hijo horizontalmente*/
+    align-items: center;
+    width: 35px;/*el switch tendra un ancho de 35 pixeles*/
+    height: 20px;/*el switch tendra un alto de 20 pixeles*/
+    background-color: var(--color-switch-base);/*el color de fondo del switch*/
+    border-radius: 50px;/*el radio de los bordes*/
+}
+.hero_1 .modo-oscuro .circulo{/*es el circulo del */
+    position: absolute;/*se posicionara sobre el ultimo elemento posicionado*/
+    width: 18px;/*el ancho del circulo sera 18 pixeles*/
+    height: 90%;/*el alto del circulo sera el 90% del alto del contenedor padre*/
+    background-color: var(--color-switch-circulo);/*el color de fondo del circulo*/
+    border-radius: 50%;/*el radio sera del 50% del lado mas largo del bloque*/
+    left: 2px;/*un desplazamiento de izquierda a derecha de 2 pixeles*/
+    transition: left 0.5s ease;/*transicion de left*/
+}
+aside .modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor*/
+    left: 15px;
 }
 /**********hero_2**********/
 /******************Buscador (temporal)***********************/
@@ -134,96 +207,117 @@ li{
 
 /****************************************main****************************************/
 /**********Publicidad**********/
-.carousel{
-    position: relative;/*se utiliza para posicionar un elemento en relación con su posición normal en el flujo del documento, entonces se posicionara en esa parte de la pantalla si o si, no despues del bloque anterior*/
-    height: 60vh;/*Altura del bloque*/
-    overflow: hidden;/*Lo que este por fuera de la altura del bloque que se oculte*/
+/*Display en CSS*/
+/*Cuando creo un bloque por defecto tendran display block*/
+/*display inline son elementos de linea, un bloque al lado del otro*/
+/*display inline-block es para que los bloques se pongan uno al lado del otro*/
+/*La etilqueta a tiene por defecto display inline, y para cambiarlo a columna debemos ponerle display block*/
+/*display en bloque abarca todo el ancho de su contenedor padre, en cambio display inline solo abarca el espacio necesario de acuerdo a sus dimensiones*/
+/*display flex para poner los elementos uno al lado de otro y si quiero que pasen a la siguiente linea cuando se desborden se usa flex-wrap: wrap*/
+/*justify-content: space-between es para cuando deseemos el maximo espacio posible entre elementos*/
+
+/*display grid*/
+/*display: grid*/
+/*grid-template-columns: 1fr 1fr;  tendriamos 3 columnas del mismo tamaño, del 50% cada uno del tamaño del bloque padre*/
+/*grid-template-columns: 1fr auto; significa que el segundo bloque solo usara el tamaño necesario*/
+/*las fracciones es algo como el porcentaje que usara cada bloque con respecto al total de fracciones que representara al 100%*/
+
+/*grid es mucho mejor para crear la estructura de la pagina, flexbox es para alinear elementos dentro de la caja*/
+/*la ventaja de grid con respecto a flex esque no tengo que ponerle el ancho de cada caja, sino que por fracciones automaticamente elige su ancho*/
+
+/*Position*/
+/*position: fixed; es para que se mantenga fijo en la pantalla*/
+/*position relative y absolute van de la mano, position relative nos permite posicionar nuestro elemento en cualquier parte de la pantalla, y el absolute es con respecto al relative*/
+.carousel{/**/
+    position: relative;/*El bloque de la animación tendra position relative para que este se pueda posicionar en cualquier lugar, ademas sirve para que el elemento hijo que tiene position absolute se posicione con respecto a este y no a la ventana*/
+    height:55vh;/*la altura de este bloque o seccion tendra una altura del 60 % de la altura visual de la pantalla*/
+    overflow: hidden;/*indicamos que lo que sobrepase las dimensiones de esta pantalla se oculten*/
 }
-.carousel .list{
-    position: absolute;/*Esta propiedad saca al elemento del flujo normal del documento y lo posiciona de manera absoluta respecto a su contenedor posicionado más cercano*/
-    width: 1140px;/*Define un ancho fijo de 1140 píxeles para el elemento*/
-    max-width: 90%;/*El elemento tendrá un ancho de 1140 píxeles, pero si esto supera el 90% del ancho del contenedor .carousel, se reducirá a este 90%.*/
-    height: 80%;/*Define una altura del 80% del contenedor padre*/
-    /*En conclusión, ambos sirvieron solo para centrar el elemento */
-    left: 50%;/*Se traslada de izquierda a derecha el 50% del contenedor padre*/
-    transform: translateX(-50%);/*significa que el elemento se desplazará hacia la izquierda en un 50% de su propio ancho. Esto es muy útil para centrar un elemento horizontalmente, especialmente cuando se combina con otras propiedades de posicionamiento como left: 50%*/
+.carousel .list{/*Aqui se contiene todos los bloques de las imagenes y textos destacados*/
+    position: absolute;/*la posicion de las imagenes y el texto sera con respecto a su contenedor padre porque el padre tiene position relative*/
+    width: 1140px;/*El ancho de este bloque será 1140px*/
+    max-width: 90%;/*el ancho minimo sera el 90% del ancho del contenedor padre, lo que significa que el tamaño normal sera 1140px, pero cuando la ventana vaya reduciendo su tamaño, el ancho minimo sera el 90% dek tamaño actual del contenedor padre, haciendo caso omiso a su ancho inicial*/
+    left: 50%;/*el bloque se movera 50% del ancho de la pantalla desde el lado izquierdo a la derecha*/
+    transform: translateX(-50%);/*significa que nuestro bloque se movera horizontalmente 50% de su ancho hacia la izquierda, el fin de esto es poder centrar el bloque con respecto al bloque padre carousel*/
+    height: 100%;/*altura es ek 100% del contenedor padre*/
 }
 .carousel .list .item{
-    position: absolute;/*esta posicionado en relacion al elemento posisionado mas cercano, al ser absolute estará sobre el elemento posicionado mas cercano*/
-    left: 0%;/*left de 0%*/
-    width: 70%;/*El ancho es el 70% del contenedor padre*/
-    height: 100%;/*la altura sera el 100% de la altura del contenedor padre*/
-    font-size: 15px;
-    transition: left 0.5s, opacity 0.5s, width 0.5s;/*El item cambiará de posicion, opacidad y ancho en 0.5segundos*/
+    position: absolute;/*significa que todos los items estaran encima del bloque padre que es list*/
+    left: 0%;/*que estará pegado a la izquierda*/
+    width: 70%;/*El ancho sera de un 70% del ancho de list*/
+    height: 100%;/*el alto de 100% de list*/
+    font-size: 15px;/*tamaño de la fuente es 15 pixeles*/
+    /*transition: left 0.5s, opacity 0.5s, width 0.5s;*/
 }
 .carousel .list .item:nth-child(n + 6){
-    opacity: 0;/*Los elementos despues del sexto tienen una opacidad de 0*/
+    opacity: 0;/*los elementos item a partir del sexto hijo seran invisibles (siendo el sexto tambien invisible)*/
 }
-.carousel .list .item:nth-child(2){/*El segundo elemento (nth-child(2)) se coloca en el primer plano (z-index: 10) y se mueve a la posición original (translateX(0))*/
-    z-index: 10;
-    transform: translateX(0);
+.carousel .list .item:nth-child(2){
+    z-index: 10;/*el hijo 2 se mostrara al frente*/
+    transform: translateX(0);/*no se movera horizontalmente desde su posicion actual*/
 }
-.carousel .list .item img{/*Las imágenes dentro de los elementos del carrusel tienen un ancho del 50%, están posicionadas absolutamente con el borde derecho tocando el borde del contenedor y centradas verticalmente (top: 50% y translateY(-50%)). La propiedad right tiene una transición de 1.5 segundos*/
-    width: 50%;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: right 1.5s;
+.carousel .list .item img{
+    width: 50%;/*las imagenes de los items tendran como ancho el 50% del ancho del bloque item*/
+    position: absolute;/*es position absolute, por ende este se sobrepondra al bloque padre*/
+    right: 0;/*estara pegado a la izquierda*/
+    top: 50%;/*se desplazara un 50% de arriba hacia abajo*/
+    transform: translateY(-50%);/*se trasladara un 50% del ancho de la imagen de abajo hacia arriba, lo que hace que la imagen este completamente centrada respecto al contenedor padre*/
+    transition: right 1.5s;/*cualquier cambio en la propiedad right se animara en un periodo de 1.5 segundos, lo que significa que si la imagen se posiciona respecto a su borde derecho, osea cualquier cambio de la propiedad right se animara en 1.5segundos, esto solo afectara a la imagen en cuestion*/
 }
 
-.carousel .list .item .introduce{/*dentro de los elementos del carrusel están inicialmente ocultas (opacity: 0) y no reciben eventos de puntero (pointer-events: none).*/
-    opacity: 0;
-    pointer-events: none;
+.carousel .list .item .introduce{/*las introducciones seran invisibles*/
+    opacity: 0;/*las introducciones seran invisibles*/
+    pointer-events: none;/*decimos que la introduccion en general no puede ser objetico de los eventos del puntero*/
 }
-.carousel .list .item:nth-child(2) .introduce{/*del segundo elemento es visible (opacity: 1), interactuable (pointer-events: auto), tiene un ancho de 400px, está posicionada absolutamente, centrada verticalmente y tiene una transición de opacidad de 0.5 segundos.*/
-    opacity: 1;
-    pointer-events: auto;
-    width: 400px;
-    position: absolute;
-    top: 50%;
-    transform:  translateY(-50%);
-    transition: opacity 0.5s;
+.carousel .list .item:nth-child(2) .introduce{/*señalamos al introoduce al segundo hijo*/
+    opacity: 1;/*se mostrara solo al introduce del 2do hijo item de list*/
+    pointer-events: auto;/*permite que el elemento responda a todos los eentos del puntero de manera predeterminada, sirve en capas superpuestasa cuando se quiere que uno sea interactivo mientras los otros no lo son aunque esten invisibles, en este caso esto me permitira seleccionar el texto mientras que los demas que estan invisibles no, de lo contrario habria problemas*/
+    width: 400px;/*el ancho de este bloque introduce tendra 400 pixeles*/
+    position: absolute;/*tendra position absolute, por lo cual se podra sobreponer al elemento  img y mover como se desee*/
+    top: 50%;/*se movera un 50% de arriba a abajo*/
+    transform:  translateY(-50%);/*se movera 50% resoecti a su alto hacia arriba haciendo que el bloque se centre respecto a su bloque padre*/
+    transition: opacity 0.5s;/*este bloque presentara una transicion a la opacidad en 0.5segundos*/
 }
 .carousel .list .item .introduce .title{
-    font-size: 2em;
-    font-weight: 500;
-    line-height: 1em;
+    font-size: 2em;/*es el doble del tamaño de la fuente del contenedor, no de la fuente raiz como es el que usa el rem*/
+    font-weight: 500;/*Representa un grosor intermedio o semibold. Este valor puede variar ligeramente dependiendo de la familia de fuentes específica.*/
+    line-height: 1em;/*es el espacio entre las lineas de texto, osea 0.5em arriba y 0.5em abajo, tener en cuenta que tomara en cuenta el font-size colocado mas arribita, osea ya se actualizó*/
 }
 .carousel .list .item .introduce .topic{
-    font-size: 4em;
-    font-weight: 500;
+    font-size: 4em;/*El topic tendra un tamaño de 4 veces el tamaño de fuente del contenedor padre, obviamente no hara caso al contendor vecino*/
+    font-weight: 500;/*Representa un grosor intermedio o semibold. Este valor puede variar ligeramente dependiendo de la familia de fuentes específica.*/
 }
 .carousel .list .item .introduce .des{
-    font-size: small;
-    color: #5559;
+    font-size: small;/*En este ejemplo, cualquier elemento con la clase .texto tendrá su tamaño de fuente establecido como small, lo que resultará en un tamaño de fuente más pequeño en comparación con el tamaño de fuente predeterminado.*/
+    color: #5559;/*es el color del texto en la descripcion*/
 }
-.carousel .list .item .introduce .seeMore{/*Fuente Poppins, margen superior de 1.2em, padding de 5px arriba y abajo, sin borde excepto un borde inferior de 1px sólido de color #555, fondo transparente, fuente en negrita, espaciado de letras de 3px, y transición de fondo de 0.5 segundos.*/
-    font-family: Poppins;
-    margin-top: 1.2em;
-    padding: 5px 0;
-    border: none;
-    border-bottom: 1px solid #555;
-    background-color: transparent;
-    font-weight: bold;
-    letter-spacing: 3px;
-    transition: background 0.5s;
+.carousel .list .item .introduce .seeMore{
+    font-family: Poppins;/*Se utiliza para especificar la familia de fuentes que se desea utilizar para un elemento de texto específico. En este caso, "Poppins" es el nombre de la familia de fuentes que se desea aplicar al texto.*/
+    margin-top: 1.2em;/*tendra un margen superior 1.2 veces el tamaño de fuente del contenedor padre*/
+    padding: 5px 0;/*tendra un espaciado al interior del bloque de 5px en la parte superior e inferior*/
+    border: none;/*no tendra borde visible*/
+    border-bottom: 1px solid #555;/*solo tendra un borde inferior de 1 pixel de grosor con color solido*/
+    background-color: transparent;/*no tendra color de fondo, osea su color de fondo será el de su contenedor padre, como es un boton necesita color*/
+    font-weight: bold;/*el texto tendra negrita*/
+    letter-spacing: 3px;/*Es para el espaciado entre caracteres, en este caso sera de 3 pixeles, tambien puede ponerse valor negativo para dar la sensacion de superposicion de los caracteres de una palabra*/
+    transition: background 0.5s;/* indica que cualquier cambio en la propiedad background de un elemento se animará durante un período de 0.5 segundos*/
 }
-.carousel .list .item .introduce .seeMore:hover{/*Cuando posiciono el mause sobre este cuadro el fondo cambia*/
+.carousel .list .item .introduce .seeMore:hover{/*Cuando posiciono el mause sobre este boton el fondo cambia*/
     background: #eee;
 }
 /*Los elementos primero, tercero, cuarto y quinto tienen transformaciones, filtros, índices Z, opacidades y eventos de puntero personalizados usando variables CSS*/
-.carousel .list .item:nth-child(1){
-    transform: var(--item1-transform);
-    filter: var(--item1-filter);
-    z-index: var(--item1-zIndex);
-    opacity: var(--item1-opacity);
-    pointer-events: none;
+.carousel .list .item:nth-child(1){/*seleccionamos el primer hijo*/
+    transform: var(--item1-transform);/*mueve el objeto hacia la izquierda un 100% del contenedor padre y un 5% hacia arriba, su escala es 1.5 veces su tamaño*/
+    filter: var(--item1-filter);/*la imagen presenta un desenfoque en un radio de 30 pixeles, , donde los detalles y bordes se verán menos definidos debido al desenfoque.*/
+    z-index: var(--item1-zIndex);/*tiene un index de 11, osea que cualquier capa menor a este se vera detras*/
+    opacity: var(--item1-opacity);/*tendra una poasidad de 0, osea se vera invisible*/
+    pointer-events: none;/*Desactiva la interacción del cursor con el elemento. Esto significa que el elemento no responderá a eventos de ratón como clics o pasos del ratón*/
 }
 .carousel .list .item:nth-child(3){
-    transform: var(--item3-transform);
-    filter: var(--item3-filter);
-    z-index: var(--item3-zIndex);
+    transform: var(--item3-transform);/*mueve el objeto hacia la derecha un 50% del contenedor padre y un 10% hacia abajo, su escala es 0.8 veces su tamaño*/
+    filter: var(--item3-filter);/*la imagen presenta un desenfoque en un radio de 10 pixeles, , donde los detalles y bordes se verán menos definidos debido al desenfoque.*/
+    z-index: var(--item3-zIndex);/*tiene un index de 9, osea que cualquier capa menor a este se vera detras*/
+    /*normalmente deberia decir su opacidad pero no es necesario porque por defecto esta en 1*/
 }
 .carousel .list .item:nth-child(4){
     transform: var(--item4-transform);
@@ -241,13 +335,13 @@ li{
 .carousel .list .item:nth-child(2) .introduce .topic,
 .carousel .list .item:nth-child(2) .introduce .des,
 .carousel .list .item:nth-child(2) .introduce .seeMore{/*Descripción: Los elementos .title, .topic, .des y .seeMore dentro de la introducción del segundo elemento tienen una animación llamada showContent que dura 0.5 segundos, empieza después de 1 segundo, con una función de tiempo ease-in-out, se ejecuta una vez y se mantiene en el estado final (forwards).*/
-    opacity: 0;
-    animation: showContent 0.5s 1s ease-in-out 1 forwards;
+    opacity: 0;/*al principio los elementos seleccionados de la introduccion tendran opacidad 00, invisibles, en este caso cada ves que recargue hara la animacion de que aparece desde arriba y va desde desenfocado a encocarse, la animacion dura 0.5 segundos y el retraso antes que comiense la animacion es de 1 segundo, ease-in-out es una funcion que indica como cambia gradualmente la animacion, numero de veces que se ejecutara la animacion, en este caso es solo una ves y el forwards indica que cuando acabe la animacion los estilos aplicados se mantendran */
+    animation: showContent 0.5s 1s ease-in-out 1 forwards;/*animation es una propiedad que permite definir animaciones más complejas que pueden involucrar múltiples estados y etapas a través de la regla @keyframes. showContent: es el nombre de la animación que debe estar definida previamente usando @keyframes. 0.5s: es la duración de la animación (0.5 segundos en este caso). 1s: es el tiempo de retraso antes de que la animación comience (1 segundo en este caso). ease-in-out: es la función de temporización que define cómo se acelera y desacelera la animación. 1: es el número de veces que la animación se reproducirá (1 vez en este caso). forwards: es el valor de la propiedad animation-fill-mode que especifica que los estilos aplicados al final de la animación deben mantenerse.*/
 }
 @keyframes showContent{
     from{
-        transform: translateY(-30px);
-        filter: blur(10px);
+        transform: translateY(-30px);/*de arriba a abajo*/
+        filter: blur(10px);/*desenfocado*/
     }to{
         transform: translateY(0);
         opacity: 1;
@@ -255,26 +349,27 @@ li{
     }
 }
 .carousel .list .item:nth-child(2) .introduce .topic{
-    animation-delay: 1.2s;
+    animation-delay: 1.2s;/* esto significa que la animación del elemento al que se aplica esta propiedad comenzará 1.2 segundos después de que se haya aplicado el estilo o se haya activado la animación, por lo tanto a los demas elementos se aplicara pero a este sera 1.2 segundos despues que los otros*/
 }
 .carousel .list .item:nth-child(2) .introduce .des{
-    animation-delay: 1.4s;
+    animation-delay: 1.4s;/* esto significa que la animación del elemento al que se aplica esta propiedad comenzará 1.4 segundos después de que se haya aplicado el estilo o se haya activado la animación, por lo tanto a los demas elementos se aplicara pero a este sera 1.4 segundos despues que los otros y 0.2segundos despues del topic*/
 }
 .carousel .list .item:nth-child(2) .introduce .seeMore{
-    animation-delay: 1.6s;
+    animation-delay: 1.6s;/*la aplicación de su animación sera 0.2 segundos despues del topic*/
 }
 /* next click */
-.carousel.next .item:nth-child(1){
+/*cuando se presione el boton next se aplicara lo siguiente*/
+.carousel.next .item:nth-child(1){/*el item 1 pasara a la posicion 2*/
     animation: transformFromPosition2 0.5s ease-in-out 1 forwards;
 }
 @keyframes transformFromPosition2{
     from{
-        transform: var(--item2-transform);
-        filter: var(--item2-filter);
-        opacity: var(--item2-opacity);
+        transform: var(--item2-transform);/*no se movera*/
+        filter: var(--item2-filter);/*No tendra filtro de borroso*/
+        opacity: var(--item2-opacity);/*sera 100% visible*/
     }
 }
-.carousel.next .item:nth-child(2){
+.carousel.next .item:nth-child(2){/*el item 2 pasara a la posicion 3*/
     animation: transformFromPosition3 0.7s ease-in-out 1 forwards;
 }
 @keyframes transformFromPosition3{
@@ -284,7 +379,7 @@ li{
         opacity: var(--item3-opacity);
     }
 }
-.carousel.next .item:nth-child(3){
+.carousel.next .item:nth-child(3){/*el item 3 pasara a la posicion 4*/
     animation: transformFromPosition4 0.9s ease-in-out 1 forwards;
 }
 @keyframes transformFromPosition4{
@@ -294,7 +389,7 @@ li{
         opacity: var(--item4-opacity);
     }
 }
-.carousel.next .item:nth-child(4){
+.carousel.next .item:nth-child(4){/*el item 4 pasara a la posicion 5*/
     animation: transformFromPosition5 1.1s ease-in-out 1 forwards;
 }
 @keyframes transformFromPosition5{
@@ -304,17 +399,19 @@ li{
         opacity: var(--item5-opacity);
     }
 }
+/*solo se esta haciendo el cambio a las imagenes visibles, a los invisibles no porque en fin no se ve asi que no es necesario realizar la transicion pero si se le cambia de posicion de numero de hijo en html, de modo que puede sonar algo confuso pero no habra problema*/
 /* previous */
-.carousel.prev .list .item:nth-child(5){
+/*cuando presionamos el boton de volver*/
+.carousel.prev .list .item:nth-child(5){/*de la posicion 5 volvera a la posicion 4*/
     animation: transformFromPosition4 0.5s ease-in-out 1 forwards;
 }
-.carousel.prev .list .item:nth-child(4){
+.carousel.prev .list .item:nth-child(4){/*de la posicion 4 volvera a la posicion 3*/
     animation: transformFromPosition3 0.7s ease-in-out 1 forwards;
 }
-.carousel.prev .list .item:nth-child(3){
+.carousel.prev .list .item:nth-child(3){/*de la posicion 3 volvera a la posicion 2*/
     animation: transformFromPosition2 0.9s ease-in-out 1 forwards;
 }
-.carousel.prev .list .item:nth-child(2){
+.carousel.prev .list .item:nth-child(2){/*de la posicion 2 volvera a la posicion 1*/
     animation: transformFromPosition1 1.1s ease-in-out 1 forwards;
 }
 @keyframes transformFromPosition1{
@@ -325,150 +422,155 @@ li{
     }
 }
 
-/* detail  */
-.carousel .list .item .detail{
+ /*detail */ 
+.carousel .list .item .detail{/*ocultamos los detalles y le ponemos que no se podra seleccionar para que en el modo normal no se vea ni cause algun efecto*/
     opacity: 0;
     pointer-events: none;
 }
-/* showDetail */
+/* showDetail*/ 
 .carousel.showDetail .list .item:nth-child(3),
-.carousel.showDetail .list .item:nth-child(4){
+.carousel.showDetail .list .item:nth-child(4){/*si presiono ver mas los hijos e y 4 (que son visibles) desapareceran, no podran ser seleccionados y se emviaran a la derecha fuera de la pantalla visible, por lo que no estaran en el cuadro visible*/
     left: 100%;
     opacity: 0;
     pointer-events: none;
 }
-.carousel.showDetail .list .item:nth-child(2){
+.carousel.showDetail .list .item:nth-child(2){/*ahora el item 2 ocupara el 100% del ancho, antes solo ocupaba el 70% del ancho y se centraba, ahora utilizara todo*/
     width: 100%;
 }
-.carousel.showDetail .list .item:nth-child(2) .introduce{
-    opacity: 0;
+.carousel.showDetail .list .item:nth-child(2) .introduce{/*al poner showDetail el bloque de introduccion del bloque 2 de item desaparecera y no podra ser seleccionado*/
+    opacity: 0;/*desaparecera con animacion porque ya se dijo que cuando se aplique el estilo de opacidad en el bloque este lo hara en un tiempo determinado*/
     pointer-events: none;
 }
-.carousel.showDetail .list .item:nth-child(2) img{
+.carousel.showDetail .list .item:nth-child(2) img{/*despues de desaparecer el bloque de introduccion la imagen se movera 50% respecto a la derecha, osea estara en la mitad izquierda*/
     right: 50%;
 }
-.carousel.showDetail .list .item:nth-child(2) .detail{
+.carousel.showDetail .list .item:nth-child(2) .detail{/*cuando presionemos detail aparecera el bloque detail*/
     opacity: 1;
-    width: 50%;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    text-align: right;
-    pointer-events: auto;
+    width: 50%;/*el bloque detail tendra un ancho del 50% del bloque padre*/
+    position: absolute;/*el bloque detail tendra posicion absoluta, por ende se colocara sobre el contenedor padre item*/
+    right: 0;/*el bloque estara pegado a la derecha*/
+    top: 50%;/*se trasladara un 50% de arriba hacia abajo*/
+    transform: translateY(-50%);/*luego se trasladara un 50%(es el porcentahe del alto del bloque detail) hacia arriba, esto nos sirve para centrar el bloque detail verticalmente*/
+    text-align: right;/*la alineacion del texto sera ur pegado a la derecha*/
+    pointer-events: auto;/*podremos seleccionar el texto, por ello tiene pointer-event: auto*/
+    /*La propiedad pointer-events en CSS controla cómo los elementos responden a eventos del puntero (como clics, toques y movimientos del mouse). El valor auto es el valor predeterminado y significa que el elemento puede responder a todos los eventos del puntero, según el comportamiento predeterminado del navegador.*/
 }
 .carousel.showDetail .list .item:nth-child(2) .detail .title{
-    font-size: 4em;
+    font-size: 4em;/*el titulo del bloque detail tendra 4 veces el tamaño de fuente configurada en el bloque padre*/
 }
 .carousel.showDetail .list .item:nth-child(2) .detail .specifications{
-    display: flex;
-    gap: 10px;
-    width: 100%;
-    border-top: 1px solid #5553;
-    margin-top: 20px;
+    display: flex;/*especificaciones tendra display flex lo que me sirve para poner los bloques en horizontal*/
+    gap: 10px;/*entre cada bloque habra una separacion de 10 pixeles*/
+    width: 100%;/*El ancho del bloque specifications sera el 100% del bloque padre, en este caso tendra el mismo ancho que detail*/
+    border-top: 1px solid #5553;/*temdra una linea superior de 1 pixel de ancho*/
+    margin-top: 20px;/*tendra una separacion superior de los demas bloques de 20 pixeles*/
 }
 .carousel.showDetail .list .item:nth-child(2) .detail .specifications div{
-    width: 90px;
-    text-align: center;
-    flex-shrink: 0;
+    width: 90px;/*cada div de detail tendra un ancho de 90 pixeles*/
+    text-align: center;/*el texto estara alineado en el centro de su bloque*/
+    flex-shrink: 0;/*Es parte del modelo de diseño flexbox y controla la capacidad de un elemento flex de reducirse cuando es necesario para adaptarse al contenedor flex. El valor 0 significa que el elemento no se reducirá, incluso si el espacio en el contenedor es limitado. Osea, si el ancho de la pantalla se reduce las dimensiones del div no se reduciran*/
 }
 .carousel.showDetail .list .item:nth-child(2) .detail .specifications div p:nth-child(1){
-    font-weight: bold;
+    font-weight: bold;/*el primer parrafo hijo del bloque div de specification de detail del hijo item 2 del bloque list tendra negrita*/
 }
-.carousel.carousel.showDetail .list .item:nth-child(2) .checkout button{
-    font-family: Poppins;
-    background-color: transparent;
-    border: 1px solid #5555;
-    margin-left: 5px;
-    padding: 5px 10px;
-    letter-spacing: 2px;
-    font-weight: 500;
+.carousel.carousel.showDetail .list .item:nth-child(2) .checkout button{/*colocamos estilo a los botones*/
+    font-family: Poppins;/*tendra una fuente poppins*/
+    background-color: transparent;/*color de fondo transparente (tendra el mismo color de fondo que su bloque padre)*/
+    border: 1px solid #5555;/*tendra un borde de 1 pixek de ancho*/
+    margin-left: 5px;/*tendra un margin-left de 5 pixeles, por ende este se separara 5 pixekes del boton a su izquierda*/
+    padding: 5px 10px;/*tendra un padding de 10 pixeles para su derecha e izquierda y 5 pixekes para su parte superior e inferior*/
+    letter-spacing: 2px;/*el espacio entre cada letra sera de 2 pixeles*/
+    font-weight: 500;/*la letra tendra un peso de 500 lo cual es medium*/
 }
 .carousel.carousel.showDetail .list .item:nth-child(2) .checkout button:nth-child(2){
-    background-color: #693EFF;
-    color: #eee;
+    background-color: #693EFF;/*el boton checkout tendra un color de fondo lila*/
+    color: #eee;/*la letra del boton checkout tendra este color cremoso medio blanco*/
 }
 .carousel.showDetail .list .item:nth-child(2) .detail  .title,
 .carousel.showDetail .list .item:nth-child(2) .detail  .des,
 .carousel.showDetail .list .item:nth-child(2) .detail .specifications,
-.carousel.showDetail .list .item:nth-child(2) .detail .checkout{
-    opacity: 0;
-    animation: showContent 0.5s 1s ease-in-out 1 forwards;
+.carousel.showDetail .list .item:nth-child(2) .detail .checkout{/*se aplicara esta animacion para que aparezca desde arriba hasta abajho todos los componentes del bloque detail*/
+    opacity: 0;/*se pondra opacidad 0, en este caso me parece algo rebundante que se haya activado antes, supongo que es para poder visualizarlo al programar*/
+    animation: showContent 0.5s 1s ease-in-out 1 forwards;/*se aplicara la animacion de arriba hacia abajo en 0.5segundos, esta animacion solo se aplicara una ves*/
 }
 .carousel.showDetail .list .item:nth-child(2) .detail  .des{
-    animation-delay: 1.2s;
+    animation-delay: 1.2s;/*tendra un desfase en la aplicación de la animacion de 1.2 segundos despues de haberse aplicado la animación*/
 }
-.carousel.showDetail .list .item:nth-child(2) .detail .specifications{
+.carousel.showDetail .list .item:nth-child(2) .detail .specifications{/*tendra un desfase de 0.2 segundos respecto a la animacion anterior*/
     animation-delay: 1.4s;
 }
-.carousel.showDetail .list .item:nth-child(2) .detail .checkout{
+.carousel.showDetail .list .item:nth-child(2) .detail .checkout{/*tendra un desfase de 0.2 segundos respecto a la animacion anterior*/
     animation-delay: 1.6s;
 }
-.arrows{
-    position: absolute;
-    bottom: 10px;
-    width: 1140px;
+.arrows{/*el bloque arrow es hijo directo de carrousel, por ende ira sobre item*/
+    position: absolute;/*estara sobre su padre carrousel*/
+    bottom: 10px;/*estará posicionado a 10 pixeles de la parte inferior del bloque */
+    width: 1140px;/*el bloque arrow tendra un ancho de 1140 pixeles, pero si se hace mas pequeño que ello su ancho minimo sera el 90% de su bloque padre carousel*/
     max-width: 90%;
-    display: flex;
-    justify-content: space-between;
-    left: 50%;
-    transform: translateX(-50%);
+    display: flex;/*sera un display flex porque sus elementos deben estar ubicados horizontalmente*/
+    justify-content: space-between;/*tendra el maximo espaciado entre los bloques hijos*/
+    left: 50%;/*se movera un 50% de izquierda a derecha*/
+    transform: translateX(-50%);/*se movera un 50% (respecto a su ancho) de derecha a izquierda*/
 }
 #prev,
-#next{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    font-family: monospace;
-    border: 1px solid #5555;
-    font-size: large;
-    bottom: 20%;
-    left: 10%;
+#next{/*estan con # porque se pusieron como id*/
+    width: 40px;/*los botones de prev y next tendrán un ancho de 40 pixeles*/
+    height: 40px;/*los botones de prev y next tendrán un alto de 40 pixeles*/
+    border-radius: 50%;/*los botones de prev y next tendrán un borde circular del 50% del borde más pequeño del bloque*/
+    font-family: monospace;/* indica al navegador que utilice una fuente de espaciado fijo donde cada carácter tiene el mismo ancho, ideal para mostrar código, datos tabulares o para lograr efectos visuales específicos. Esto nos asegura que el caracter prev y next tengan el mismo ancho*/
+    border: 1px solid #5555;/*el boton tendra un ancho de 11 pixel*/
+    font-size: large;/*se aplica un tamaño de fuente más grande que el tamaño predeterminado o normal del navegador.*/
+    bottom: 20%;/*esta posicionado a un 20% de la altura del bloque padre*/
+    left: 10%;/*esta posicionado con left 10%, osea de izquierda a derecha un 10 % dek bkiqye padre*/
 }
+/*recordatorio*/
+/*como aplicaron la parte de la animacion es lo mas eficiente porque solo trabaja con los que se ven, asi reducimos el trabajo del servidor*/
 #next{
-    left: unset;
-    right: 10%;
+    left: unset;/*Es un valor especial en CSS que restablece una propiedad al valor que tendría por defecto. En el caso de left, unset elimina cualquier valor específico establecido previamente, permitiendo que el elemento se posicione según el flujo normal del documento.*/
+    right: 10%;/*esta posicionado con roght 10%, osea de derecha a izquierda un 10 % dek bloque padre*/
 }
 #back{
-    position: absolute;
-    z-index: 100;
-    bottom: 0%;
+    position: absolute;/*el boton black tendra position absolute, por ende se ubicara sobre su bloque padre posicionado arrow*/
+    z-index: 100;/*tendra un z-index de 100, lo que significa que se pondra lo mas encima posible*/
+    bottom: 0%;/*estara pegado a la parte inferior*/
+    /*centramos horizontalmente*/
     left: 50%;
     transform: translateX(-50%);
-    border: none;
-    border-bottom: 1px solid #555;
+    border: none;/*sin borde*/
+    border-bottom: 1px solid #555;/*temdra un borde de este color*/
     font-family: Poppins;
-    font-weight: bold;
-    letter-spacing: 3px;
-    background-color: transparent;
-    padding: 10px;
-    /* opacity: 0; */
-    transition: opacity 0.5s;
+    font-weight: bold;/*letra negrita*/
+    letter-spacing: 3px;/*espacio entre letras*/
+    background-color: transparent;/*el clor de su fondo sera el fondo del contenedor padre*/
+    padding: 10px;/*tendra un pading de 10 px para todos los lados*/
+    opacity: 0; /*tendra una opacidad de 0 (invisible)*/
+    transition: opacity 0.5s;/*tendra una transicion de opacidad de 0.5 segundos*/
 }
-.carousel.showDetail #back{
+.carousel.showDetail #back{/*mostramos el boton de regreso solo cuando entremos a ver detalles*/
     opacity: 1;
 }
 .carousel.showDetail #prev,
-.carousel.showDetail #next{
+.carousel.showDetail #next{/*cuando entremos a detalles no podremos ver los botones de next y prev ni podremos realizar ningun evento con el puntero como presionar el boton*/
     opacity: 0;
     pointer-events: none;
 }
-.carousel::before{
+.carousel::before{/*::before, que se utiliza para insertar contenido generado antes del contenido del elemento seleccionado (carousel en este caso). Esta pseudoclase es una de las llamadas "pseudoelementos" en CSS y permite agregar contenido decorativo o estilístico sin necesidad de modificar directamente el HTML. Aqui se aplica la animacion de color de fondo*/
+    /*Son las dimensiones del pseudoelemento*/
     width: 500px;
     height: 300px;
-    content: '';
-    background-image: linear-gradient(70deg, #2adc51, blue);
-    position: absolute;
-    z-index: -1;
-    border-radius: 20% 30% 80% 10%;
-    filter: blur(200px);
-    top: 50%;
+    content: '';/*Siempre va, Inserta un contenido vacío. Esto es útil cuando solo necesitas aplicar estilos adicionales sin agregar texto o imágenes reales*/
+    background-image: linear-gradient(180deg, #2adc51, blue);/*hace un degradado lineal entre los colores puestos, el grado signidica la direccion en que esta realizado el degradado, ejm 0% es verde a azul de abajo hacia arriba y 180° es verde y zul de arriba hacia abajo*/
+    position: absolute;/*es como un span que se crea antes del bloque actual, entonces el item estaria en position absolute respecto a este pseudoelemento*/
+    z-index: -1;/*ya estaba al fondo, siria para asegurar*/
+    border-radius: 20% 30% 80% 10%;/*Es el redondeo de sus lados*/
+    filter: blur(130px);/*Se realiza un desenfoque con un radio de 200px*/
+    top: 50%;/*el psudoelemento estara ubicado en el 4to cuadrante, 50% de arriba hacia abajo y 50% de izquierda a derecha*/
     left: 50%;
-    transform: translate(-10%, -50%);
-    transition: 1s;
+    transform: translate(-10%, -50%);/*Se traslada un 10 porciento a la izquierda y un 50% hacia arriba (con respecto al ancho y alto del pseudoelemento)*/
+    transition: 1s;/* especifica que cualquier cambio en las propiedades estilísticas del elemento que estén animadas deberá tomar 1 segundo en completarse.*/
 }
-.carousel.showDetail::before{
-    transform: translate(-100%, -50%) rotate(90deg);
+.carousel.showDetail::before{/*Esto es cuando se presione el boton de detalle*/
+    transform: translate(-100%, -50%) rotate(90deg);/*se trasladara a esta direccion y si rotación sera de 90 grados*/
     filter: blur(130px);
 }
 /*tutorial-compra*/
@@ -476,30 +578,43 @@ li{
     display: flex;
     gap: 1rem;
     flex-direction: column;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
+    justify-content: center;  /*Centra horizontalmente*/ 
+    align-items: center;  /*Centra verticalmente*/
     padding: 20px 0;
+    overflow: hidden;
 }
 .tutorial-compra div h2{
     font-size: 2rem;
 }
 .tutorial-compra iframe {
+    display: flex;
     border-radius: 15px; /* Aplicar esquinas redondeadas también al iframe */
 }
 /*footer*/
 footer{
     background-color: #616160;
     padding: 20px 0;
+    justify-content: center;
 }
 footer .logo{
     text-align: center;
     padding: 20px 0;
 }
+.centrar-bloques-footer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 .bloques-footer{
+    max-width: 90%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 50px;
+}
+.bloque-footer{
+    max-width: 250px;
+    min-width: 250px;
 }
 .bloque-footer h4{
     font-size: 1.5rem;
@@ -526,96 +641,235 @@ footer .logo{
 .tipos_envio-footer p span{
     font-size: 1.2rem;
 }
-
-/*.texto-icono-footer h4{
-    margin: 0;
-}
-.bloques-footer{
+/*sidebar*/
+.menu_sidebar{
+    cursor: pointer;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-}
-.bloque-footer{
-    padding: 10px;
-    justify-content: center;
     align-items: center;
+    color: var(--color-texto-menu);/*cambia el color del texto*/
+    justify-content: space-between;
 }
-.subbloque-footer{
+aside .menu_sidebar img{/*ña imagen del usuario*/
+    width: 150px;/*tendra un ancho de 50 pixeles*/
+    min-width: 150px;/*el ancho minimo de la imagen es 50 pixeles*/
+    border-radius: 10px;/*el radio de la imagen es 10 pixeles*/
+}
+aside{
+    position: fixed;/*Se posicionara sobre la ventana principal y estara en relacion a la posicion de pantalla, osea si bajo esta barra no se movera*/
+    display: flex;/*que los bloques se podran acomodar verticalmente*/
+    flex-direction: column;/*ahora estan en columna*/
+    justify-content: space-between;/*los elementos estaran separados */
+    width: 250px;/*es el ancho del bloque*/
+    height: 100vh;/*la altura es el 100% del body*/
+    overflow: hidden;/*si algo sobrepasas estas dimensiones se ocultará*/
+    padding: 20px 15px;/*tendrá un padding de 20px para el alto y bajo y 15px para los laterales*/
+    background-color: var(--color-barra-lateral);/*es el color de fondo de la barra lateral*/
+    transition: width 0.5s ease,background-color 0.3s ease,left 0.5s ease;/*tendra una transición de ancho, de color de fondo y cuando la posición horizontal desde la izquierda cambia tendran un tiempo de transición*/
+    z-index: 50;/*este bloque estará en el z-index:50, por lo tanto estará ubicado sobre los demas elementos*/
+    left: -250px;
+}
+aside.mostrar-sidebar{
+    left: 0px;
+}
+/*estilo sidebar*/
+aside .texto-sidebar{
+    width: 100px;
+    white-space: nowrap;
+    font-size: 18px;
+    text-align: left;
+    opacity: 1;
+    transition: opacity 0.5s ease,width 0.5s ease;
+}
+/*bloque de navegación*/
+aside .navegacion{
+    height: 100%;/*Tendra todo el alto disponible*/
+    overflow-y: auto;/*para que cuando el contenido sobrepase el ancho se genere una barra deslizante vertical o scroll vertical*/
+    overflow-x: hidden;/*suando el contenido sobrepase el ancho se oculte*/
+}
+aside .navegacion::-webkit-scrollbar{/*Este pseudo-elemento específico de WebKit (motor utilizado por navegadores como Chrome y Safari) selecciona la barra de desplazamiento del elemento.*/
+    width: 5px;/*El ancho de la barra de desplazamiento sera de 5 pixeles*/
+}
+aside .navegacion::-webkit-scrollbar-thumb{/*de la barra de desplazamiento seleccionamos el thumb que es la barrita pequeña que se desplaza en la barra de desplazamiento con el fin de bajar o subir*/
+    background-color: var(--color-scroll);/*el color del thumb del scrool*/
+    border-radius: 5px;/*las esquinas del thumb seran redondeadas*/
+}
+aside .navegacion::-webkit-scrollbar-thumb:hover{/*cuando el mause se posicione sobre el thumb del scroll este cambiara su color*/
+    background-color: var(--color-scroll-hover);
+}
+aside .navegacion li{  
+    /*list-style: none;*/
     display: flex;
-    align-content: center;
+    margin-bottom: 5px;/*todos los li tendran un margen inferior de 5 pixeles*/
 }
-.centrar-bloques-footer{
+aside .navegacion a{
+    width: 100%;/*el hipervinculo tendra un ancho del 100% del contenedor padre*/
+    height: 45px;/*el elemento de hipervinculo tendra un ancho de 45 pixeles*/
+    display: flex;/*los elementos se pondran horixontalmente, esto me permitira usar el siguiente estilo */
+    align-items: center;/*para centrar verticalmente a los elemetos*/
+    text-decoration: none;/*elimina cualquier decoración de texto como subrayado, tachado*/
+    border-radius: 10px;/*el redondeado de las esquinas del hipervinculo "a" que funcionará como boton*/
+    color: var(--color-texto-menu);/*cambia el color del texto*/
+}
+aside .navegacion a:hover{/*cuando el puntero se posicione sobre a*/
+    background-color: var(--color-menu-hover);/*cambia el fondo del hipervinculo*/
+    color: var(--color-menu-hover-texto);/*cambia el color del texto del hipervinculo*/
+}
+aside .navegacion .material-icons-sharp{
+    min-width: 50px;
+    font-size: 20px;
     display: flex;
     justify-content: center;
 }
-.sobre_nosotros{
-    width: 100%;
-    background-color: #97C21E;
+/*linea*/
+aside .linea{
+    width: 100%;/*el ancho de la linea sera el 100% del ancho disponible del bloque padre*/
+    height: 1px;/*el alto de la linea*/
+    margin-top: 15px;/*este se alejara 15 pixeles del elemento superior*/
+    background-color: var(--color-linea);/*color de la linea*/
 }
-.titulo{
-    color: white;
-    font-weight: bold; /* Texto en negrita 
+/*el bloque de modo oscuro*/
+aside .modo-oscuro{/*el elemento modo-oscuro de aside o barra lateral*/
+    width: 100%;/*este bloque tendra el 100% del ancho disponible*/
+    margin-bottom: 80px;/*se distanciará 80 pixeles respecto al elemento inferior*/
+    border-radius: 10px;/*los lados tendran un radio de 10 pixeles*/
+    display: flex;/*tendra display flex, por lo que los elementos se colocaran horizontalmente*/
+    justify-content: space-between;/*los elementos estaran separados por igual lo maximo posible, el info y el switch*/
 }
-.titulo h1{
+aside .modo-oscuro .info{/*es el texto y el icono del modo oscuro*/
+    width: 150px;/*el bloque del texto modo oscuro tendra un ancho maximo de 150 pixeles*/
+    height: 45px;/*el alto sera 45 pixeles para este bloque*/
+    overflow: hidden;/*si se sobrepasa el bloque se oculta*/
+    display: flex;/*Es para luego poder centrar horizontalmente*/
+    align-items: center;/*centramos horizontalmente*/
+    color: var(--color-texto-menu);/*color del texto y el icono*/
+}
+aside .modo-oscuro .material-icons-sharp{/*ta,año y posicion del icono de modo oscuro*/
+    width: 50px;
+    font-size: 20px;
     display: flex;
-    justify-content: center; /* Centrar horizontalmente 
-    align-items: center; /* Centrar verticalmente 
-    margin: 0;
-}*/
-@media screen and (max-width: 1200px){
+    justify-content: center;
+}
+/*--->switch*/
+aside .modo-oscuro .switch{/*el switch esta en el bloque de modo oscuro*/
+    display: flex;/*display flex para que los hijos bloque se coloque horizontalmente*/
+    align-items: center;/*centraremos horizontalmente los elementos hijos*/
+    justify-content: center;/*centraremos verticalmente los elementos hijos(solo esta base)*/
+    min-width: 50px;/*el ancho minimo sera de 45 pixeles*/
+    height: 45px;/*la altura del bloque switch sera de 45 pixekes*/
+    cursor: pointer;/*cuando el cursor este sobre este elemento pasara a ser un puntero*/
+}
+aside .modo-oscuro .base{
+    position: relative;/*tendra position relative porque estarea en su posicion normal respecto a la posicion del documento, ademas esto me permite decir que el bloque hijo se posicione respecto a este bloque padre, la verdad no habria diferencia entre que sea position absolute o position relative en este caso porque el elemento que se posicionara sobre este es el hijo*/
+    display: flex;/*display flex para poder centrar su elemento hijo horizontalmente*/
+    align-items: center;
+    width: 35px;/*el switch tendra un ancho de 35 pixeles*/
+    height: 20px;/*el switch tendra un alto de 20 pixeles*/
+    background-color: var(--color-switch-base);/*el color de fondo del switch*/
+    border-radius: 50px;/*el radio de los bordes*/
+}
+aside .modo-oscuro .circulo{/*es el circulo del */
+    position: absolute;/*se posicionara sobre el ultimo elemento posicionado*/
+    width: 18px;/*el ancho del circulo sera 18 pixeles*/
+    height: 90%;/*el alto del circulo sera el 90% del alto del contenedor padre*/
+    background-color: var(--color-switch-circulo);/*el color de fondo del circulo*/
+    border-radius: 50%;/*el radio sera del 50% del lado mas largo del bloque*/
+    left: 2px;/*un desplazamiento de izquierda a derecha de 2 pixeles*/
+    transition: left 0.5s ease;/*transicion de left*/
+}
+aside .modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor*/
+    left: 15px;
+}
+/*usuario*/
+aside .usuario{/*cojemos el bloque usuario*/
+    width: 100%;/*el ancho del bloque usuario sera el 100%*/
+    display: flex;/*display flex para que la imagen y el texto esten horizontalmente*/
+}
+aside .usuario img{/*ña imagen del usuario*/
+    width: 50px;/*tendra un ancho de 50 pixeles*/
+    min-width: 50px;/*el ancho minimo de la imagen es 50 pixeles*/
+    border-radius: 10px;/*el radio de la imagen es 10 pixeles*/
+}
+aside .usuario .info-usuario{/*es la info del usuario*/
+    width: 100%;/*tendra un ancho del 100% del bloque padre que este disponible*/
+    display: flex;/*sera display flex para poder manipular sus bloques hijos*/
+    align-items: center;/*los bloques hijos se centraran horizontalmente*/
+    justify-content: space-between;/*los bloques hijos estaran espaciados entre si lo maximo posible*/
+    color: var(--color-texto);/*color del texto y del icono de la info del usuario*/
+    overflow: hidden;/*si algo sobrepasa el bloque se oculta*/
+}
+aside .usuario .nombre-email{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+}
+aside .usuario .nombre{
+    font-size: 15px;
+    font-weight: 600;
+}
+aside .usuario .email{
+    overflow-wrap: anywhere;
+    word-wrap: break-word; 
+    font-size: 13px;
+    max-width: 150px;
+    transition: opacity 0.5s ease,width 0.5s ease;
+}
+aside .usuario .material-icons-sharp{
+    font-size: 20px;
+}
+@media screen and (max-width: 1200px){/*solo se aplicará cuando la pantalla del dispositivo tenga un ancho máximo de 1200 píxeles*/
     /* ipad, tablets */
-    .carousel .list .item{
+    .carousel .list .item{/*El ancho de item sera del 90% del ancho del contenedor padre*/
         width: 90%;
     }
     .carousel.showDetail .list .item:nth-child(2) .detail .specifications{
-        overflow: auto;
+        overflow: auto;/*Se agregara una barar de desplazamiento si el contenido se desborda*/
     }
     .carousel.showDetail .list .item:nth-child(2) .detail .title{
-        font-size: 2em;
+        font-size: 2em;/*el tamaño de la letra de detalle de pone mas pequeño*/
     }
 }
-@media screen and (max-width: 900px){
+@media screen and (max-width: 900px){/*solo se aplicará cuando la pantalla del dispositivo tenga un ancho máximo de 900 píxeles*/
     .hero_1 .contenedor .menu,.hero_1 .contenedor .logo,.hero_1 .contenedor .favoritos_compras{
         display: block;
     }
-    .hero_1 .contenedor nav,.hero_1 .contenedor .dark-mode,.hero_2,.hero_3{
+    .hero_1 nav,.hero_1 .modo-oscuro,.hero_2,.hero_3{
         display: none;
     }
     .hero_1 .contenedor .favoritos_compras{
        color: var(--color-texto-principal);
     }
     /* mobile */
-    .carousel{
-        height: 50vh;
+    .carousel{/*El alto de la ventana carrousel*/
+        height: 55vh;
     }
-    .carousel .list .item{
+    .carousel .list .item{/*el ancho del item sera 100% y su letra sera 10px*/
         width: 100%;
         font-size: 10px;
     }
     
-    .carousel .list{
+    .carousel .list{/*alto de 100%*/
         height: 100%;
     }
-    .carousel .list .item:nth-child(2) .introduce{
+    .carousel .list .item:nth-child(2) .introduce{/*el 2do hijo item de list tendra un ancho del 50%*/
         width: 50%;
     }
     
     .carousel .list .item img{
-        width: 40%;
+        width: 40%;/*la imagen tendra un ancho dek 40%*/
     }
     .carousel.showDetail .list .item:nth-child(2) .detail{
-        backdrop-filter: blur(10px);
-        font-size: small;
+        /*backdrop-filter: blur(10px);el bloque de detalle tendra un desenfoque*/
+        font-size: small;/*tamaño de letra pequeño*/
     }
     .carousel .list .item:nth-child(2) .introduce .des,
-    .carousel.showDetail .list .item:nth-child(2) .detail .des{
+    .carousel.showDetail .list .item:nth-child(2) .detail .des{/*la descripcion y la introcuccion tendra un overflow auto para tener una barra de desplazamiento en caso de desbordamiento*/
         height: 100px;
         overflow: auto;
     }
-    .carousel.showDetail .list .item:nth-child(2) .detail .checkout{
+    .carousel.showDetail .list .item:nth-child(2) .detail .checkout{/*ahora el ancho de */
         display: flex;
-        width: max-content;
-        float: right;
+        width: max-content;/*se utiliza para ajustar el ancho de un elemento al máximo tamaño posible requerido por su contenido sin que este se divida en varias líneas. Es decir, el elemento se expandirá para encajar todo su contenido en una línea, sin quebrarse o ajustar el tamaño al contenedor padre*/
+        float: right;/*desplaza el elemento hacia la izquierda del contenedor padre*/
     }
 }
