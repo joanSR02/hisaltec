@@ -1,12 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 :root{
-    --color-body-principal:rgb(151,194,30);
+    /*estilo cuerpo total*/
+    --color-body: rgb(255,255,255);
+    --color-contenido: rgb(255,255,255);
+    --color-titulo-contenido: rgb(5,5,29);
+    /*estilos encabezado*/
+    --color-encabezado-principal:rgb(151,194,30);
     --color-texto-principal: aliceblue;
     --color-texto-secundario: rgb(132,132,132);
-    --color-texto-terciario: black;
+    --color-texto-h3: rgb(5,5,5);
 
     /*Estilos de carousel*/
-
+    --color-carrousel-topic: rgb(0,0,0);
+    --color-carrousel-des: rgba(85,85,85,0.6);
+    --color-carrousel-title: rgb(5,5,29);
+    --color-carrousel-seeMore: (5,5,29);
+    --color-carrousel-seeMore_hover: rgb(238,238,238);
+    --color-carrousel-back: rgb(5,5,29);
+    --color-carrousel-specifications: rgb(5,5,29);
     --item1-transform: translateX(-100%) translateY(-5%) scale(1.5);
     --item1-filter: blur(30px);
     --item1-zIndex: 11;
@@ -31,7 +42,6 @@
     --item5-filter: blur(40px);
     --item5-zIndex: 7;
     --item5-opacity: 0;
-
     /*Estilo sidebar*/
     --color-barra-lateral:rgb(255,255,255);
 
@@ -51,13 +61,28 @@
 
     --color-scroll:rgb(192,192,192);
     --color-scroll-hover:rgb(134,134,134);
+    /*estilo footer*/
+    --color-footer: rgb(97,97,96);
+    --color-contenido-footer: rgb(97,97,96);
 }
 .dark-mode{
-    --color-body-principal:rgb(151,194,30);
+    /*estilo cuerpo total*/
+    --color-body: rgb(24,25,26);
+    --color-contenido: rgb(36,37,38);
+    --color-titulo-contenido: rgb(228,230,223);
+    /*estilos encabezado*/
+    --color-encabezado-principal:rgb(36,37,38);
     --color-texto-principal: aliceblue;
     --color-texto-secundario: rgb(132,132,132);
-    --color-texto-terciario: black;
-
+    --color-texto-h3: rgb(228,230,235);
+    /*Estilos de carousel*/
+    --color-carrousel-topic: rgb(255,255,255);
+    --color-carrousel-des: rgb(176,179,184);
+    --color-carrousel-title: rgb(228,230,223);
+    --color-carrousel-seeMore: rgb(228,230,223);
+    --color-carrousel-seeMore_hover: rgb(36,37,38);
+    --color-carrousel-back: rgb(228,230,223);
+    --color-carrousel-specifications: rgb(228,230,223);
     /*Estilo sidebar*/
     --color-barra-lateral:rgb(44,45,49);
 
@@ -77,6 +102,9 @@
 
     --color-scroll:rgb(68,69,74);
     --color-scroll-hover:rgb(85,85,85);
+    /*estilo footer*/
+    --color-footer: var(--color-body);
+    --color-contenido-footer: rgb(36,37,38);
 }
 
 *{
@@ -90,7 +118,8 @@
 }
 body{
     height: 100vh;
-    width: 100vw;
+    width: 100%;
+    background-color: var(--color-body);
 }
 html{
     font-size: 16px;
@@ -100,8 +129,9 @@ li{
 }
 /**********hero_1**********/
 .hero_1{
-    background-color: var(--color-body-principal);
+    background-color: var(--color-encabezado-principal);
     width: 100%;
+    transition: background 0.5s;
 }
 .contenedor{
     display: flex;
@@ -121,6 +151,7 @@ li{
 }
 .hero_1 .menu{
     cursor: pointer;
+    color: var(--color-texto-principal);
 }
 .hero_1 .contenedor .menu,.hero_1 .contenedor .logo,.hero_1 .contenedor .favoritos_compras{
     display: none;
@@ -195,8 +226,8 @@ aside .modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor
     display: flex;
     gap: 1rem;
 }
-.hero_3 .contenedor nav ul li a{
-    color: var(--color-texto-terciario);
+.hero_3 a{
+    color: var(--color-texto-h3);
     font-weight: bold; /* Texto en negrita */
 }
 .favoritos_compras{
@@ -232,6 +263,7 @@ aside .modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor
     position: relative;/*El bloque de la animación tendra position relative para que este se pueda posicionar en cualquier lugar, ademas sirve para que el elemento hijo que tiene position absolute se posicione con respecto a este y no a la ventana*/
     height:55vh;/*la altura de este bloque o seccion tendra una altura del 60 % de la altura visual de la pantalla*/
     overflow: hidden;/*indicamos que lo que sobrepase las dimensiones de esta pantalla se oculten*/
+    background-color: var(--color-carousel);
 }
 .carousel .list{/*Aqui se contiene todos los bloques de las imagenes y textos destacados*/
     position: absolute;/*la posicion de las imagenes y el texto sera con respecto a su contenedor padre porque el padre tiene position relative*/
@@ -282,14 +314,16 @@ aside .modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor
     font-size: 2em;/*es el doble del tamaño de la fuente del contenedor, no de la fuente raiz como es el que usa el rem*/
     font-weight: 500;/*Representa un grosor intermedio o semibold. Este valor puede variar ligeramente dependiendo de la familia de fuentes específica.*/
     line-height: 1em;/*es el espacio entre las lineas de texto, osea 0.5em arriba y 0.5em abajo, tener en cuenta que tomara en cuenta el font-size colocado mas arribita, osea ya se actualizó*/
+    color: var(--color-carrousel-title);
 }
 .carousel .list .item .introduce .topic{
     font-size: 4em;/*El topic tendra un tamaño de 4 veces el tamaño de fuente del contenedor padre, obviamente no hara caso al contendor vecino*/
     font-weight: 500;/*Representa un grosor intermedio o semibold. Este valor puede variar ligeramente dependiendo de la familia de fuentes específica.*/
+    color: var(--color-carrousel-topic);
 }
 .carousel .list .item .introduce .des{
     font-size: small;/*En este ejemplo, cualquier elemento con la clase .texto tendrá su tamaño de fuente establecido como small, lo que resultará en un tamaño de fuente más pequeño en comparación con el tamaño de fuente predeterminado.*/
-    color: #5559;/*es el color del texto en la descripcion*/
+    color: var(--color-carrousel-des);
 }
 .carousel .list .item .introduce .seeMore{
     font-family: Poppins;/*Se utiliza para especificar la familia de fuentes que se desea utilizar para un elemento de texto específico. En este caso, "Poppins" es el nombre de la familia de fuentes que se desea aplicar al texto.*/
@@ -300,10 +334,12 @@ aside .modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor
     background-color: transparent;/*no tendra color de fondo, osea su color de fondo será el de su contenedor padre, como es un boton necesita color*/
     font-weight: bold;/*el texto tendra negrita*/
     letter-spacing: 3px;/*Es para el espaciado entre caracteres, en este caso sera de 3 pixeles, tambien puede ponerse valor negativo para dar la sensacion de superposicion de los caracteres de una palabra*/
+    color: var(--color-carrousel-seeMore);
     transition: background 0.5s;/* indica que cualquier cambio en la propiedad background de un elemento se animará durante un período de 0.5 segundos*/
 }
 .carousel .list .item .introduce .seeMore:hover{/*Cuando posiciono el mause sobre este boton el fondo cambia*/
     background: #eee;
+    background: var(--color-carrousel-seeMore_hover);
 }
 /*Los elementos primero, tercero, cuarto y quinto tienen transformaciones, filtros, índices Z, opacidades y eventos de puntero personalizados usando variables CSS*/
 .carousel .list .item:nth-child(1){/*seleccionamos el primer hijo*/
@@ -457,6 +493,10 @@ aside .modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor
 }
 .carousel.showDetail .list .item:nth-child(2) .detail .title{
     font-size: 4em;/*el titulo del bloque detail tendra 4 veces el tamaño de fuente configurada en el bloque padre*/
+    color: var(--color-carrousel-title);
+}
+.carousel.showDetail .list .item:nth-child(2) .detail .des{
+    color: var(--color-carrousel-des);
 }
 .carousel.showDetail .list .item:nth-child(2) .detail .specifications{
     display: flex;/*especificaciones tendra display flex lo que me sirve para poner los bloques en horizontal*/
@@ -469,6 +509,7 @@ aside .modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor
     width: 90px;/*cada div de detail tendra un ancho de 90 pixeles*/
     text-align: center;/*el texto estara alineado en el centro de su bloque*/
     flex-shrink: 0;/*Es parte del modelo de diseño flexbox y controla la capacidad de un elemento flex de reducirse cuando es necesario para adaptarse al contenedor flex. El valor 0 significa que el elemento no se reducirá, incluso si el espacio en el contenedor es limitado. Osea, si el ancho de la pantalla se reduce las dimensiones del div no se reduciran*/
+    color: var(--color-carrousel-specifications);
 }
 .carousel.showDetail .list .item:nth-child(2) .detail .specifications div p:nth-child(1){
     font-weight: bold;/*el primer parrafo hijo del bloque div de specification de detail del hijo item 2 del bloque list tendra negrita*/
@@ -544,6 +585,7 @@ aside .modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor
     background-color: transparent;/*el clor de su fondo sera el fondo del contenedor padre*/
     padding: 10px;/*tendra un pading de 10 px para todos los lados*/
     opacity: 0; /*tendra una opacidad de 0 (invisible)*/
+    color: var(--color-carrousel-back);
     transition: opacity 0.5s;/*tendra una transicion de opacidad de 0.5 segundos*/
 }
 .carousel.showDetail #back{/*mostramos el boton de regreso solo cuando entremos a ver detalles*/
@@ -554,91 +596,115 @@ aside .modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor
     opacity: 0;
     pointer-events: none;
 }
-.carousel::before{/*::before, que se utiliza para insertar contenido generado antes del contenido del elemento seleccionado (carousel en este caso). Esta pseudoclase es una de las llamadas "pseudoelementos" en CSS y permite agregar contenido decorativo o estilístico sin necesidad de modificar directamente el HTML. Aqui se aplica la animacion de color de fondo*/
-    /*Son las dimensiones del pseudoelemento*/
-    width: 500px;
-    height: 300px;
-    content: '';/*Siempre va, Inserta un contenido vacío. Esto es útil cuando solo necesitas aplicar estilos adicionales sin agregar texto o imágenes reales*/
-    background-image: linear-gradient(180deg, #2adc51, blue);/*hace un degradado lineal entre los colores puestos, el grado signidica la direccion en que esta realizado el degradado, ejm 0% es verde a azul de abajo hacia arriba y 180° es verde y zul de arriba hacia abajo*/
-    position: absolute;/*es como un span que se crea antes del bloque actual, entonces el item estaria en position absolute respecto a este pseudoelemento*/
-    z-index: -1;/*ya estaba al fondo, siria para asegurar*/
-    border-radius: 20% 30% 80% 10%;/*Es el redondeo de sus lados*/
-    filter: blur(130px);/*Se realiza un desenfoque con un radio de 200px*/
-    top: 50%;/*el psudoelemento estara ubicado en el 4to cuadrante, 50% de arriba hacia abajo y 50% de izquierda a derecha*/
-    left: 50%;
-    transform: translate(-10%, -50%);/*Se traslada un 10 porciento a la izquierda y un 50% hacia arriba (con respecto al ancho y alto del pseudoelemento)*/
-    transition: 1s;/* especifica que cualquier cambio en las propiedades estilísticas del elemento que estén animadas deberá tomar 1 segundo en completarse.*/
-}
 .carousel.showDetail::before{/*Esto es cuando se presione el boton de detalle*/
     transform: translate(-100%, -50%) rotate(90deg);/*se trasladara a esta direccion y si rotación sera de 90 grados*/
     filter: blur(130px);
 }
-/*tutorial-compra*/
-.tutorial-compra div{
+/*tutoriales destacados*/
+.contenido{
+    width: 95%;
+    max-width: 1200px;
+    margin: 0.5rem auto;
+    padding: 1rem;
+    border-radius: 20px;
+    background-color: var(--color-contenido);
     display: flex;
-    gap: 1rem;
+    justify-content: center;/*centrar horizontalmente*/
     flex-direction: column;
-    justify-content: center;  /*Centra horizontalmente*/ 
-    align-items: center;  /*Centra verticalmente*/
-    padding: 20px 0;
-    overflow: hidden;
+    align-items: center;/*centrar verticalmente*/
+    transition: background 0.5s;
 }
-.tutorial-compra div h2{
+.contenido .titulo{
+    margin-right: auto;
+    color: var(--color-titulo-contenido);
+}
+/*tutorial-compra*/
+.tutorial-compra h2{
     font-size: 2rem;
+    color: var(--color-titulo-contenido);
+}
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 560px; /* No sobrepasa los 560px */
+    aspect-ratio: 16 / 9; /* Mantiene la relación de aspecto 16:9 */
+    background-color: transparent; /* Color de fondo para demostrar el bloque */
+    overflow: hidden;
+    margin: 0 auto; /* Centra el bloque */
 }
 .tutorial-compra iframe {
-    display: flex;
-    border-radius: 15px; /* Aplicar esquinas redondeadas también al iframe */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px; /* Aplicar esquinas redondeadas también al iframe */
 }
 /*footer*/
 footer{
-    background-color: #616160;
-    padding: 20px 0;
-    justify-content: center;
-}
-footer .logo{
-    text-align: center;
-    padding: 20px 0;
-}
-.centrar-bloques-footer{
     width: 100%;
+    background-color: var(--color-footer);
     display: flex;
-    justify-content: center;
+    justify-content: center;/*centrar horizontalmente*/
+}
+.contenido-footer{
+    width: 95%;
+    margin: 20px 0;
+    border-radius: 20px;
+    background-color: var(--color-contenido-footer);
+    display: flex;
+    justify-content: center;/*centrar horizontalmente*/
+    flex-direction: column;
+    align-items: center;/*centrar verticalmente*/
+    box-sizing: border-box;/*esto hace que el ancho total, osea contenido, padding y borde sea del ancho anteriormente configurado, encambio box-sizing: content-box; que es por defecto sumaria el padding y el ancho del borde al tamaño total del bloque*/
+    transition: background 0.5s;
+}
+.espaciado-footer{
+    height: 20px;
+}
+footer img{
+    text-align: center;
+    margin: 20px 0;
+    overflow: hidden;
 }
 .bloques-footer{
     max-width: 90%;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 50px;
+    flex-wrap: wrap;/*se distribuye automaticamente a la siguiente linea*/
+    justify-content: center;/*centrar horizontalmente*/
+    gap: 50px;/*espaciado entre bloques de 50px*/
+    margin-bottom: 40px;
+    overflow: hidden;
 }
 .bloque-footer{
     max-width: 250px;
     min-width: 250px;
+    overflow: hidden;
 }
-.bloque-footer h4{
+.bloque-footer h4{/*estilo de la letra*/
     font-size: 1.5rem;
     color: white;
     font-weight: bold; /* Texto en negrita */
+    overflow: hidden;
 }
 .bloque-footer p{
     color: #D4D4D4;
     margin: 0;
     font-size: 1.2rem;
+    overflow: hidden;
 }
 .subbloque-footer{
     display: flex;
-    align-content: center;
+    align-content: center;/*centrar horizontalmente*/
     gap: 0.5rem;
+    overflow: hidden;
 }
 .subbloque-footer span{
     color: var(--color-body-principal);
     font-size: 50px;
+    align-content: center;/*centrar horizontalmente*/
 }
-.contacto-footer p span{
-    font-size: 1.2rem;
-}
-.tipos_envio-footer p span{
+.contacto-footer p span, .tipos_envio-footer p span{
     font-size: 1.2rem;
 }
 /*sidebar*/
@@ -750,7 +816,7 @@ aside .modo-oscuro .material-icons-sharp{/*ta,año y posicion del icono de modo 
     justify-content: center;
 }
 /*--->switch*/
-aside .modo-oscuro .switch{/*el switch esta en el bloque de modo oscuro*/
+.modo-oscuro .switch{/*el switch esta en el bloque de modo oscuro*/
     display: flex;/*display flex para que los hijos bloque se coloque horizontalmente*/
     align-items: center;/*centraremos horizontalmente los elementos hijos*/
     justify-content: center;/*centraremos verticalmente los elementos hijos(solo esta base)*/
@@ -758,7 +824,7 @@ aside .modo-oscuro .switch{/*el switch esta en el bloque de modo oscuro*/
     height: 45px;/*la altura del bloque switch sera de 45 pixekes*/
     cursor: pointer;/*cuando el cursor este sobre este elemento pasara a ser un puntero*/
 }
-aside .modo-oscuro .base{
+.modo-oscuro .base{
     position: relative;/*tendra position relative porque estarea en su posicion normal respecto a la posicion del documento, ademas esto me permite decir que el bloque hijo se posicione respecto a este bloque padre, la verdad no habria diferencia entre que sea position absolute o position relative en este caso porque el elemento que se posicionara sobre este es el hijo*/
     display: flex;/*display flex para poder centrar su elemento hijo horizontalmente*/
     align-items: center;
@@ -767,7 +833,7 @@ aside .modo-oscuro .base{
     background-color: var(--color-switch-base);/*el color de fondo del switch*/
     border-radius: 50px;/*el radio de los bordes*/
 }
-aside .modo-oscuro .circulo{/*es el circulo del */
+.modo-oscuro .circulo{/*es el circulo del */
     position: absolute;/*se posicionara sobre el ultimo elemento posicionado*/
     width: 18px;/*el ancho del circulo sera 18 pixeles*/
     height: 90%;/*el alto del circulo sera el 90% del alto del contenedor padre*/
@@ -776,7 +842,7 @@ aside .modo-oscuro .circulo{/*es el circulo del */
     left: 2px;/*un desplazamiento de izquierda a derecha de 2 pixeles*/
     transition: left 0.5s ease;/*transicion de left*/
 }
-aside .modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor*/
+.modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor*/
     left: 15px;
 }
 /*usuario*/

@@ -5,8 +5,8 @@ let carousel = document.querySelector('.carousel');/*querySelector es un  métod
 let listHTML = document.querySelector('.carousel .list');
 let seeMoreButtons = document.querySelectorAll('.seeMore');/*querySelectorAll Es un método del objeto document que permite seleccionar y devolver todos los elementos dentro del documento que coincidan con el selector CSS especificado, en este caso, '.seeMore'. Esto significa que buscará todos los elementos que tengan la clase .seeMore en el documento.*/
 let backButton = document.getElementById('back');
-const palanca = document.querySelector(".switch");
-const circulo = document.querySelector(".circulo");
+const palancas = document.querySelectorAll(".switch");
+const circulos = document.querySelectorAll(".circulo");
 const menu = document.querySelector(".menu");
 const aside = document.querySelector("aside");
 const menu_sidebar = document.querySelector(".menu_sidebar");
@@ -48,11 +48,20 @@ seeMoreButtons.forEach((button) => {/*Por cada boton de ver mas presionado */
 backButton.onclick = function(){
     carousel.classList.remove('showDetail');/*Cuando presionemos volver a la introduccion principal removemos la clase showDetail*/
 }
-palanca.addEventListener("click",()=>{
+palancas.forEach((palanca) => {
+    palanca.addEventListener("click",()=>{
+        let body = document.body;
+        body.classList.toggle("dark-mode");
+        circulos.forEach(circulo => {
+            circulo.classList.toggle('prendido');
+        });
+    });
+});
+/*palanca.addEventListener("click",()=>{
     let body = document.body;
     body.classList.toggle("dark-mode");
     circulo.classList.toggle("prendido");
-});
+});*/
 menu.addEventListener("click",()=>{
     aside.classList.add("mostrar-sidebar");
 });
