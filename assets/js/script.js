@@ -7,7 +7,7 @@ let seeMoreButtons = document.querySelectorAll('.seeMore');/*querySelectorAll Es
 let backButton = document.getElementById('back');
 const palancas = document.querySelectorAll(".switch");
 const circulos = document.querySelectorAll(".circulo");
-const menu = document.querySelector(".menu");
+const menu = document.querySelector(".icono-menu");
 const aside = document.querySelector("aside");
 const menu_sidebar = document.querySelector(".menu_sidebar");
 
@@ -57,14 +57,34 @@ palancas.forEach((palanca) => {
         });
     });
 });
-/*palanca.addEventListener("click",()=>{
-    let body = document.body;
-    body.classList.toggle("dark-mode");
-    circulo.classList.toggle("prendido");
-});*/
 menu.addEventListener("click",()=>{
     aside.classList.add("mostrar-sidebar");
 });
 menu_sidebar.addEventListener("click",()=>{
     aside.classList.remove("mostrar-sidebar");
 });
+/*progress bar */
+function move() {
+    const bar = document.querySelector(".progress-bar");
+    let width = 0;
+    const interval = setInterval(frame, 10); // Ajusta el intervalo según sea necesario
+
+    function frame() {
+        if (width >= 100) {
+            width = 0; // Reinicia el ancho
+            let items = document.querySelectorAll('.carousel .list .item');/*seleccionamos todos los items de nuestro elemento carousel*/
+            listHTML.appendChild(items[0]);
+            carousel.classList.add('next');
+        }
+
+        width=width+0.1;
+        bar.style.width = width + '%';
+        
+        if (Math.abs(width - 50) < 0.6) {
+            carousel.classList.remove('next', 'prev');/*Eliminamos las clases next y prev de carousel */        
+        }
+    }
+}
+
+// Inicia el progreso cuando se carga la página
+window.onload = move;
