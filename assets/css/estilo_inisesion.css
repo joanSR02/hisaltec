@@ -1,0 +1,372 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+:root{
+    /*estilo cuerpo total*/
+    --color-body: rgb(240,242,245);
+    --color-contenido: rgb(255,255,255);
+    --color-titulo-contenido: rgb(5,5,29);
+    --color-parrafo-contenido: rgb(58,59,60);
+    --color-fondo-icono: rgb(228,230,235);
+    --color-icono-volver: rgb(5,5,5);
+    --color-fondo-hover-icono: rgb(216,218,223);
+    --color-icono: rgb(132,132,132);
+    --color-fondo-form: rgb(132,132,132);
+    --color-titulo-form: rgb(228,230,223);
+    --color-borde-boton: 2px solid rgb(132,132,132);
+    --color-fondo-boton: rgb(132,132,132);
+    /*estilos encabezado*/
+    --color-fondo-hero_1:rgb(255,255,255);
+    /*Estilo switch*/
+    --color-switch-base :rgb(201,202,206);
+    --color-switch-circulo:rgb(241,241,241);
+}
+.dark-mode{
+    /*estilo cuerpo total*/
+    --color-body: rgb(24,25,26);
+    --color-contenido: rgb(36,37,38);
+    --color-titulo-contenido: rgb(228,230,223);
+    --color-parrafo-contenido: rgb(212,212,212);
+    --color-fondo-icono: rgb(58,59,60);
+    --color-icono: rgb(132,132,132);
+    --color-fondo-hover-icono: rgb(78,79,80);
+    --color-icono-volver: rgb(228,230,235);
+    --color-fondo-form: rgb(255,255,255);
+    --color-titulo-form: rgb(5,5,29);
+    --color-borde-boton: 2px solid rgb(255,255,255);
+    --color-fondo-boton: rgb(255,255,255);
+    /*estilos encabezado*/
+    --color-fondo-hero_1:rgb(36,37,38);
+    /*Estilo switch*/
+    --color-switch-base :rgb(39,205,64);
+    --color-switch-circulo:rgb(255,255,255);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    appearance: 0;
+    border: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    width: 100%;
+    background-color: var(--color-body);
+}
+html{
+    font-size: 16px;
+}
+li{
+    list-style-type: none;/*elimina los marcadores como puntos*/
+}
+/**********hero_1**********/
+.hero_1{
+    background-color: var(--color-fondo-hero_1);
+    width: 100%;
+    transition: background 0.5s;
+    padding: 0.2rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.hero_1 a{
+    padding: 5px 10px;
+    border-radius:25px;
+    background-color: var(--color-fondo-icono);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--color-icono-volver);
+}
+.hero_1 a:hover{
+    background-color: var(--color-fondo-hover-icono);
+}
+.hero_1 .logo{
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    width: auto;
+}
+.contenedor{
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 95%;
+    align-items: center;/*Centrar verticalmente los elementos de contenedor*/
+    justify-content: space-between;
+}
+/*--->switch*/
+.hero_1 .modo-oscuro .switch{/*el switch esta en el bloque de modo oscuro*/
+    display: flex;/*display flex para que los hijos bloque se coloque horizontalmente*/
+    align-items: center;/*centraremos horizontalmente los elementos hijos*/
+    justify-content: center;/*centraremos verticalmente los elementos hijos(solo esta base)*/
+    min-width: 50px;/*el ancho minimo sera de 45 pixeles*/
+    cursor: pointer;/*cuando el cursor este sobre este elemento pasara a ser un puntero*/
+}
+.hero_1 .modo-oscuro .base{
+    position: relative;/*tendra position relative porque estarea en su posicion normal respecto a la posicion del documento, ademas esto me permite decir que el bloque hijo se posicione respecto a este bloque padre, la verdad no habria diferencia entre que sea position absolute o position relative en este caso porque el elemento que se posicionara sobre este es el hijo*/
+    display: flex;/*display flex para poder centrar su elemento hijo horizontalmente*/
+    align-items: center;
+    width: 35px;/*el switch tendra un ancho de 35 pixeles*/
+    height: 20px;/*el switch tendra un alto de 20 pixeles*/
+    background-color: var(--color-switch-base);/*el color de fondo del switch*/
+    border-radius: 50px;/*el radio de los bordes*/
+}
+.hero_1 .modo-oscuro .circulo{/*es el circulo del */
+    position: absolute;/*se posicionara sobre el ultimo elemento posicionado*/
+    width: 18px;/*el ancho del circulo sera 18 pixeles*/
+    height: 90%;/*el alto del circulo sera el 90% del alto del contenedor padre*/
+    background-color: var(--color-switch-circulo);/*el color de fondo del circulo*/
+    border-radius: 50%;/*el radio sera del 50% del lado mas largo del bloque*/
+    left: 2px;/*un desplazamiento de izquierda a derecha de 2 pixeles*/
+    transition: left 0.5s ease;/*transicion de left*/
+}
+.modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor*/
+    left: 15px;
+}
+/*Login y regustro*/
+main{
+    width: 100%;
+    display: flex;
+    align-items: center;/*centra horizontalmente*/
+    justify-content: center;/*centra verticalmente*/
+    height: 600px;
+}
+.contenedor__main{
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+    display: flex;
+    align-items: center;/*centrar horizontalmente*/
+}
+.caja__trasera{
+    position: absolute;
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    background-color: var(--color-contenido);
+    border-radius: 30px;
+}
+.caja__trasera div{
+    margin: 100px 40px;
+    color: var(--color-titulo-contenido);
+    /*transition: all 500ms;*/
+    transition: opacity 0.5s ease,width 0.5s ease;
+}
+.caja__trasera div p,
+.caja__trasera button{
+    margin-top: 30px;
+}
+.caja__trasera div h3{
+    font-weight: 400;
+    font-size: 26px;
+}
+.caja__trasera div p{
+    font-size: 16px;
+    font-weight: 300;
+}
+.caja__trasera button{
+    padding: 10px 40px;
+    border: var(--color-borde-boton);
+    font-size: 14px;
+    background: transparent;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--color-titulo-contenido);
+    outline: none;
+    transition: all 300ms;
+}
+.caja__trasera button:hover{
+    background: var(--color-fondo-boton);
+    color: var(--color-titulo-form);
+}
+.caja__trasera-login{
+    opacity: 0;
+}
+.caja__trasera-register{
+    opacity: 1;
+}
+/*Formularios*/
+.contenedor__login-register{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+    left: 10px;
+    /*La transicion va despues del codigo JS*/
+    transition: left 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275),top 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
+}
+.contenedor__login-register form{
+    width: 100%;
+    padding: 80px 20px;
+    background: var(--color-fondo-form);
+    position: absolute;
+    border-radius: 20px;
+}
+.contenedor__login-register form h2{
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--color-titulo-form);
+}
+.contenedor__login-register form input{
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    background: #F2F2F2;
+    font-size: 16px;
+    outline: none;
+    border-radius: 25px;
+}
+
+.contenedor__login-register form button{
+    padding: 10px 40px;
+    margin-top: 40px;
+    border: none;
+    font-size: 14px;
+    background: #46A2FD;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    outline: none;
+}
+.formulario__login{
+    opacity: 1;
+    display: block;
+}
+.formulario__register{
+    display: none;
+}
+.social-icons{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.social-icons a{
+    border: 1px solid #ccc;
+    border-radius: 20%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    color: var(--color-fondo-form);
+    background-color: var(--color-contenido);
+}
+/*acciones*/
+.contenedor__login-register.active{
+    left: 410px;
+}
+.formulario__login.active{
+    display: none;
+}
+.formulario__register.active{
+    display: block;
+}
+.caja__trasera-login.active{
+    opacity: 1;
+}
+.caja__trasera-register.active{
+    opacity: 0;
+}
+/*footer*/
+footer{
+    width: 100%;
+    /*background-color: var(--color-footer);*/
+    display: flex;
+    justify-content: center;/*centrar verticalmente*/
+}
+.contenido-footer{
+    width: 95%;
+    margin: 20px 0;
+    border-radius: 20px;
+    background-color: var(--color-contenido);
+    display: flex;
+    justify-content: center;/*centrar verticalmente*/
+    flex-direction: column;
+    align-items: center;/*centrar horizontalmente*/
+    box-sizing: border-box;/*esto hace que el ancho total, osea contenido, padding y borde sea del ancho anteriormente configurado, encambio box-sizing: content-box; que es por defecto sumaria el padding y el ancho del borde al tamaño total del bloque*/
+    transition: background 0.5s;
+}
+.espaciado-footer{
+    height: 20px;
+}
+footer img{
+    text-align: center;
+    margin: 20px 0;
+    overflow: hidden;
+}
+.bloques-footer{
+    max-width: 90%;
+    display: flex;
+    flex-wrap: wrap;/*se distribuye automaticamente a la siguiente linea*/
+    justify-content: center;/*centrar horizontalmente*/
+    gap: 50px;/*espaciado entre bloques de 50px*/
+    margin-bottom: 40px;
+    overflow: hidden;
+}
+.bloque-footer{
+    max-width: 250px;
+    min-width: 250px;
+    overflow: hidden;
+}
+.bloque-footer h4{/*estilo de la letra*/
+    font-size: 1.5rem;
+    color: var(--color-titulo-contenido);
+    font-weight: bold; /* Texto en negrita */
+    overflow: hidden;
+}
+.bloque-footer p{
+    color: var(--color-parrafo-contenido);
+    margin: 0;
+    font-size: 1.2rem;
+    overflow: hidden;
+}
+.subbloque-footer{
+    display: flex;
+    align-content: center;/*centrar horizontalmente*/
+    gap: 0.5rem;
+    overflow: hidden;
+}
+.subbloque-footer span{
+    color: var(--color-body-principal);
+    font-size: 50px;
+    align-content: center;/*centrar horizontalmente*/
+}
+.contacto-footer p span, .tipos_envio-footer p span{
+    font-size: 1.2rem;
+}
+@media screen and (max-width: 850px){
+    .hero_1 .logo{
+        height: 40px;
+        width: auto;
+    }
+    main{
+        height: 900px;
+    }
+    .contenedor__main{
+        justify-content: center;
+    }
+    .caja__trasera{
+        max-width: 300px;
+        flex-direction: column;
+        gap: 40px;
+    }
+    .caja__trasera div{
+        margin: 100px 10px;
+    }
+    .contenedor__login-register{
+        left: 0;
+        top: -180px;
+        max-width: 320px;
+    }
+    .contenedor__login-register.active{
+        left: 0;
+        top: 150px;
+    }
+}

@@ -160,6 +160,22 @@ li{
 .hero_1 .contenedor nav ul li a{
     color: var(--color-texto-hero_1);
     font-weight: bold; /* Texto en negrita */
+    position: relative;
+}
+.hero_1 .contenedor nav ul li a::after{
+    content: " ";
+    width: 0;
+    height: 2px;
+    background-color: rgb(151,194,30);
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    transition: all .5s;
+    will-change: width;
+}
+.hero_1 .contenedor nav ul li a:hover:after{
+    width: 100%;
+    right: 0;
 }
 .hero_1 .icono-menu{
     cursor: pointer;
@@ -819,6 +835,10 @@ aside .navegacion a{
 }
 aside .navegacion a:hover{/*cuando el puntero se posicione sobre a*/
     background-color: var(--color-menu-hover);/*cambia el fondo del hipervinculo*/
+    color: var(--color-menu-hover-texto);/*cambia el color del texto del hipervinculo*/
+}
+aside .navegacion a.active{
+    background-color: var(--color-menu-hover);
     color: var(--color-menu-hover-texto);/*cambia el color del texto del hipervinculo*/
 }
 aside .navegacion .material-icons-sharp{
