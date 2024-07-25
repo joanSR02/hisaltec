@@ -25,6 +25,19 @@
     --color-switch-circulo:rgb(241,241,241);
     --color-scroll:rgb(192,192,192);
     --color-scroll-hover:rgb(134,134,134);
+    /*Estilos Contactos*/
+    --font-family:"satoshi", sans-serif;
+    --fs-sm: 1.4rem;
+    --fs-md: 1.6rem;
+    --fs-lg: 2.2rem;
+    --fs-regular: 400;
+    --fw-medium:500;
+    --fw-bold: 700;
+
+    --color-fondo-form: rgb(132,132,132);
+    --color-titulo-form: rgb(228,230,223);
+    --color-borde-boton: 2px solid rgb(132,132,132);
+    --color-fondo-boton: rgb(132,132,132);
 }
 .dark-mode{
     /*estilo cuerpo total*/
@@ -52,6 +65,17 @@
     --color-switch-circulo:rgb(255,255,255);
     --color-scroll:rgb(68,69,74);
     --color-scroll-hover:rgb(85,85,85);
+    /*Estilos Contactos*/
+    --color-fondo-form: rgb(255,255,255);
+    --color-titulo-form: rgb(5,5,29);
+    --color-borde-boton: 2px solid rgb(255,255,255);
+    --color-fondo-boton: rgb(255,255,255);
+}
+.redimension-mode{
+    /*Estilos FAQs*/
+    --fs-sm: 1.4rem;
+    --fs-md: 1.2rem;
+    --fs-lg: 1.6rem;
 }
 
 *{
@@ -167,7 +191,155 @@ aside .modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor
 }
 
 /****************************************main****************************************/
-
+.contactUs{/*Es el section y ocupara todo el main*/
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 95%;
+}
+.contactUs .title{
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-bold);
+    color: var(--color-titulo-contenido);
+    text-align: center;
+    margin: 2rem 0;
+}
+/*Asignamos a cada elemento form info y map una area especifica dentro de la cuadricula, form info y map son las clases hijos de box, que sera el elemento que tendra display grid*/
+.form{
+    grid-area: form;
+    background-color: var(--color-fondo-form);
+}
+.info{
+    grid-area: info;
+}
+.map{
+    grid-area: map;
+}
+.contact{
+    padding: 40px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+}
+.box{
+    display: grid;/*definimos que el contenedor box utilizara css grid layout para organizar sus elementos hijos*/
+    grid-template-columns: 2fr 1fr;/*define 2 columnas dentro de las cuadriculas, la primera ocupa 2 fracciones del espacio disponible y la segunda una fraccion*/
+    grid-template-rows: 5fr 4fr;/*Define 2 filas */
+    grid-template-areas: "form info" "form map";/*el area form ocupa tanto el area de la primera y segunda fila de la primera columna*/
+    grid-gap: 20px;/*la separacion entre filas y columnas sera de 20px*/
+}
+.contact h3{
+    font-weight: 500;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+.form h3{
+    color: var(--color-titulo-form);
+}
+.formBox .row50{
+    display: flex;
+    gap: 20px;
+}
+.inputBox{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 50%;
+}
+.formBox .row100 .inputBox{
+    width: 100%;
+}
+.inputBox span{
+    color: var(--color-titulo-form);
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+.inputBox input{/*son las entradas de texto tipo input*/
+    padding: 10px;/*tendra un padding de 10px respecto a las letras*/
+    font-size: 1.1rem;
+    border-radius: 25px;
+    outline: none;
+    background-color: rgb(242,242,242);
+}
+.inputBox textarea{
+    padding: 10px;
+    font-size: 1.1rem;
+    outline: none;
+    resize: none;
+    min-height: 220px;
+    margin-bottom: 10px;
+    border-radius: 25px;
+    background-color: rgb(242,242,242);
+}
+.inputBox input[type="submit"]{/*aplica el estilo para el input con tipo de entrada submit*/
+    background-color: rgb(64,149,232);
+    color: #fff;
+    border: none;
+    font-size: 1.1rem;
+    max-width: 120px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 14px 15px;
+}
+.inputBox ::placeholder{/*es el color de texto del texto que indica que va en los input y textarea*/
+    color: #999;
+}
+.info{
+    background-color: #0e3959;/*es el color de fondo del bloque info*/
+}
+.info h3{
+    color: #fff;
+    margin-bottom: 2rem;
+}
+.info .infoBox div{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.info .infoBox div span{/*estilo del icono*/
+    width: 40px;
+    height: 40px;
+    color: #fff;/*color del icono*/
+    background-color: rgb(64,149,232);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;/*tamaño del icono*/
+    border-radius: 50%;
+    margin-right: 15px;/*distancia del icono con el texto*/
+}
+.info .infoBox div p{
+    color: #fff;/*color del texto*/
+    font-size: 1.1rem;/*tamaño del texto*/
+}
+.info .infoBox div a{
+    color: #fff;
+    text-decoration: none;
+    overflow-wrap: break-word; /* Permite que el texto se rompa en palabras largas */
+    word-break: break-all;
+}
+.sci{/*aqui van los iconos de las redes sociales, es la lista desordenada*/
+    margin-top: 40px;
+    display: flex;
+}
+.sci li{/*es el elemento que contiene el icono de una red social*/
+    list-style: none;
+    margin-right: 15px;
+}
+.sci li a{
+    font-size: 1.5rem;
+    color: #ccc;/*color del icono de la red social*/
+}
+.sci li a:hover{
+    color: #fff;
+}
+.map{
+    padding: 0;/*para que el mapa no tenga bordes*/
+}
+.map iframe{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;/*redondeo del mapa*/
+}
 /*footer*/
 footer{
     width: 100%;
@@ -421,5 +593,45 @@ aside .usuario .material-icons-sharp{
     }
     .hero_1 nav,.hero_1 .modo-oscuro{
         display: none;
+    }
+    .box{
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas: "form" "info" "map";
+    }
+    .formBox .row50{
+        display: flex;
+        gap: 0;
+        flex-direction: column;
+    }
+    .inputBox{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    .map{
+        min-height: 300px;
+    }
+}
+@media screen and (min-width: 901px) and (max-width: 1200px) {
+    .box{
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        grid-template-areas: "form form" "info map";
+    }
+    .formBox .row50{
+        display: flex;
+        gap: 0;
+        flex-direction: column;
+    }
+    .inputBox{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    .map{
+        min-height: 300px;
     }
 }

@@ -25,6 +25,26 @@
     --color-switch-circulo:rgb(241,241,241);
     --color-scroll:rgb(192,192,192);
     --color-scroll-hover:rgb(134,134,134);
+    /*Estilos FAQs*/
+    --color-preguntas: rgb(5,5,29);
+
+    --color-primary: #10182f;
+    --color-text: #545d7a;
+    --color-white: #fff;
+    --color-title: #242e4c;
+    --color-background: #f7f8fb;
+    --color-border: #dae1f5;
+
+    --font-family:"satoshi", sans-serif;
+    --fs-sm: 1.4rem;
+    --fs-md: 1.6rem;
+    --fs-lg: 2.2rem;
+    --fs-regular: 400;
+    --fw-medium:500;
+    --fw-bold: 700;
+
+    --transition: 0.4s ease-in-out;
+    --shadow: 0px 60px 56px -12px rgba(9,40,163,0.05);
 }
 .dark-mode{
     /*estilo cuerpo total*/
@@ -52,6 +72,14 @@
     --color-switch-circulo:rgb(255,255,255);
     --color-scroll:rgb(68,69,74);
     --color-scroll-hover:rgb(85,85,85);
+    /*Estilos FAQs*/
+    --color-preguntas: rgb(228,230,223);
+}
+.redimension-mode{
+    /*Estilos FAQs*/
+    --fs-sm: 1.4rem;
+    --fs-md: 1.2rem;
+    --fs-lg: 1.6rem;
 }
 
 *{
@@ -87,8 +115,8 @@ li{
     max-width: 1200px;
     margin: 0 auto;
     width: 95%;
-    align-items: center;/*Centrar verticalmente los elementos de contenedor*/
-    justify-content: space-between;
+    align-items: center;/*Centrar horizontalmente los elementos de contenedor*/
+    justify-content: space-between;/*centrar verticalmente*/
 }
 .hero_1 .contenedor nav ul{
     display: flex;
@@ -167,8 +195,73 @@ aside .modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor
 }
 
 /****************************************main****************************************/
-
-/*footer*/
+main{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.accordion__wrapper{
+    width: 95%;
+    max-width: 1200px;
+    min-height: 100vh;/*altura minima*/
+    padding: 5rem;
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-contenido);
+    box-shadow: var(--shadow);/*--shadow: 0px 60px 56px -12px rgba(9,40,163,0.05); sirve para agregar sombra a los elementos, esto nos permite definir la posicion, el desenfoque y el color de la sombra, 0px es que no hay desplazamiento horizontal de la sombra, hay 60px de desokazamiento vertical de la sombra, hay un radio de desenfoque de la sombra de 56px, y reduce la sombra en 12pixeles, por ultimo esta el color de la asombra*/
+    border-radius: 2.5rem;
+}
+.accordion__title{
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-bold);
+    color: var(--color-titulo-contenido);
+    text-align: center;
+    margin-bottom: 5rem;
+}
+.accordion{
+    border-bottom: 0.1rem solid var(--color-border);/*la linea inferior*/
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+.accordion__header{/*lo que se muestra al minimizar*/
+    display: flex;/*para que este uno al lado de otro*/
+    justify-content: space-between;/*mayor espaciado posible entre elementos*/
+    align-items: center;/*centrado horizontal*/
+    cursor: pointer;/*modo de cursor*/
+}
+.accordion__icon{/*estilo del icono*/
+    background-color: var(--color-fondo-icono);/*color del fondo del icono*/
+    /*tamaño del icono*/
+    width: 2.2rem;
+    height: 2.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;/*borde circular*/
+    color: var(--color-icono-menu);/*color del icono*/
+    flex-shrink: 0;/*el icono no encojera su tamaño a pesar del contexto*/
+}
+.accordion__icon:hover{
+    background-color: var(--color-fondo-hover-icono);
+}
+.accordion__question{/*estilo de la pregunta*/
+    font-size: var(--fs-md);
+    font-weight: var(--fw-medium);
+    color: var(--color-preguntas);
+}
+.accordion__answer{/*espaciado vertical de la respuesta*/
+    padding: 2rem 0;
+    color: var(--color-parrafo-contenido);
+}
+.accordion__content{/*es el contenedor de la respuesta*/
+    overflow: hidden;/*se ocultara lo que sobresalga*/
+    height: 0;/*en un inicio tendra tamaño 0*/
+    transition: var(--transition);/*tiene una transición de 0.4segundos y este empezara lento, luego acelera y finalmente termina lentamente*/
+}
+    /*footer*/
 footer{
     width: 100%;
     /*background-color: var(--color-footer);*/
@@ -421,5 +514,18 @@ aside .usuario .material-icons-sharp{
     }
     .hero_1 nav,.hero_1 .modo-oscuro{
         display: none;
+    }
+    .accordion__wrapper{
+        padding: 2rem 1rem;
+    }
+    .accordion__title{
+        margin-bottom: 2rem;
+    }
+    .accordion{
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    .accordion__answer{/*espaciado vertical de la respuesta*/
+        padding: 1rem 0;
     }
 }

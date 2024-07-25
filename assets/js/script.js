@@ -122,20 +122,62 @@ function Sobre_nosotros(){
     });
 }
 function Preguntas_frecuentes(){
+    const accordion=document.querySelectorAll(".accordion"),
+    accordionToggle=document.querySelectorAll(".accordion__header"),
+    accordionContent=document.querySelectorAll(".accordion__content"),
+    accordionIcon=document.querySelectorAll("#accordion-icon")/*Seleccionamos todos los elementos que tengan este ID*/;/*Declaramos las variables*/
+    let body = document.body;
     menu.addEventListener("click",()=>{
         aside.classList.add("mostrar-sidebar");
     });
     menu_sidebar.addEventListener("click",()=>{
         aside.classList.remove("mostrar-sidebar");
     });
+    /*funcionalidad de expandir y colapsar */
+    for (let i=0; i<accordionToggle.length;i++){/*accordionToggle.length devuelve el numero de elementos en la coleccion accordionToggle, por ende se esta iterando sobre todos loe elementos de titulo w icono, es practicamente lo que hace "forEach"*/
+        accordionToggle[i].addEventListener("click",()=>{/*a cada encabezado se le agrega un evento listener de eventos que se ejecuta al dar click*/
+            if(parseInt(accordionContent[i].style.height)!=accordionContent[i].scrollHeight){/*Si la altura del scroll no es igual a la altura del contenido significa que no se ah exoandifo totalmente, scrollHeight devuelve la altura real del elemento, style.height nos devuelve el estilo o la altura de ese elemento*/
+                accordionContent[i].style.height=accordionContent[i].scrollHeight+"px";/*si la altura descrita por los estilos es distinta a la altura real del elemento, el estilo cambiara a la altura real del elemento, siempre en cuando este este haya sido dado click, osea sea el elemento del evento */
+                accordionIcon[i].textContent ="remove";/*cambiamos el icono a remove*/
+            }else{/*si la altura de estilos es igual a la altura del bloque significa que queremos minimizar porque presionamos el evento estando maximizado*/
+                accordionContent[i].style.height="0px";/*cambiamos la altura a 0, osea minimizamos el bloque*/
+                accordionIcon[i].textContent ="add";/*cambiamos el icono a add*/
+            }
+            for (let j=0; j<accordionContent.length; j++){/*iteramos todos los elementos de contenido, el anterior era de encabezado (es el elemento donde va la pregunta y el icono)*/
+                if(j !== i){/*significa que todos los otros elementos que no sean parte del evento seran minimizados y el icono cambiara a add*/
+                accordionContent[j].style.height="0px";
+                accordionIcon[j].textContent ="add";
+                }
+            }
+        });
+    }
+    function setResponsiveVariables() {
+        if (window.innerWidth < 900) {
+            body.classList.add("redimension-mode");
+        }else{
+            body.classList.remove("redimension-mode")
+        }
+      }
+    window.addEventListener('resize', setResponsiveVariables);
+    window.addEventListener('load', setResponsiveVariables);
 }
 function Contacto(){
+    let body = document.body;
     menu.addEventListener("click",()=>{
         aside.classList.add("mostrar-sidebar");
     });
     menu_sidebar.addEventListener("click",()=>{
         aside.classList.remove("mostrar-sidebar");
     });
+    function setResponsiveVariables() {
+        if (window.innerWidth < 900) {
+            body.classList.add("redimension-mode");
+        }else{
+            body.classList.remove("redimension-mode")
+        }
+      }
+    window.addEventListener('resize', setResponsiveVariables);
+    window.addEventListener('load', setResponsiveVariables);
 }
 function Blog(){
     menu.addEventListener("click",()=>{
@@ -146,25 +188,26 @@ function Blog(){
     });
 }
 function initCommon(){
+    let body = document.body;
+    /*Esto aplica el modo oscuro si ya estaba aplicado, osea si el modo oscuro ya estaba guardado en el navegador al recargar o volver a abrir la pagina se volvera a aplicar*/
     if (localStorage.getItem('dark-mode') === 'enabled') {
-        document.body.classList.add('dark-mode');
+        body.classList.add('dark-mode');
         circulos.forEach(circulo => {
             circulo.classList.add('prendido');
         });
     }
     palancas.forEach((palanca) => {
         palanca.addEventListener("click",()=>{
-            let body = document.body;
             body.classList.toggle("dark-mode");
             circulos.forEach(circulo => {
                 circulo.classList.toggle('prendido');
             });
             // Guardar la preferencia en localStorage
-            if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('dark-mode', 'enabled');
+            if (body.classList.contains('dark-mode')) {/*verifica si body tiene una clase darkmode*/
+                localStorage.setItem('dark-mode', 'enabled');/*si el elemento body tiene la clase dark-mode, esto fuarda la preferencia del usuario en el almacenamiento loca, configurando la clave dark-mode con el valor de enabled*/
             } else {
-                localStorage.removeItem('dark-mode');
-            }
+                localStorage.removeItem('dark-mode');/*si el elemento body no tiene la clase dark-mode, este elimina la clave, dando a entender que no esta habilitado*/
+            }/*localStorage guarda los datos en el navegador del usuario que hace que el cambio siga aplicado incluso si el navegador se cierra o se regargue, esto es util para guardar las preferencias del usuario, estado de aplicacion y otros datos que deben ser preservados entre visitas, es mejor que las cookies porque no interfiere con el rendimiento de la página web y tienen una capacidad de almacenamiento mayor que de las cookies, tiene 5MB como max en la mayoria de navegadores y estos no estan cifrados por los que no se deben de guardar informacion confidencial*/
         });
     });
 }
