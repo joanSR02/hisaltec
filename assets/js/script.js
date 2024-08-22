@@ -11,7 +11,9 @@ const menu = document.querySelector(".icono-menu");
 const aside = document.querySelector("aside");
 const menu_sidebar = document.querySelector(".menu_sidebar");
 function Index(){
-
+    const listcarousel2 = document.querySelector('.carousel2');
+    let elementos = Array.from(document.querySelectorAll('.elemento'));
+    const anchoElemento = elementos[0].offsetWidth + 20; // Incluye margen
     /* .onclick es un evento en JavaScript que se utiliza para asignar una función que se ejecutará cuando se haga clic en el elemento al que se ha vinculado.*/
     nextButton.onclick = function(){/*En este caso, esta función llama a otra función llamada showSlider y pasa 'next' como argumento a showSlider.*/
         showSlider('next');
@@ -67,6 +69,16 @@ function Index(){
                 let items = document.querySelectorAll('.carousel .list .item');/*seleccionamos todos los items de nuestro elemento carousel*/
                 listHTML.appendChild(items[0]);
                 carousel.classList.add('next');
+                /*carousel2*/
+                listcarousel2.scrollBy({
+                    left: 300,
+                    behavior: 'smooth'
+                });
+        
+                setTimeout(() => {
+                    listcarousel2.appendChild(elementos[0]);
+                    elementos = Array.from(document.querySelectorAll('.elemento'));
+                }, 300); // Tiempo igual al de la animación de desplazamiento
             }
 
             width=width+0.1;
@@ -78,9 +90,38 @@ function Index(){
         }
     }
 
+    document.getElementById('izquierda').addEventListener('click', function() {
+        listcarousel2.scrollBy({
+            left: -300,
+            behavior: 'smooth'
+        });
+
+        setTimeout(() => {/*retraza la ejecucion del codigo dentro de la funcion proporcionada, osea se retrasa 3 seg*/
+            listcarousel2.insertBefore(elementos[elementos.length - 1], elementos[0]);/*mueve el ultimo elemento del contenedor al inicio, antes de elementos[0]*/
+            elementos = Array.from(document.querySelectorAll('.elemento'));/*actualizamos la lista de elementos*/
+        }, 300); // Tiempo igual al de la animación de desplazamiento
+    });
+
+    document.getElementById('derecha').addEventListener('click', function() {
+        listcarousel2.scrollBy({
+            left: 300,
+            behavior: 'smooth'
+        });
+
+        setTimeout(() => {
+            listcarousel2.appendChild(elementos[0]);
+            elementos = Array.from(document.querySelectorAll('.elemento'));
+        }, 300); // Tiempo igual al de la animación de desplazamiento
+    });
+    
     // Inicia el progreso cuando se carga la página
     window.onload = move; 
 }
+function toggleMenu() {/*para que solo se ejecute al dar click a la imagen, no lo declaro antes porque al no existir causara error */
+    const userPhoto = document.querySelector('.user-photo');
+    const dropdownContent = document.querySelector('.dropdown-content');
+    dropdownContent.classList.toggle('show');
+};
 function Inisesion(){
     const login_register = document.querySelector(".contenedor__login-register");
     const btn__registrarse = document.querySelector(".btn__registrarse");
@@ -89,6 +130,8 @@ function Inisesion(){
     const formulario__register = document.querySelector(".formulario__register");
     const caja__trasera_login = document.querySelector(".caja__trasera-login");
     const caja__trasera_register = document.querySelector(".caja__trasera-register");
+    const contenedorToast=document.getElementById('contenedor-toast');
+    const cargando = document.querySelector('.overlay');
     btn__registrarse.onclick = function(){
         login_register.classList.add('active');
         formulario__register.classList.add('active')
@@ -103,6 +146,94 @@ function Inisesion(){
         caja__trasera_login.classList.remove('active')
         caja__trasera_register.classList.remove('active')
     }
+    import('./modulo_notificacion.js').then(({agregarToast, manejarClickToast }) => {
+        document.querySelector('.formulario__register').addEventListener('submit', async function (event) {
+            /*Validar email */
+            const emailInput = this.querySelector('input[name="correo"]');
+            const email = emailInput.value;
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                event.preventDefault(); // Evita el envío del formulario
+                /*Swal.fire({
+                    title: 'Error',
+                    text: 'Por favor, ingrese un correo electrónico válido.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });*/
+                agregarToast({tipo:'warning',titulo:'Advertencia!',descripcion:'Por favor, ingrese un correo electrónico válido',autoCierre:true},contenedorToast)
+                return
+            }
+
+            event.preventDefault(); // Evita el envío normal del formulario
+            const button_registro_cliente = this.querySelector('button[type="submit"]');
+            button_registro_cliente.disabled = true; // Deshabilita el botón
+            const formData = new FormData(this);
+            try {
+                cargando.style.display = 'flex';
+                const response = await fetch('./php/registro_cliente_bd.php', {//es una funcion asincrona en javascript, esto nos permite ejecutar el php sin que nos redirijamos a esa pagina
+                    //const response es una constante que almacenara el resultado de la solucitud fetch
+                    //await  indica que se esperara que la solicitud fetch se complete y halla recibido una respuesta, osea no se ejecutaran las demas lineas hasta que registro_cliente_bd haya terminado de ejecutar
+                    //fetch() es una funcion que se utiliza para realizar solicitudes HTTP y retorna una promesa que representa a la respuesta de dicha solicitud
+                    method: 'POST',//Los datos no se envian en la URL, osea no son visibles en la barra de direcciones del navegador y los datos no se almacenan en cache y queremos enviar una gran cantidad de datos
+                    body: formData//es un objeto en JavaScript que se utiliza para construir un conjunto de pares clave/valor, que pueden ser enviados a través de una solicitud HTTP, sirve para enciar datos al php que estamos ejecutando asincronamente
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                if (result.success) {
+                    /*Swal.fire({
+                        title: 'Registro Exitoso',
+                        text: result.message,
+                        icon: 'success',
+                        confirmButtonText: 'Cool'
+                    });*/
+                    formData.append('codigo', result.codigo);
+                    formData.append('correo', result.correo);
+                    formData.append('nombre', result.nombre);
+                    const response2 = await fetch('./enviarcorreo.php', {//es una funcion asincrona en javascript, esto nos permite ejecutar el php sin que nos redirijamos a esa pagina
+                        //const response es una constante que almacenara el resultado de la solucitud fetch
+                        //await  indica que se esperara que la solicitud fetch se complete y halla recibido una respuesta, osea no se ejecutaran las demas lineas hasta que registro_cliente_bd haya terminado de ejecutar
+                        //fetch() es una funcion que se utiliza para realizar solicitudes HTTP y retorna una promesa que representa a la respuesta de dicha solicitud
+                        method: 'POST',//Los datos no se envian en la URL, osea no son visibles en la barra de direcciones del navegador y los datos no se almacenan en cache y queremos enviar una gran cantidad de datos
+                        body: formData//es un objeto en JavaScript que se utiliza para construir un conjunto de pares clave/valor, que pueden ser enviados a través de una solicitud HTTP, sirve para enciar datos al php que estamos ejecutando asincronamente
+                    });
+                    if (!response2.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    const result2 = await response2.json();
+                    cargando.style.display = 'none';
+                    if (result2.success) {
+                        agregarToast({tipo:'exito',titulo:'Registro Exitoso!',descripcion:result.message,autoCierre:true},contenedorToast)
+                        agregarToast({tipo:'info',titulo:'No olvidar!',descripcion:result.message,autoCierre:true},contenedorToast)
+                    }else{
+                        agregarToast({tipo:'error',titulo:'Error!',descripcion:result.message,autoCierre:true},contenedorToast)
+                    }
+                } else {
+                    /*Swal.fire({
+                        title: 'Error',
+                        text: result.message,
+                        icon: 'error',
+                        confirmButtonText: 'Cool'
+                    });*/
+                    agregarToast({tipo:'warning',titulo:'Advertencia!',descripcion:result.message,autoCierre:true},contenedorToast)
+                    cargando.style.display = 'none';
+                }
+            } catch (error) {
+                cargando.style.display = 'none';
+                /*Swal.fire({
+                    title: 'Error',
+                    text: 'No se pudo conectar con el servidor.',
+                    icon: 'error',
+                    confirmButtonText: 'Cool'
+                });*/
+                agregarToast({tipo:'error',titulo:'Error!',descripcion:'No se pudo conectar con el servidor',autoCierre:true},contenedorToast)
+            }finally {
+                button_registro_cliente.disabled = false; // Habilita el botón nuevamente
+            }
+        });
+        contenedorToast.addEventListener('click', manejarClickToast);
+    });
 }
 function Sobre_nosotros(){
     const cards= document.querySelectorAll(".card");
@@ -187,6 +318,78 @@ function Blog(){
         aside.classList.remove("mostrar-sidebar");
     });
 }
+function Perfil_editar(){
+    import('./modulo_notificacion.js').then(({agregarToast, manejarClickToast }) => {
+        const contenedorToast=document.getElementById('contenedor-toast');
+        document.querySelector('.upload-input').addEventListener('change', async function () {
+            const form = document.querySelector('.user-photo-container');
+            const userPhoto = document.querySelector('.user-photo');
+            const formData = new FormData(form);
+            try {
+                const response = await fetch('./php/upload_photo.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                if (result.success) {
+                    setTimeout(function() {
+                        userPhoto.src = result.photo_url;
+                    }, 2000); // 2000 milisegundos = 2 segundos
+                    agregarToast({tipo:'exito',titulo:'Registro Exitoso!',descripcion:result.message,autoCierre:true},contenedorToast)
+                } else {
+                    agregarToast({tipo:'warning',titulo:'Advertencia!',descripcion:result.message,autoCierre:true},contenedorToast)
+                }
+            } catch (error) {
+                agregarToast({tipo:'error',titulo:'Error!',descripcion:'No se pudo conectar con el servidor',autoCierre:true},contenedorToast)
+            }
+        });
+        manejarClickToast(contenedorToast);
+    });
+}
+function Perfil_ajustes(){
+    const contenedorToast=document.getElementById('contenedor-toast');
+    /*import('./modulo_seguridad-contraseña.js').then(({ingresarClave }) => {
+        document.getElementById('contraseña').addEventListener('input',ingresarClave);//Este evento se activa cuando ingreso algun valor al input de contraseña
+
+    });*/
+    import('./modulo_seguridad-contraseña.js').then(({seguridadContraseña}) => {
+        seguridadContraseña(contenedorToast);
+    });
+    import('./modulo_notificacion.js').then(({agregarToast, manejarClickToast }) => {
+        import('./modulo_validar-contraseña.js').then(({validatePassword}) => {
+            document.querySelector('.user-info-container').addEventListener('submit', async function (event) {
+                event.preventDefault(); // Previene el envío por defecto del formulario
+                const formData = new FormData(this);
+                if (validatePassword()){
+                    try {
+                        const response = await fetch('./php/cambio_contraseña.php', {
+                            method: 'POST',
+                            body: formData
+                        });
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        const result = await response.json();
+                        if (result.success) {
+                            agregarToast({tipo:'exito',titulo:'Cambio Exitoso!',descripcion:result.message,autoCierre:true},contenedorToast)
+                        } else {
+                            agregarToast({tipo:'warning',titulo:'Advertencia!',descripcion:result.message,autoCierre:true},contenedorToast)
+                        }
+                    } catch (error) {
+                        agregarToast({tipo:'error',titulo:'Error!',descripcion:'No se pudo conectar con el servidor',autoCierre:true},contenedorToast)
+                    }
+                }else{
+                    agregarToast({tipo:'warning',titulo:'Advertencia!',descripcion:'Las claves ingresadas deben ser iguales',autoCierre:true},contenedorToast)
+                }
+
+            });
+        });
+        manejarClickToast(contenedorToast);
+    });
+};
 function initCommon(){
     let body = document.body;
     /*Esto aplica el modo oscuro si ya estaba aplicado, osea si el modo oscuro ya estaba guardado en el navegador al recargar o volver a abrir la pagina se volvera a aplicar*/
@@ -225,6 +428,10 @@ document.addEventListener('DOMContentLoaded', function() {
         Contacto();
     } else if (document.documentElement.classList.contains('Blog')) {
         Blog();
+    } else if (document.documentElement.classList.contains('Perfil_editar')) {
+        Perfil_editar();
+    } else if (document.documentElement.classList.contains('Perfil_ajustes')) {
+        Perfil_ajustes();
     }
 
     // Ejecutar código común a todas las páginas

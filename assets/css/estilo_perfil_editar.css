@@ -1,0 +1,448 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+:root{
+    /*estilo cuerpo total*/
+    --color-body: rgb(240,242,245);
+    --color-contenido: rgb(255,255,255);
+    --color-titulo-contenido: rgb(5,5,29);
+    --color-parrafo-contenido: rgb(58,59,60);
+    --color-fondo-icono: rgb(228,230,235);
+    --color-icono-volver: rgb(5,5,5);
+    --color-fondo-hover-icono: rgb(216,218,223);
+    --color-icono: rgb(132,132,132);
+    --color-fondo-form: rgb(132,132,132);
+    --color-titulo-form: rgb(228,230,223);
+    --color-borde-boton: 2px solid rgb(132,132,132);
+    --color-fondo-boton: rgb(132,132,132);
+    /*estilos encabezado*/
+    --color-fondo-hero_1:rgb(255,255,255);
+    /*Estilo switch*/
+    --color-switch-base :rgb(201,202,206);
+    --color-switch-circulo:rgb(241,241,241);
+    /*alarma*/
+    --exito: #3ab65c;
+	--error: #bf333b;
+	--info: #1898c0;
+	--warning: #bc8c12;
+	--exito-hover: #2d8a46;
+	--error-hover: #962a31;
+	--info-hover: #147fa0;
+	--warning-hover: #9b7512;
+}
+.dark-mode{
+    /*estilo cuerpo total*/
+    --color-body: rgb(24,25,26);
+    --color-contenido: rgb(36,37,38);
+    --color-titulo-contenido: rgb(228,230,223);
+    --color-parrafo-contenido: rgb(212,212,212);
+    --color-fondo-icono: rgb(58,59,60);
+    --color-icono: rgb(132,132,132);
+    --color-fondo-hover-icono: rgb(78,79,80);
+    --color-icono-volver: rgb(228,230,235);
+    --color-fondo-form: rgb(255,255,255);
+    --color-titulo-form: rgb(5,5,29);
+    --color-borde-boton: 2px solid rgb(255,255,255);
+    --color-fondo-boton: rgb(255,255,255);
+    /*estilos encabezado*/
+    --color-fondo-hero_1:rgb(36,37,38);
+    /*Estilo switch*/
+    --color-switch-base :rgb(39,205,64);
+    --color-switch-circulo:rgb(255,255,255);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    appearance: 0;
+    border: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    width: 100%;
+    background-color: var(--color-body);
+}
+html{
+    font-size: 16px;
+}
+li{
+    list-style-type: none;/*elimina los marcadores como puntos*/
+}
+/**********hero_1**********/
+.hero_1{
+    background-color: var(--color-fondo-hero_1);
+    width: 100%;
+    transition: background 0.5s;
+    padding: 0.2rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.hero_1 a{
+    padding: 5px 10px;
+    border-radius:25px;
+    background-color: var(--color-fondo-icono);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--color-icono-volver);
+}
+.hero_1 a:hover{
+    background-color: var(--color-fondo-hover-icono);
+}
+.hero_1 .logo{
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    width: auto;
+}
+.contenedor{
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 95%;
+    align-items: center;/*Centrar verticalmente los elementos de contenedor*/
+    justify-content: space-between;
+}
+/*--->switch*/
+.hero_1 .modo-oscuro .switch{/*el switch esta en el bloque de modo oscuro*/
+    display: flex;/*display flex para que los hijos bloque se coloque horizontalmente*/
+    align-items: center;/*centraremos horizontalmente los elementos hijos*/
+    justify-content: center;/*centraremos verticalmente los elementos hijos(solo esta base)*/
+    min-width: 50px;/*el ancho minimo sera de 45 pixeles*/
+    cursor: pointer;/*cuando el cursor este sobre este elemento pasara a ser un puntero*/
+}
+.hero_1 .modo-oscuro .base{
+    position: relative;/*tendra position relative porque estarea en su posicion normal respecto a la posicion del documento, ademas esto me permite decir que el bloque hijo se posicione respecto a este bloque padre, la verdad no habria diferencia entre que sea position absolute o position relative en este caso porque el elemento que se posicionara sobre este es el hijo*/
+    display: flex;/*display flex para poder centrar su elemento hijo horizontalmente*/
+    align-items: center;
+    width: 35px;/*el switch tendra un ancho de 35 pixeles*/
+    height: 20px;/*el switch tendra un alto de 20 pixeles*/
+    background-color: var(--color-switch-base);/*el color de fondo del switch*/
+    border-radius: 50px;/*el radio de los bordes*/
+}
+.hero_1 .modo-oscuro .circulo{/*es el circulo del */
+    position: absolute;/*se posicionara sobre el ultimo elemento posicionado*/
+    width: 18px;/*el ancho del circulo sera 18 pixeles*/
+    height: 90%;/*el alto del circulo sera el 90% del alto del contenedor padre*/
+    background-color: var(--color-switch-circulo);/*el color de fondo del circulo*/
+    border-radius: 50%;/*el radio sera del 50% del lado mas largo del bloque*/
+    left: 2px;/*un desplazamiento de izquierda a derecha de 2 pixeles*/
+    transition: left 0.5s ease;/*transicion de left*/
+}
+.modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor*/
+    left: 15px;
+}
+/*main*/
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;/*centrar verticalmente*/
+}
+.contenido_opciones{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.contenido_opciones nav{
+    margin-bottom: 2rem;
+    display: flex;
+}
+.contenido_opciones nav a{
+    display: flex;
+    align-items: center;
+    position: relative;
+    color: var(--color-parrafo-contenido);
+    text-decoration: none;
+    padding: 0 5px;
+    transition: .5s;
+}
+.contenido_opciones nav a:first-child {
+    font-weight: bold;
+    color: rgb(151,194,30);
+}
+.contenido_opciones nav a:hover{
+    color: rgb(151,194,30);
+}
+.contenido_opciones nav a .indicador{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-bottom: 2px solid rgb(151,194,30);
+    border-radius: 15px;
+    transform: scale(0) translateY(50px);
+    opacity: 0;
+    transition: .5s;
+}
+.contenido_opciones nav a:hover .indicador{
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+.contenido_opciones h2{
+    color: var(--color-titulo-contenido);
+    font-weight: bold;
+    font-size: 2rem;
+}
+.contenido{
+    width: 95%;
+    max-width: 750px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    border-radius: 20px;
+    background-color: var(--color-contenido);
+    display: flex;
+    justify-content: center;/*centrar horizontalmente*/
+    flex-direction: column;
+    align-items: center;/*centrar verticalmente*/
+    transition: background 0.5s;
+}
+.user-photo-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+    overflow: hidden;
+}
+.update-photo{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    color: white;
+    transition: opacity 0.3s ease;
+}
+.update-photo:hover{
+    opacity: 1;
+}
+.upload-input{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    opacity: 0; /* Hacer el input invisible */
+    cursor: pointer;
+}
+
+.user-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: opacity 0.3s ease; /* Transición suave para el efecto de opacidad */
+}
+
+form{
+    width: 100%;
+}
+.Datos{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(4,1fr);
+    gap: 2rem;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+}
+.form-group label{
+    color: var(--color-titulo-contenido);
+}
+.form-group input, .form-group select{
+    padding: 10px;
+    border: none;
+    background: #F2F2F2;
+    font-size: 16px;
+    outline: none;
+    border-radius: 10px;
+}
+/*Toast*/
+.contenedor-toast{
+    position: absolute;
+    right: 40px;
+    bottom: 40px;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.toast{
+    background: #ccc;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 18px;
+    animation-name: apertura;
+    animation-duration: 200ms;
+    animation-timing-function: ease-out;/*para que la transicion inicie rapido pero termine despacio*/
+    position: relative;
+    overflow: hidden;
+}
+.toast.exito{
+    background: var(--exito);
+}
+.toast.error{
+    background: var(--error);
+}
+.toast.warning{
+    background: var(--warning);
+}
+.toast.info{
+    background: var(--info);
+}
+.toast .contenido_toast{
+    display: grid;
+    grid-template-columns: 30px auto;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+}
+.toast .titulo{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.toast .btn-cerrar{
+    background: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    padding: 0px 5px;
+    transition: 0.3s ease all;
+}
+.toast .btn-cerrar:hover{
+    background: rgba(0, 0, 0, 0.3);
+}
+.toast .icono{
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.3);
+}
+.toast .icono span{
+    color: rgba(0, 0, 0, 0.3);
+}
+.toast span{
+    font-size: 30px;
+    color: #fff;
+}
+@keyframes apertura{
+    from{
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+.toast.cerrando{
+    animation-name: cierre;
+    animation-duration: 200ms;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;/*para que despues de la animacion se quede en la ultima posicion*/
+}
+@keyframes cierre{
+    from{
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(calc(100% + 40px));
+    }
+}
+.toast.autoCierre::after{
+    content: "";
+    width: 100%;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    bottom: 0;
+    animation-name: autoCierre;
+    animation-duration: 5s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;/*para que despues de la animacion se quede en la ultima posicion*/
+}
+@keyframes autoCierre{
+    from{
+        width: 100%;
+    }
+    to{
+        width: 0%;
+    }
+}
+form button{
+    padding: 10px 40px;
+    border: var(--color-borde-boton);
+    font-size: 14px;
+    background: transparent;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--color-titulo-contenido);
+    outline: none;
+    transition: all 300ms;
+}
+form button:hover{
+    background: var(--color-fondo-boton);
+    color: var(--color-titulo-form);
+}
+.user-info-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.biografia{
+    margin: 2rem;
+    width: 100%;
+}
+.biografia textarea {
+    background: #F2F2F2;
+    width: 100%;
+    height: 100px;
+    border-radius: 10px;
+    padding: 10px;
+    resize: none;
+}
+@media screen and (max-width: 850px){
+    .hero_1 .logo{
+        height: 40px;
+        width: auto;
+    }
+    main{
+        height: 900px;
+    }
+    .contenedor__main{
+        justify-content: center;
+    }
+    .caja__trasera{
+        max-width: 300px;
+        flex-direction: column;
+        gap: 40px;
+    }
+    .caja__trasera div{
+        margin: 100px 10px;
+    }
+    .contenedor__login-register{
+        left: 0;
+        top: -180px;
+        max-width: 320px;
+    }
+    .contenedor__login-register.active{
+        left: 0;
+        top: 150px;
+    }
+}

@@ -69,6 +69,10 @@
     /*estilo footer*/
     --color-footer: rgb(97,97,96);
     --color-contenido-footer: rgb(97,97,96);
+
+    /*Estilo del menu usuario*/
+    --color-menu-usuario: rgba(57,57,58, 0.95);
+    --color-texto-menu-usuario: rgb(228,230,235);
 }
 .dark-mode{
     /*estilo cuerpo total*/
@@ -115,6 +119,9 @@
     /*estilo footer*/
     --color-footer: var(--color-body);
     --color-contenido-footer: rgb(36,37,38);
+    /*Estilo del menu usuario*/
+    --color-menu-usuario: rgba(200, 200, 200, 0.95);
+    --color-texto-menu-usuario: rgb(5,5,5);
 }
 
 *{
@@ -264,7 +271,7 @@ aside .modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor
     display: flex;
     align-items: center;
 }
-.login_register, .login_register ul li a{
+.login_register, .login_register a{
     color: var(--color-texto-secundario);
 }
 /**********hero_3**********/
@@ -697,6 +704,128 @@ aside .modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor
     height: 100%;
     border-radius: 20px; /* Aplicar esquinas redondeadas también al iframe */
 }
+/*clientes*/
+.clientes{
+    position: relative;
+}
+.carousel2 {
+    display: flex;
+    flex-wrap: nowrap;/* Asegura que los elementos hijos no se envuelvan en múltiples líneas, manteniéndolos en una sola línea horizontal*/
+    overflow-x: scroll;/*se agregara una barra de desplazamiento horizontal si se sobrepasa el ancho maximo del elemento padre*/
+    overflow-y: hidden;
+    width: 100%;/*ancho del 100%*/
+    scroll-snap-type: x mandatory;/*esto especifiva qie el ajuste de scroll-snap-align se deben aplicar si o si */
+    -webkit-overflow-scrolling: touch;/*Habilita el desplazamiento suave en dispositivos iOS*/
+    width: 100%;
+}
+.carousel2::-webkit-scrollbar {
+    display: none; /* Oculta la barra de desplazamiento en WebKit */
+}
+.elemento {
+    flex: 0 0 auto;/*el primer cero signidica que el elemento no crece mas alla que su tamaño base, pero si puede encojerse, el segundo cero significa que el elemento no se encoje si el contenedor flexible es demasiado pequeño para aconodar los elementos, y por ultimo el tamaño base se calcula en funcion de su contenido y otras reglas de css*/
+    margin: 0 10px; /* Espaciado lateral entre elementos  de 10px, este espaciado no se tendra en cuenta en la separación entre elementos*/
+    width: 100%; /* Ancho inicial al 100% */
+    scroll-snap-align: start;/*nos asegura que el elemento se alinee al principio del contenedor cuando se detiene su desplzamiento*/
+    height: 150px;
+}
+
+.elemento img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ajusta la imagen según el lado más largo */
+    object-position: center; /* Centra la imagen en el largo y ancho*/
+    filter: drop-shadow(0px 15px 15px rgba(255,255,255,0.9));
+}
+.botones {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+}
+
+.boton {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* Estilos para el menú de usuario */
+.user-menu {
+    position: relative;
+}
+
+.user-photo {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 45px; /* Ubicación inicial */
+    left: -120px;
+    background-color: var(--color-menu-usuario);
+    width: 160px;
+    border-radius: 10px;
+    overflow: hidden;
+    max-height: 0; /* Ocultamos el menú inicialmente */
+    z-index: 1;
+    transition: max-height 0.4s ease-out;/*cuando la propiedad max-height cambie, este aplicara una animacion de 0.4s con una curva de desaeleración, primero rapido, luego lento*/
+}
+.dropdown-content.show {
+    max-height: 120px; /* Altura máxima del menú */
+}
+.dropdown-content a {
+    color: var(--color-texto-menu-usuario);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+
+
+
+/* Estilos para pantallas menores a 600px */
+@media (max-width: 599px) {
+    .elemento {
+        flex: 0 0 calc(50% - 20px); /* es el tamaño base del elemento mas espaciado, osea que cada elemento tendra que tamaño de 50% del ancho madre menos 20px que se usara para su separación entre elementos*/
+    }
+}
+
+/* Estilos para pantallas de 600px a 899px */
+@media (min-width: 600px) and (max-width: 899px) {
+    .elemento {
+        flex: 0 0 calc(33.33% - 20px); /* 2 elementos por fila con espaciado de 20px entre elemento, osea en total entre los elementos se tendra un espaciado de 40px*/
+    }
+}
+
+/* Estilos para pantallas de 900px a 1199px */
+@media (min-width: 900px) and (max-width: 1199px) {
+    .elemento {
+        flex: 0 0 calc(25% - 20px); /* 3 elementos por fila con espaciado */
+    }
+}
+
+/* Estilos para pantallas de 1200px a 1499px */
+@media (min-width: 1200px) and (max-width: 1499px) {
+    .elemento {
+        flex: 0 0 calc(20% - 20px); /* 4 elementos por fila con espaciado */
+    }
+}
+
+/* Estilos para pantallas de 1500px en adelante */
+@media (min-width: 1500px) {
+    .elemento {
+        flex: 0 0 calc(16.66% - 20px); /* 5 elementos por fila con espaciado */
+    }
+}
+
 /*footer*/
 footer{
     width: 100%;

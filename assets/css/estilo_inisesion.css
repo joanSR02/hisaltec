@@ -18,6 +18,15 @@
     /*Estilo switch*/
     --color-switch-base :rgb(201,202,206);
     --color-switch-circulo:rgb(241,241,241);
+    /*alarma*/
+    --exito: #3ab65c;
+	--error: #bf333b;
+	--info: #1898c0;
+	--warning: #bc8c12;
+	--exito-hover: #2d8a46;
+	--error-hover: #962a31;
+	--info-hover: #147fa0;
+	--warning-hover: #9b7512;
 }
 .dark-mode{
     /*estilo cuerpo total*/
@@ -127,6 +136,7 @@ li{
 }
 /*Login y regustro*/
 main{
+    position: relative;
     width: 100%;
     display: flex;
     align-items: center;/*centra horizontalmente*/
@@ -201,7 +211,7 @@ main{
 }
 .contenedor__login-register form{
     width: 100%;
-    padding: 80px 20px;
+    padding: 40px 20px;
     background: var(--color-fondo-form);
     position: absolute;
     border-radius: 20px;
@@ -214,7 +224,7 @@ main{
 }
 .contenedor__login-register form input{
     width: 100%;
-    margin-top: 20px;
+    margin-top: 15px;
     padding: 10px;
     border: none;
     background: #F2F2F2;
@@ -240,6 +250,21 @@ main{
 }
 .formulario__register{
     display: none;
+}
+.checkbox{
+    width: 10px;
+}
+.terms-container {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    color: var(--color-titulo-form);
+}
+.terms-container input[type="checkbox"] {
+    width: 16px; /* Ancho del checkbox */
+    height: 16px; /* Altura del checkbox */
+    margin: auto 0;
+    margin-right: 8px; /* Espacio entre el checkbox y el texto */
 }
 .social-icons{
     display: flex;
@@ -341,6 +366,199 @@ footer img{
 .contacto-footer p span, .tipos_envio-footer p span{
     font-size: 1.2rem;
 }
+/*Toast*/
+.contenedor-toast{
+    position: absolute;
+    right: 40px;
+    bottom: 40px;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.toast{
+    background: #ccc;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 18px;
+    animation-name: apertura;
+    animation-duration: 200ms;
+    animation-timing-function: ease-out;/*para que la transicion inicie rapido pero termine despacio*/
+    position: relative;
+    overflow: hidden;
+}
+.toast.exito{
+    background: var(--exito);
+}
+.toast.error{
+    background: var(--error);
+}
+.toast.warning{
+    background: var(--warning);
+}
+.toast.info{
+    background: var(--info);
+}
+.toast .contenido_toast{
+    display: grid;
+    grid-template-columns: 30px auto;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+}
+.toast .titulo{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.toast .btn-cerrar{
+    background: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    padding: 0px 5px;
+    transition: 0.3s ease all;
+}
+.toast .btn-cerrar:hover{
+    background: rgba(0, 0, 0, 0.3);
+}
+.toast .icono{
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.3);
+}
+.toast .icono span{
+    color: rgba(0, 0, 0, 0.3);
+}
+.toast span{
+    font-size: 30px;
+    color: #fff;
+}
+@keyframes apertura{
+    from{
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+.toast.cerrando{
+    animation-name: cierre;
+    animation-duration: 200ms;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;/*para que despues de la animacion se quede en la ultima posicion*/
+}
+@keyframes cierre{
+    from{
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(calc(100% + 40px));
+    }
+}
+.toast.autoCierre::after{
+    content: "";
+    width: 100%;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    bottom: 0;
+    animation-name: autoCierre;
+    animation-duration: 5s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;/*para que despues de la animacion se quede en la ultima posicion*/
+}
+@keyframes autoCierre{
+    from{
+        width: 100%;
+    }
+    to{
+        width: 0%;
+    }
+}
+/*Carga de la pagina*/
+/* Overlay oscuro para desactivar la interacción */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8); /* Fondo oscuro con opacidad */
+    z-index: 999; /* Asegúrate de que esté detrás del loader */
+}
+
+/* Estilo del loader */
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    perspective: 800px;
+}
+
+/* Estilo de los elementos internos del loader */
+.inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.inner.one {
+    left: 0;
+    top: 0;
+    animation: rotate-one 1s linear infinite;
+    border-bottom: 3px solid #efeffa;
+}
+
+.inner.two {
+    left: 0;
+    top: 0;
+    animation: rotate-two 1s linear infinite;
+    border-bottom: 3px solid #efeffa;
+}
+
+.inner.three {
+    left: 0;
+    bottom: 0;
+    animation: rotate-three 1s linear infinite;
+    border-bottom: 3px solid #efeffa;
+}
+
+/* Animaciones */
+@keyframes rotate-one {
+    0% {
+        transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+    }
+}
+
+@keyframes rotate-two {
+    0% {
+        transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+    }
+}
+
+@keyframes rotate-three {
+    0% {
+        transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+    }
+}
+
 @media screen and (max-width: 850px){
     .hero_1 .logo{
         height: 40px;

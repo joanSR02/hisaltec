@@ -43,7 +43,7 @@
             <!--Formulario de Login y registro-->
             <div class="contenedor__login-register">
                 <!--Login-->
-                <form action="" class="formulario__login">
+                <form method="POST" action="php/login_cliente.php" class="formulario__login">
                     <h2>Iniciar Sesión</h2>
                     <div class="social-icons">
                         <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -51,22 +51,104 @@
                         <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
                         <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                     </div>
-                    <input type="text" placeholder="Correo Electronico">
-                    <input type="password" placeholder="Contraseña">
+                    <input type="email" placeholder="Correo Electronico" name="correo" required>
+                    <input type="password" placeholder="Contraseña" name="clave" required>
                     <button>Entrar</button>
                 </form>
 
                 <!--Register-->
-                <form action="" class="formulario__register">
+                <form method="POST" class="formulario__register">
                     <h2>Regístrarse</h2>
-                    <input type="text" placeholder="Nombre completo">
-                    <input type="text" placeholder="Correo Electronico">
-                    <input type="text" placeholder="Usuario">
-                    <input type="password" placeholder="Contraseña">
-                    <button>Regístrarse</button>
+                    <input type="text" placeholder="Nombre(s)" name="nombre" required>
+                    <input type="text" placeholder="Apellido(s)" name="apellido" required>
+                    <input type="tel" placeholder="Celular" name="celular" required>
+                    <input type="email" placeholder="Correo Electronico" name="correo" required>
+                    <input type="password" placeholder="Contraseña" name="clave" required>
+                    <input type="password" placeholder="Confirmar contraseña" name="clave_confirmar" required>
+                    <div class="terms-container">
+                        <input type="checkbox" name="accept_terms" class="checkbox" required>
+                        <label for="accept_terms">
+                            Yo acepto los <a href="/terms-and-conditions" target="_blank">terminos y condiciones</a>.
+                        </label>
+                    </div>
+                    <button type="submit">Regístrarse</button>
                 </form>
             </div>
         </section>
+        <div class="contenedor-toast" id="contenedor-toast">
+            <!--<div class="toast exito" id="1">
+                <div class="contenido">
+                    <div class="icono">
+                        <span class="material-icons-sharp">
+                            check_box
+                        </span>
+                    </div>
+                    <div class="texto">
+                        <p class="titulo">Exito!</p>
+                        <p class="descripcion">La operación fue exitosa</p>
+                    </div>
+                </div>
+                <button class="btn-cerrar">
+                    <span class="material-icons-sharp">
+                        close
+                    </span>
+                </button>
+            </div>
+            <div class="toast error" id="2">
+                <div class="contenido">
+                    <div class="icono">
+                        <span class="material-icons-sharp">
+                            error
+                        </span>
+                    </div>
+                    <div class="texto">
+                        <p class="titulo">Error!</p>
+                        <p class="descripcion">Hubo un error al intentar procesar la operación</p>
+                    </div>
+                </div>
+                <button class="btn-cerrar">
+                    <span class="material-icons-sharp">
+                        close
+                    </span>
+                </button>
+            </div>
+            <div class="toast warning" id="3">
+                <div class="contenido">
+                    <div class="icono">
+                        <span class="material-icons-sharp">
+                            warning
+                        </span>
+                    </div>
+                    <div class="texto">
+                        <p class="titulo">Advertencia!</p>
+                        <p class="descripcion">estoy advirtiendo de algo, haz caso</p>
+                    </div>
+                </div>
+                <button class="btn-cerrar">
+                    <span class="material-icons-sharp">
+                        close
+                    </span>
+                </button>
+            </div>
+            <div class="toast info" id="4">
+                <div class="contenido">
+                    <div class="icono">
+                        <span class="material-icons-sharp">
+                            info
+                        </span>
+                    </div>
+                    <div class="texto">
+                        <p class="titulo">Información!</p>
+                        <p class="descripcion">escribe algo que el usuario debe hacer</p>
+                    </div>
+                </div>
+                <button class="btn-cerrar">
+                    <span class="material-icons-sharp">
+                        close
+                    </span>
+                </button>
+            </div>-->
+        </div>
     </main>
     <footer>
         <div class="contenido-footer">
@@ -129,6 +211,14 @@
         <div class="espaciado-footer">
         </div>
     </footer>
+    <div class="overlay">
+        <div class="loader">
+            <div class="inner one"></div>
+            <div class="inner two"></div>
+            <div class="inner three"></div>
+        </div>
+    </div>
     <script src="assets/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
