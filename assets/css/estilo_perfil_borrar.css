@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-@import url('./modulos/modulo_cargando.css');
 :root{
     /*estilo cuerpo total*/
     --color-body: rgb(240,242,245);
@@ -156,14 +155,13 @@ main{
 .contenido_opciones nav a{
     display: flex;
     align-items: center;
-    justify-content: center;
     position: relative;
     color: var(--color-parrafo-contenido);
     text-decoration: none;
     padding: 0 5px;
     transition: .5s;
 }
-.contenido_opciones nav a:first-child {
+.contenido_opciones nav a:nth-child(3) {
     font-weight: bold;
     color: rgb(151,194,30);
 }
@@ -206,73 +204,17 @@ main{
     align-items: center;/*centrar verticalmente*/
     transition: background 0.5s;
 }
-.user-photo-container {
-    position: relative;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-top: 2rem;
-    margin-bottom: 4rem;
-    overflow: hidden;
-}
-.update-photo{
-    position: absolute;
+.user-info-container{
     width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.5);
-    opacity: 1;
     display: flex;
-    justify-content: center;
     align-items: center;
-    opacity: 0;
-    color: white;
-    transition: opacity 0.3s ease;
-}
-.update-photo:hover{
-    opacity: 1;
-}
-.upload-input{
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    opacity: 0; /* Hacer el input invisible */
-    cursor: pointer;
-}
-
-.user-photo {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    transition: opacity 0.3s ease; /* Transición suave para el efecto de opacidad */
-}
-
-form{
-    width: 100%;
+    justify-content: center;
+    gap: 4rem;
 }
 .Datos{
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2,calc(50% - 1rem));
-    grid-template-rows: repeat(4,1fr);
-    gap: 2rem;
-}
-.form-group{
     display: flex;
     flex-direction: column;
-}
-.form-group label{
-    color: var(--color-titulo-contenido);
-}
-.form-group input, .form-group select{
-    padding: 10px;
-    border: none;
-    background: #F2F2F2;
-    font-size: 16px;
-    outline: none;
-    border-radius: 10px;
+    color: var(--color-parrafo-contenido);
 }
 /*Toast*/
 .contenedor-toast{
@@ -400,32 +342,13 @@ form button:hover{
     background: var(--color-fondo-boton);
     color: var(--color-titulo-form);
 }
-.user-info-container{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.biografia{
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    width: 100%;
-}
-.biografia textarea {
-    background: #F2F2F2;
-    width: 100%;
-    height: 100px;
-    border-radius: 10px;
-    padding: 10px;
-    resize: none;
-}
-@media screen and (max-width: 500px){
-    .contenido{
+@import url('./modulos/modulo_notificacion.css');
+@media screen and (max-width: 600px){
+    /*.contenido{
         margin-top: 1rem;
         margin-bottom: 1rem;
         padding: 1rem;
-    }
+    }*/
     .contenido_opciones nav{
         margin-bottom: 1rem;
     }
@@ -435,17 +358,15 @@ form button:hover{
     .contenido_opciones h2{
         font-size: 1.5rem;
     }
-    .user-photo-container {
-        margin-top: 1rem;
-        margin-bottom: 2rem;
+    .user-info-container{
+        flex-direction: column;
+        gap: 2rem;
     }
     .Datos{
-        grid-template-columns: 100%;
-        grid-template-rows: repeat(7,1fr);
-        gap: 1rem;
+        color: var(--color-parrafo-contenido);
+        align-items: center;
     }
-    .biografia{
-        margin-top: 1rem;
-        margin-bottom: 1rem;
+    .Datos p{
+        text-align: center
     }
 }

@@ -232,7 +232,7 @@ function Inisesion(){
                 button_registro_cliente.disabled = false; // Habilita el botón nuevamente
             }
         });
-        contenedorToast.addEventListener('click', manejarClickToast);
+        manejarClickToast(contenedorToast);
     });
 }
 function Sobre_nosotros(){
@@ -318,36 +318,99 @@ function Blog(){
         aside.classList.remove("mostrar-sidebar");
     });
 }
-function Perfil_editar(){
-    import('./modulo_notificacion.js').then(({agregarToast, manejarClickToast }) => {
-        const contenedorToast=document.getElementById('contenedor-toast');
-        document.querySelector('.upload-input').addEventListener('change', async function () {
-            const form = document.querySelector('.user-photo-container');
-            const userPhoto = document.querySelector('.user-photo');
-            const formData = new FormData(form);
-            try {
-                const response = await fetch('./php/upload_photo.php', {
-                    method: 'POST',
-                    body: formData
-                });
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const result = await response.json();
-                if (result.success) {
-                    setTimeout(function() {
-                        userPhoto.src = result.photo_url;
-                    }, 2000); // 2000 milisegundos = 2 segundos
-                    agregarToast({tipo:'exito',titulo:'Registro Exitoso!',descripcion:result.message,autoCierre:true},contenedorToast)
-                } else {
-                    agregarToast({tipo:'warning',titulo:'Advertencia!',descripcion:result.message,autoCierre:true},contenedorToast)
-                }
-            } catch (error) {
-                agregarToast({tipo:'error',titulo:'Error!',descripcion:'No se pudo conectar con el servidor',autoCierre:true},contenedorToast)
+async function Perfil_editar() {
+    const contenedorToast = document.getElementById('contenedor-toast');
+    const cargando = document.querySelector('.overlay');
+    cargando.style.display = 'flex';
+    //Declaramos los elementos select de pais y ciudad
+    const paisSelect = document.getElementById('pais');
+    const ciudadSelect = document.getElementById('ciudad');
+    const generoSelect = document.getElementById('genero');
+    const fecha_nacimientoSelect = document.getElementById('fecha_nacimiento');
+    const biografiaSelect = document.getElementById('biografia');
+
+    const { agregarToast, manejarClickToast } = await import('./modulo_notificacion.js');
+    document.querySelector('.upload-input').addEventListener('change', async function () {
+        const form = document.querySelector('.user-photo-container');
+        const userPhoto = document.querySelector('.user-photo');
+        const formData = new FormData(form);
+        try {
+            const response = await fetch('./php/upload_photo.php', {
+                method: 'POST',
+                body: formData
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-        });
-        manejarClickToast(contenedorToast);
+            const result = await response.json();
+            if (result.success) {
+                setTimeout(function() {
+                    userPhoto.src = result.photo_url;
+                }, 2000); // 2000 milisegundos = 2 segundos
+                agregarToast({tipo:'exito',titulo:'Registro Exitoso!',descripcion:result.message,autoCierre:true},contenedorToast)
+            } else {
+                agregarToast({tipo:'warning',titulo:'Advertencia!',descripcion:result.message,autoCierre:true},contenedorToast)
+            }
+        } catch (error) {
+            agregarToast({tipo:'error',titulo:'Error!',descripcion:'No se pudo conectar con el servidor',autoCierre:true},contenedorToast)
+        }
     });
+    // Obtener el nombre de todos los países e insertarlos
+    const {llenarSelectPaises} = await import('./modulo_obtener-paises.js');
+    //Esto ingresara los datos de los paises en el select con id pais
+    llenarSelectPaises(paisSelect)//El await es cuando estamos esperando una promesa o resultado
+
+    // Función para obtener las ciudades del país seleccionado
+    const {llenarSelectCiudades} = await import('./modulo_obtener-ciudades.js');
+    // Envolver la llamada en una función async y ejecutarla
+    paisSelect.addEventListener('change', () => {
+        llenarSelectCiudades(ciudadSelect, paisSelect,cargando,datos_usuario);
+    });
+
+
+
+    const {obtener_datos_usuario} = await import('./modulo_actualizar-formulario-cliente.js');
+    const [datos_usuario, lanzar_evento_pais] = await obtener_datos_usuario(agregarToast,manejarClickToast,contenedorToast); // Asegúrate de que esta función devuelve una Promesa si es asíncrona
+    if (lanzar_evento_pais){
+        paisSelect.value = datos_usuario.pais;
+        generoSelect.value = datos_usuario.genero;
+        biografiaSelect.value = datos_usuario.biografia;
+        console.log(datos_usuario.biografia)
+        fecha_nacimientoSelect.value = datos_usuario.nacimiento;
+        // Crear y disparar el evento 'change'
+        await llenarSelectCiudades(ciudadSelect, paisSelect,datos_usuario);
+        ciudadSelect.value = datos_usuario.ciudad;
+        cargando.style.display = 'none';
+    }
+    document.querySelector('.user-info-container').addEventListener('submit', async function (event) {
+        event.preventDefault(); // Evita el envío normal del formulario
+        const button_registro_cliente = this.querySelector('button[type="submit"]');
+        button_registro_cliente.disabled = true; // Deshabilita el botón
+        const formData = new FormData(this);
+        try {
+            const response = await fetch('./php/modulo_actualizar-datos-cliente.php', {
+                method: 'POST',
+                body: formData
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const result = await response.json();
+            if (result.success===0) {
+                agregarToast({tipo:'error',titulo:'Error!',descripcion:'No se pudo conectar con el servidor',autoCierre:true},contenedorToast)
+            }else if (result.success===1) {
+                agregarToast({tipo:'exito',titulo:'Registro Exitoso!',descripcion:result.message,autoCierre:true},contenedorToast)
+            } else {
+                agregarToast({tipo:'info',titulo:'Ojito!',descripcion:result.message,autoCierre:true},contenedorToast)
+            }
+        } catch (error) {
+            agregarToast({tipo:'error',titulo:'Error!',descripcion:'No se pudo conectar con el servidor',autoCierre:true},contenedorToast)
+        }finally {
+            button_registro_cliente.disabled = false; // Habilita el botón nuevamente
+        }
+    });
+    //Para cerrar las notificaciones
+    manejarClickToast(contenedorToast);
 }
 function Perfil_ajustes(){
     const contenedorToast=document.getElementById('contenedor-toast');
@@ -384,8 +447,34 @@ function Perfil_ajustes(){
                 }else{
                     agregarToast({tipo:'warning',titulo:'Advertencia!',descripcion:'Las claves ingresadas deben ser iguales',autoCierre:true},contenedorToast)
                 }
-
             });
+        });
+        manejarClickToast(contenedorToast);
+    });
+};
+function Perfil_borrar(){
+    const contenedorToast=document.getElementById('contenedor-toast');
+    import('./modulo_notificacion.js').then(({agregarToast, manejarClickToast }) => {
+        document.querySelector('.user-info-container').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Previene el envío por defecto del formulario
+            const formData = new FormData(this);
+            try {
+                const response = await fetch('./php/eliminar_cuenta.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                if (result.success) {
+                    agregarToast({tipo:'exito',titulo:'Eliminación exitosa!',descripcion:result.message,autoCierre:true},contenedorToast)
+                } else {
+                    agregarToast({tipo:'error',titulo:'Ocurrio un problema!',descripcion:result.message,autoCierre:true},contenedorToast)
+                }
+            } catch (error) {
+                agregarToast({tipo:'error',titulo:'Error!',descripcion:'No se pudo conectar con el servidor',autoCierre:true},contenedorToast)
+            }
         });
         manejarClickToast(contenedorToast);
     });
@@ -432,6 +521,8 @@ document.addEventListener('DOMContentLoaded', function() {
         Perfil_editar();
     } else if (document.documentElement.classList.contains('Perfil_ajustes')) {
         Perfil_ajustes();
+    } else if (document.documentElement.classList.contains('Perfil_borrar')) {
+        Perfil_borrar();
     }
 
     // Ejecutar código común a todas las páginas

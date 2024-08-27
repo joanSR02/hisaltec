@@ -94,7 +94,7 @@ li{
 .hero_1 .logo{
     display: flex;
     justify-content: center;
-    height: 50px;
+    height: 40px;
     width: auto;
 }
 .contenedor{
@@ -405,32 +405,25 @@ form button:hover{
     color: var(--color-parrafo-contenido);
 }
 @import url('./modulos/modulo_notificacion.css');
-@media screen and (max-width: 850px){
-    .hero_1 .logo{
-        height: 40px;
-        width: auto;
+@media screen and (max-width: 600px){
+    /*.contenido{
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        padding: 1rem;
+    }*/
+    .contenido_opciones nav{
+        margin-bottom: 1rem;
     }
-    main{
-        height: 900px;
+    .contenido_opciones nav a{
+        font-size: 0.8rem;
     }
-    .contenedor__main{
-        justify-content: center;
+    .contenido_opciones h2{
+        font-size: 1.5rem;
     }
-    .caja__trasera{
-        max-width: 300px;
-        flex-direction: column;
-        gap: 40px;
-    }
-    .caja__trasera div{
-        margin: 100px 10px;
-    }
-    .contenedor__login-register{
-        left: 0;
-        top: -180px;
-        max-width: 320px;
-    }
-    .contenedor__login-register.active{
-        left: 0;
-        top: 150px;
+    .Datos{
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr;
+        gap: 1rem;
+        /*margin-bottom: 1rem;*/
     }
 }

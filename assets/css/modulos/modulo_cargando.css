@@ -1,0 +1,81 @@
+/*Carga de la pagina*/
+/* Overlay oscuro para desactivar la interacción */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8); /* Fondo oscuro con opacidad */
+    z-index: 999; /* Asegúrate de que esté detrás del loader */
+}
+
+/* Estilo del loader */
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    perspective: 800px;
+}
+
+/* Estilo de los elementos internos del loader */
+.inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.inner.one {
+    left: 0;
+    top: 0;
+    animation: rotate-one 1s linear infinite;
+    border-bottom: 3px solid #efeffa;
+}
+
+.inner.two {
+    left: 0;
+    top: 0;
+    animation: rotate-two 1s linear infinite;
+    border-bottom: 3px solid #efeffa;
+}
+
+.inner.three {
+    left: 0;
+    bottom: 0;
+    animation: rotate-three 1s linear infinite;
+    border-bottom: 3px solid #efeffa;
+}
+
+/* Animaciones */
+@keyframes rotate-one {
+    0% {
+        transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+    }
+}
+
+@keyframes rotate-two {
+    0% {
+        transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+    }
+}
+
+@keyframes rotate-three {
+    0% {
+        transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+    }
+}

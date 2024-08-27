@@ -35,7 +35,7 @@
             <nav>
                 <a href="#"><span class="material-icons-sharp">edit</span>Editar perfil<span class="indicador"></span></span></a>
                 <a href="./perfil_ajustes.php"><span class="material-icons-sharp">settings</span>Ajustes de cuenta<span class="indicador"></span></a>
-                <a href="#"><span class="material-icons-sharp">delete</span>Borrar cuenta<span class="indicador"></span></a>
+                <a href="./perfil_borrar.php"><span class="material-icons-sharp">delete</span>Borrar cuenta<span class="indicador"></span></a>
             </nav>
             <h2>Editar perfil</h2>
         </section>
@@ -82,7 +82,7 @@
                     <img src=' . htmlspecialchars($image_src) . ' alt="Foto de usuario" class="user-photo">
                 </form>';
             ?>
-            <form class="user-info-container" action="/ruta-del-servidor" method="post" enctype="multipart/form-data">
+            <form class="user-info-container" method="post" enctype="multipart/form-data">
                 <div class="Datos">
                     <div class="form-group">
                         <label for="nombre">Nombre(s)</label>
@@ -96,18 +96,22 @@
                 
                     <div class="form-group">
                         <label for="ciudad">Ciudad</label>
-                        <input type="text" id="ciudad" name="ciudad" value="Lima">
+                        <select id="ciudad" name="ciudad">
+                            <option value="">-Seleccionar Ciudad-</option>
+                        </select>
                     </div>
                 
                     <div class="form-group">
                         <label for="pais">¿Cuál es tu país?</label>
-                        <input type="text" id="pais" name="pais" value="Perú">
+                        <select id="pais" name="pais">
+                            <option value="">-Seleccionar País-</option>
+                        </select>
                     </div>
                 
                     <div class="form-group">
                         <label for="genero">Género</label>
                         <select id="genero" name="genero">
-                            <option value="">-Seleccionar-</option>
+                            <option value="">-Seleccionar Genero-</option>
                             <option value="masculino">Masculino</option>
                             <option value="femenino">Femenino</option>
                             <option value="otro">Optimus Prime</option>
@@ -115,8 +119,8 @@
                     </div>
                 
                     <div class="form-group">
-                        <label for="fecha-nacimiento">Fecha de nacimiento</label>
-                        <input type="date" id="fecha-nacimiento" name="fecha-nacimiento" value="2024-01-01">
+                        <label for="fecha_nacimiento">Fecha de nacimiento</label>
+                        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<?php echo htmlspecialchars($usuario['nacimiento'], ENT_QUOTES, 'UTF-8'); ?>">
                     </div>
                 
                     <div class="form-group">
@@ -134,6 +138,13 @@
         <div class="contenedor-toast" id="contenedor-toast">
         </div>
     </main>
+    <div class="overlay">
+        <div class="loader">
+            <div class="inner one"></div>
+            <div class="inner two"></div>
+            <div class="inner three"></div>
+        </div>
+    </div>
     <script src="assets/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
