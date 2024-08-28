@@ -445,7 +445,7 @@ function Perfil_ajustes(){
                         agregarToast({tipo:'error',titulo:'Error!',descripcion:'No se pudo conectar con el servidor',autoCierre:true},contenedorToast)
                     }
                 }else{
-                    agregarToast({tipo:'warning',titulo:'Advertencia!',descripcion:'Las claves ingresadas deben ser iguales',autoCierre:true},contenedorToast)
+                    agregarToast({tipo:'warning',titulo:'Advertencia!',descripcion:'La "Contraseña nueva" y la validación de la contraseña nueva deben ser iguales',autoCierre:true},contenedorToast)
                 }
             });
         });

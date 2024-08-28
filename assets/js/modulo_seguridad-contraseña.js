@@ -18,7 +18,7 @@ function validarContraseña(contraseña) {/*Validación de seguridad de contrase
     return cantidadRequisitos;
 }
 export function seguridadContraseña() {
-    document.getElementById('contraseña').addEventListener('input', (e) => {
+    document.getElementById('contraseñaNueva').addEventListener('input', (e) => {
     //document.getElementById('contraseña').addEventListener('input', function () {
         /*const contraseña = this.value;Obtiene el valor actual del campo (input) de contraseña por el que se activo el evento*/
         const contraseña = e.target.value;

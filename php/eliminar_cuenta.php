@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt->execute()) {
         if ($stmt->affected_rows > 0) {
             echo json_encode(['success' => true, 'message' => 'Usuario eliminado con exito']);
+            session_destroy();
         } else {
             echo json_encode(['success' => false, 'message' => 'No se encontró una fila con el ID especificado']);
         }

@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+:root{
+    /*estilo cuerpo total*/
+    --color-body: rgb(240,242,245);
+    --color-contenido: rgb(255,255,255);
+    --color-titulo-contenido: rgb(5,5,29);
+    --color-parrafo-contenido: rgb(58,59,60);
+    --color-fondo-icono: rgb(228,230,235);
+    --color-icono-volver: rgb(5,5,5);
+    --color-fondo-hover-icono: rgb(216,218,223);
+    --color-icono: rgb(132,132,132);
+    --color-fondo-form: rgb(132,132,132);
+    --color-titulo-form: rgb(228,230,223);
+    --color-borde-boton: 2px solid rgb(132,132,132);
+    --color-fondo-boton: rgb(132,132,132);
+    /*estilos encabezado*/
+    --color-fondo-hero_1:rgb(255,255,255);
+    /*Estilo switch*/
+    --color-switch-base :rgb(201,202,206);
+    --color-switch-circulo:rgb(241,241,241);
+    /*alarma*/
+    --exito: #3ab65c;
+	--error: #bf333b;
+	--info: #1898c0;
+	--warning: #bc8c12;
+	--exito-hover: #2d8a46;
+	--error-hover: #962a31;
+	--info-hover: #147fa0;
+	--warning-hover: #9b7512;
+}
+.dark-mode{
+    /*estilo cuerpo total*/
+    --color-body: rgb(24,25,26);
+    --color-contenido: rgb(36,37,38);
+    --color-titulo-contenido: rgb(228,230,223);
+    --color-parrafo-contenido: rgb(212,212,212);
+    --color-fondo-icono: rgb(58,59,60);
+    --color-icono: rgb(132,132,132);
+    --color-fondo-hover-icono: rgb(78,79,80);
+    --color-icono-volver: rgb(228,230,235);
+    --color-fondo-form: rgb(255,255,255);
+    --color-titulo-form: rgb(5,5,29);
+    --color-borde-boton: 2px solid rgb(255,255,255);
+    --color-fondo-boton: rgb(255,255,255);
+    /*estilos encabezado*/
+    --color-fondo-hero_1:rgb(36,37,38);
+    /*Estilo switch*/
+    --color-switch-base :rgb(39,205,64);
+    --color-switch-circulo:rgb(255,255,255);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    appearance: 0;
+    border: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    width: 100%;
+    background-color: var(--color-body);
+}
+html{
+    font-size: 16px;
+}
+li{
+    list-style-type: none;/*elimina los marcadores como puntos*/
+}
+/**********hero_1**********/
+.hero_1{
+    background-color: var(--color-fondo-hero_1);
+    width: 100%;
+    transition: background 0.5s;
+    padding: 0.2rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.hero_1 a{
+    padding: 5px 10px;
+    border-radius:25px;
+    background-color: var(--color-fondo-icono);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--color-icono-volver);
+}
+.hero_1 a:hover{
+    background-color: var(--color-fondo-hover-icono);
+}
+.hero_1 .logo{
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    width: auto;
+}
+.contenedor{
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 95%;
+    align-items: center;/*Centrar verticalmente los elementos de contenedor*/
+    justify-content: space-between;
+}
+/*--->switch*/
+.hero_1 .modo-oscuro .switch{/*el switch esta en el bloque de modo oscuro*/
+    display: flex;/*display flex para que los hijos bloque se coloque horizontalmente*/
+    align-items: center;/*centraremos horizontalmente los elementos hijos*/
+    justify-content: center;/*centraremos verticalmente los elementos hijos(solo esta base)*/
+    min-width: 50px;/*el ancho minimo sera de 45 pixeles*/
+    cursor: pointer;/*cuando el cursor este sobre este elemento pasara a ser un puntero*/
+}
+.hero_1 .modo-oscuro .base{
+    position: relative;/*tendra position relative porque estarea en su posicion normal respecto a la posicion del documento, ademas esto me permite decir que el bloque hijo se posicione respecto a este bloque padre, la verdad no habria diferencia entre que sea position absolute o position relative en este caso porque el elemento que se posicionara sobre este es el hijo*/
+    display: flex;/*display flex para poder centrar su elemento hijo horizontalmente*/
+    align-items: center;
+    width: 35px;/*el switch tendra un ancho de 35 pixeles*/
+    height: 20px;/*el switch tendra un alto de 20 pixeles*/
+    background-color: var(--color-switch-base);/*el color de fondo del switch*/
+    border-radius: 50px;/*el radio de los bordes*/
+}
+.hero_1 .modo-oscuro .circulo{/*es el circulo del */
+    position: absolute;/*se posicionara sobre el ultimo elemento posicionado*/
+    width: 18px;/*el ancho del circulo sera 18 pixeles*/
+    height: 90%;/*el alto del circulo sera el 90% del alto del contenedor padre*/
+    background-color: var(--color-switch-circulo);/*el color de fondo del circulo*/
+    border-radius: 50%;/*el radio sera del 50% del lado mas largo del bloque*/
+    left: 2px;/*un desplazamiento de izquierda a derecha de 2 pixeles*/
+    transition: left 0.5s ease;/*transicion de left*/
+}
+.modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor*/
+    left: 15px;
+}
+/*main*/
+main {
+    height: calc(100vh - 150px); /* Altura del main ajustada */
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+}
+
+main div {
+    width: 100%; /* O el ancho que prefieras */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar horizontalmente */
+    justify-content: center; /* Centrar verticalmente */
+    position: relative;
+}
+main div h1{
+    color: var(--color-titulo-contenido);
+    font-size: 4rem;
+    font-weight: bold;
+}
+main div img{
+    margin: 1rem 0;
+}
+main div h2{
+    font-size: 3rem;
+    font-weight:bold;
+    position: absolute;
+    top: 26rem;
+    color: #000; /* Color del texto, puede ser cualquier color */
+    text-shadow: 2px 2px 7px rgba(255, 255, 255, 0.5); /* Sombra blanca con opacidad */
+}
+main div p{
+    color: var(--color-parrafo-contenido);
+    font-size: 2rem;
+    font-weight:lighter;
+    text-align: center;
+}
+@media screen and (max-width: 600px){
+    main div h1{
+        font-size: 2rem;
+    }
+    main div img{
+        height: 300px;
+    }
+    main div h2{
+        font-size: 2rem;
+        top: 15rem;
+    }
+    main div p{
+        font-size: 0.9rem;
+    }
+}

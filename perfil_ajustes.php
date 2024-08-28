@@ -1,6 +1,15 @@
 <?php
-    session_start();
+    include('auth.php');
     include 'php/conexion_bd.php';
+    $stmt = $conexion->prepare("SELECT correo FROM clientes WHERE id = ?");
+    if ($stmt === false) {
+        echo 'Error en la preparación de la consulta';
+        exit();
+    }
+    $stmt->bind_param("i", $_SESSION['usuario_id']);
+    $stmt->execute();
+    $datos_usuario = $stmt->get_result();
+    $usuario  = $datos_usuario->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="es" class="Perfil_ajustes">
@@ -16,7 +25,7 @@
     <header>
         <div class="hero_1">
             <div class="contenedor">
-                <a href="./index.html"><span class="material-icons-sharp">keyboard_return</span><span class="texto-sidebar">Volver</span></a>
+                <a href="./index.php"><span class="material-icons-sharp">keyboard_return</span><span class="texto-sidebar">Volver</span></a>
                 <div class="logo">
                     <img src="./assets/images/logo.png" alt="Logo" >
                 </div>
@@ -43,14 +52,22 @@
             <form class="user-info-container" method="post" enctype="multipart/form-data">
                 <div class="Datos">
                     <div class="form-group">
-                        <label for="contraseña">Contraseña</label>
-                        <input type="password" id="contraseña" name="contraseña">
+                        <h3>Correo electrónico</h3>
+                        <p><?php echo htmlspecialchars($usuario['correo'], ENT_QUOTES, 'UTF-8'); ?></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="contraseñaAnterior">Contraseña anterior</label>
+                        <input type="password" id="contraseñaAnterior" name="contraseñaAnterior" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contraseñaNueva">Contraseña nueva</label>
+                        <input type="password" id="contraseñaNueva" name="contraseñaNueva" required>
                         <div id="feedback"></div>
                         <div id="barra-seguridad" class="barra-seguridad"></div>
                     </div>
                     <div class="form-group">
-                        <label for="validarContraseña">Repetir contraseña</label><!--for se refiere a la contraseña-->
-                        <input type="password" id="validarContraseña" name="validarContraseña">
+                        <label for="validarContraseñaNueva">Repetir contraseña nueva</label><!--for se refiere a la contraseña-->
+                        <input type="password" id="validarContraseñaNueva" name="validarContraseña" required>
                     </div>
                 </div>
                 <button type="submit">Guardar</button>
@@ -64,5 +81,6 @@
 </body>
 </html>
 <?php
+    $stmt->close();
     mysqli_close($conexion);
 ?>
