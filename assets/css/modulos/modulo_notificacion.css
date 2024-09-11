@@ -109,3 +109,24 @@
         width: 0%;
     }
 }
+@media screen and (max-width: 850px){
+    .contenedor-toast {
+        position: fixed;
+        left: 50%; /* Centra horizontalmente */
+        transform: translateX(-50%); /* Asegura el centrado correcto */
+        bottom: 10px;
+        width: 100%;
+        max-width: 300px;
+        gap: 10px;
+    }
+    .contenedor-toast.registrarse {
+        position: fixed;
+        top: 10px;  /*Coloca el contenedor en la parte superior */
+        left: 50%; /* Centra horizontalmente */
+        transform: translateX(-50%); /* Asegura el centrado correcto */
+        bottom: auto; /* Resetea cualquier valor de bottom previo */
+        width: 100%;
+        max-width: 300px;
+        gap: 10px;
+    }
+}

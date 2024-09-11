@@ -73,6 +73,15 @@
     /*Estilo del menu usuario*/
     --color-menu-usuario: rgba(57,57,58, 0.95);
     --color-texto-menu-usuario: rgb(228,230,235);
+
+    /*Estilo de productos*/
+    --color-fondo-producto: rgb(255,255,255);
+    --color-fondo-icono-producto: rgb(228,230,235);
+    --color-icono-producto: rgb(5,5,5);
+    /*--color-borde-producto: rgb(225,225,225);*/
+    --color-sombreado-producto: 0 4px 8px rgba(0, 0, 0, 0.2);
+    --color-borde-icono-producto: rgb(5,5,5);
+    --color-texto-informacion_producto: rgb(5,5,5);
 }
 .dark-mode{
     /*estilo cuerpo total*/
@@ -122,6 +131,15 @@
     /*Estilo del menu usuario*/
     --color-menu-usuario: rgba(200, 200, 200, 0.95);
     --color-texto-menu-usuario: rgb(5,5,5);
+    /*Estilo de productos*/
+    --color-fondo-producto: rgb(36,37,38);
+    /*--color-fondo-producto: rgb(255,255,255);*/
+    --color-fondo-icono-producto: rgb(58,59,60);
+    --color-icono-producto: rgb(228,230,235);
+    /*--color-borde-producto: rgb(24,25,26);*/
+    --color-sombreado-producto: 0 4px 8px rgba(200, 200, 200, 0.2);
+    --color-borde-icono-producto: rgb(228,230,235);
+    --color-texto-informacion_producto: rgb(228,230,235);
 }
 
 *{
@@ -787,6 +805,34 @@ aside .modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor
     text-decoration: none;
     display: block;
 }
+.user-menu_aside {
+    position: relative;
+}
+.user-menu_aside span{
+    cursor: pointer;
+}
+.dropdown-content_aside {
+    position: absolute;
+    bottom: 25px; /* Ubicación inicial */
+    left: 0px;
+    background-color: var(--color-menu-usuario);
+    width: 120px;
+    border-radius: 10px;
+    overflow: hidden;
+    max-height: 0; /* Ocultamos el menú inicialmente */
+    z-index: 1;
+    transition: max-height 0.4s ease-out;/*cuando la propiedad max-height cambie, este aplicara una animacion de 0.4s con una curva de desaeleración, primero rapido, luego lento*/
+}
+.dropdown-content_aside.show {
+    max-height: 120px; /* Altura máxima del menú */
+}
+.dropdown-content_aside a {
+    color: var(--color-texto-menu-usuario);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
 
 
 
@@ -913,7 +959,7 @@ aside{
     justify-content: space-between;/*los elementos estaran separados */
     width: 250px;/*es el ancho del bloque*/
     height: 100vh;/*la altura es el 100% del body*/
-    overflow: hidden;/*si algo sobrepasas estas dimensiones se ocultará*/
+    /*overflow: hidden;si algo sobrepasas estas dimensiones se ocultará*/
     padding: 20px 15px;/*tendrá un padding de 20px para el alto y bajo y 15px para los laterales*/
     background-color: var(--color-barra-lateral);/*es el color de fondo de la barra lateral*/
     transition: width 0.5s ease,background-color 0.3s ease,left 0.5s ease;/*tendra una transición de ancho, de color de fondo y cuando la posición horizontal desde la izquierda cambia tendran un tiempo de transición*/
@@ -936,7 +982,7 @@ aside .texto-sidebar{
 aside .navegacion{
     height: 100%;/*Tendra todo el alto disponible*/
     overflow-y: auto;/*para que cuando el contenido sobrepase el ancho se genere una barra deslizante vertical o scroll vertical*/
-    overflow-x: hidden;/*suando el contenido sobrepase el ancho se oculte*/
+    overflow-x: hidden;/*cuando el contenido sobrepase el ancho se oculte*/
 }
 aside .navegacion::-webkit-scrollbar{/*Este pseudo-elemento específico de WebKit (motor utilizado por navegadores como Chrome y Safari) selecciona la barra de desplazamiento del elemento.*/
     width: 5px;/*El ancho de la barra de desplazamiento sera de 5 pixeles*/
@@ -1051,7 +1097,7 @@ aside .usuario .info-usuario{/*es la info del usuario*/
     align-items: center;/*los bloques hijos se centraran horizontalmente*/
     justify-content: space-between;/*los bloques hijos estaran espaciados entre si lo maximo posible*/
     color: var(--color-texto);/*color del texto y del icono de la info del usuario*/
-    overflow: hidden;/*si algo sobrepasa el bloque se oculta*/
+    /*overflow: hidden;si algo sobrepasa el bloque se oculta*/
 }
 aside .usuario .nombre-email{
     width: 100%;
@@ -1072,6 +1118,221 @@ aside .usuario .email{
 }
 aside .usuario .material-icons-sharp{
     font-size: 20px;
+}
+
+.Productos-destacados{
+    width: 95%;
+    max-width: 1200px;
+    margin: 0.5rem auto;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;/*centrar horizontalmente*/
+    flex-direction: column;
+    align-items: center;/*centrar verticalmente*/
+}
+.Productos-destacados .titulo{
+    margin-right: auto;
+    color: var(--color-titulo-contenido);
+    font-size: 1.5rem;
+}
+.flecha-grid_productos_destacados{
+    margin-top: 2rem;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;/*centrar verticalmente*/
+}
+.grid_productos_destacados{/*El grupo de productos destacados sera un display grid lo cual nos permitira poner los productos en recuadros*/
+    display: grid;/*Declaro que el display es de tiupo grid*/
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;/*declaro el numero de columnas y la porcion que tendra cada una*/
+    gap: 2px;
+}
+.grid_productos_destacados .producto {
+    display: grid;/*aqui pongo display grid para separar la imagen del contenido*/
+    grid-template-columns: 1fr;/*solo tendra una columna*/
+    grid-template-rows: 2fr 1fr;/*tendremos 2 filas, una de la imagen y otra del contenido, donde la imagen sera el dobre de alto que el contenido*/
+    /*border: 1px solid var(--color-borde-producto);borde*/
+    max-width: 220px;
+    max-height: 300px;
+    padding: 10px;/*espaciado entre el contenido y el elemento de cada producto*/
+    transition: transform 0.2s ease-in-out, 
+            box-shadow 0.2s ease-in-out, 
+            border-top-left-radius 0.2s ease-in-out, 
+            border-top-right-radius 0.2s ease-in-out;
+    /*se utiliza para aplicar un efecto de transición suave a los cambios en la propiedad transform de un elemento, la duracion de la transicion sera 3 segundos y la transicion comienza lento , cuego acelera y se desacelera al final*/
+    background-color: var(--color-fondo-producto);
+    color: var(--color-texto-informacion_producto);
+}
+.grid_productos_destacados .producto:hover {
+    transform: scale(1.05) translateY(-10px);/*En conjunto, transform: scale(1.05) translateY(-10px); hará que el elemento se agrande un 5% y se desplace 10 píxeles hacia arriba, creando un efecto de resalte y elevación del elemento*/
+    /*Modifica el elemento: Cambia la apariencia o posición del elemento de manera inmediata, sin animación por sí sola*/
+    /*Añade animación: Se utiliza para suavizar los cambios de una propiedad, controlando la duración, el momento y la aceleración de la transición*/
+    box-shadow: var(--color-sombreado-producto);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+.grid_productos_destacados .imagen_producto{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    max-height: 100%;
+}
+.grid_productos_destacados .imagen_producto img {
+    max-width: 100%;/*la imagen tendra un ancho maximo del 100% del ancho del contenedor*/
+    max-height: 100%;/*la imagen tendra un alto maximo del 100% del alto del contenedor*/
+    object-fit: contain;  /* Ajusta la imagen dentro del contenedor sin distorsionarla */
+}
+.informacion_producto {/*el texto del elemento informacion_producto se centrara y mantendra una distancia de 10px respecto a la imagen*/
+    text-align: center;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.informacion_producto a{
+    color: var(--color-texto-informacion_producto);
+}
+.precio_producto {
+    font-size: 1.2em;
+}
+
+.opciones_producto{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+.opciones_producto .icono_opcion_producto {
+    position: relative;
+    cursor: pointer;
+    color: var(--color-icono-producto);
+}
+.opciones_producto .icono_opcion_producto:first-child {
+    width: 100%;
+    padding-right: auto;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.opciones_producto .icono_opcion_producto:not(:first-child):not(:last-child) {
+    width: 100%;
+    padding: 0 auto;
+    border-left: 1px solid var(--color-borde-icono-producto);
+    border-right: 1px solid var(--color-borde-icono-producto);
+}
+.opciones_producto .icono_opcion_producto:last-child {
+    width: 100%;
+    padding-left: auto;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.opciones_producto .icono_opcion_producto:hover{
+    background-color: var(--color-fondo-icono-producto);
+}
+.flechas{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.flechas .prev_flecha, .flechas .next_flecha{/*estan con # porque se pusieron como id*/
+    width: 40px;/*los botones de prev y next tendrán un ancho de 40 pixeles*/
+    height: 40px;/*los botones de prev y next tendrán un alto de 40 pixeles*/
+    border-radius: 50%;/*los botones de prev y next tendrán un borde circular del 50% del borde más pequeño del bloque*/
+    font-family: monospace;/* indica al navegador que utilice una fuente de espaciado fijo donde cada carácter tiene el mismo ancho, ideal para mostrar código, datos tabulares o para lograr efectos visuales específicos. Esto nos asegura que el caracter prev y next tengan el mismo ancho*/
+    border: 1px solid #5555;/*el boton tendra un ancho de 11 pixel*/
+    font-size: large;/*se aplica un tamaño de fuente más grande que el tamaño predeterminado o normal del navegador.*/
+    bottom: 20%;/*esta posicionado a un 20% de la altura del bloque padre*/
+    left: 10%;/*esta posicionado con left 10%, osea de izquierda a derecha un 10 % dek bloque padre*/
+    cursor: pointer;
+}
+.prev_flecha-productos_destacados {
+    pointer-events: none;
+    cursor: default;
+}
+/*Carga de la pagina*/
+/* Overlay oscuro para desactivar la interacción */
+.overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Fondo oscuro con opacidad */
+    z-index: 999; /* Asegúrate de que esté detrás del loader */
+}
+
+/* Estilo del loader */
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    perspective: 800px;
+}
+
+/* Estilo de los elementos internos del loader */
+.inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.inner.one {
+    left: 0;
+    top: 0;
+    animation: rotate-one 1s linear infinite;
+    border-bottom: 3px solid #efeffa;
+}
+
+.inner.two {
+    left: 0;
+    top: 0;
+    animation: rotate-two 1s linear infinite;
+    border-bottom: 3px solid #efeffa;
+}
+
+.inner.three {
+    left: 0;
+    bottom: 0;
+    animation: rotate-three 1s linear infinite;
+    border-bottom: 3px solid #efeffa;
+}
+
+/* Animaciones */
+@keyframes rotate-one {
+    0% {
+        transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+    }
+}
+
+@keyframes rotate-two {
+    0% {
+        transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+    }
+}
+
+@keyframes rotate-three {
+    0% {
+        transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+    }
 }
 @media screen and (max-width: 1200px){/*solo se aplicará cuando la pantalla del dispositivo tenga un ancho máximo de 1200 píxeles*/
     /* ipad, tablets */
@@ -1124,5 +1385,8 @@ aside .usuario .material-icons-sharp{
         display: flex;
         width: max-content;/*se utiliza para ajustar el ancho de un elemento al máximo tamaño posible requerido por su contenido sin que este se divida en varias líneas. Es decir, el elemento se expandirá para encajar todo su contenido en una línea, sin quebrarse o ajustar el tamaño al contenedor padre*/
         float: right;/*desplaza el elemento hacia la izquierda del contenedor padre*/
+    }
+    .grid_productos_destacados{
+        grid-template-columns: 1fr 1fr 1fr;
     }
 }

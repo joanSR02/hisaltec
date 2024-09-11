@@ -25,7 +25,7 @@
     <header>
         <div class="hero_1">
             <div class="contenedor">
-                <a href="./index.php"><span class="material-icons-sharp">keyboard_return</span><span class="texto-sidebar">Volver</span></a>
+                <a href="./"><span class="material-icons-sharp">keyboard_return</span><span class="texto-sidebar">Volver</span></a>
                 <div class="logo">
                     <img src="./assets/images/logo.png" alt="Logo" >
                 </div>
@@ -57,17 +57,26 @@
                     </div>
                     <div class="form-group">
                         <label for="contraseñaAnterior">Contraseña anterior</label>
-                        <input type="password" id="contraseñaAnterior" name="contraseñaAnterior" required>
+                        <div class="password-container">
+                            <input type="password" id="contraseñaAnterior" name="contraseñaAnterior" required>
+                            <span class="togglePassword  material-icons-sharp">visibility</span>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="contraseñaNueva">Contraseña nueva</label>
-                        <input type="password" id="contraseñaNueva" name="contraseñaNueva" required>
+                        <div class="password-container">
+                            <input type="password" id="contraseñaNueva" name="contraseñaNueva" required>
+                            <span class="togglePassword  material-icons-sharp">visibility</span>
+                        </div>
                         <div id="feedback"></div>
                         <div id="barra-seguridad" class="barra-seguridad"></div>
                     </div>
                     <div class="form-group">
                         <label for="validarContraseñaNueva">Repetir contraseña nueva</label><!--for se refiere a la contraseña-->
-                        <input type="password" id="validarContraseñaNueva" name="validarContraseña" required>
+                        <div class="password-container">
+                            <input type="password" id="validarContraseñaNueva" name="validarContraseña" required>
+                            <span class="togglePassword  material-icons-sharp">visibility</span>
+                        </div>
                     </div>
                 </div>
                 <button type="submit">Guardar</button>

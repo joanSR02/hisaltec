@@ -1,5 +1,27 @@
 <?php
     session_start();
+    if (isset($_SESSION['usuario_id'])) {
+        $usuario_id = $_SESSION['usuario_id'];
+        $direccion_foto = $_SESSION['usuario_foto'];
+        $correo = $_SESSION['usuario_correo'];
+        $nombre = $_SESSION['usuario_nombre'];
+        $image_path = 'php/' . ltrim($direccion_foto, './');
+        // Verifica si el archivo de imagen existe
+        if (file_exists($image_path)) {
+            $image_src = $image_path;
+        } else {
+            $image_src = 'php/fotos_usuarios/user.png'; // Imagen por defecto
+        }
+    }
+    $resultado = [];
+    include 'php/conexion_bd.php';
+    $stmt = $conexion->prepare("SELECT * FROM Productos LIMIT 10");
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        while ($row = $result->fetch_assoc()) {
+            $resultado[] = $row; // Agrega cada fila al array $resultado
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="es" class="index">
@@ -51,14 +73,30 @@
                 </div>
             </div>
             <div class="usuario">
-                <img src="./Jhampier.jpg" alt="">
-                <div class="info-usuario">
-                    <div class="nombre-email">
-                        <span class="texto-sidebar nombre">Joan</span>
-                        <span class="email">joansalcedorodrigues@gmail.com</span>
-                    </div>
-                    <span class="material-icons-sharp">more_vert</span>
-                </div>
+            <div class="login_register">
+                <?php
+                    if (isset($usuario_id)) {
+                        echo '<img src=' . htmlspecialchars($image_src) . ' alt="">
+                        <div class="info-usuario">
+                            <div class="nombre-email">
+                                <span class="texto-sidebar nombre">' . htmlspecialchars($nombre) . '</span>
+                                <span class="email">' . htmlspecialchars($correo) . '</span>
+                            </div>
+                            <div class="user-menu_aside">
+                                <span class="material-icons-sharp" onclick="toggleMenu_aside()">more_vert</span>
+                                 <div id="user-dropdown" class="dropdown-content_aside">
+                                    <ul>
+                                        <li><a href="perfil_editar.php">Mi Cuenta</a></li>
+                                        <li><a href="php/logout.php">Salir</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>';
+                    }else{
+                        echo '<span class="material-icons-sharp">person</span>
+                        <a href="./inisesion.php">INGRESA/REGISTRATE</a>';
+                    }
+                ?>
             </div>
         </div>
     </aside>
@@ -122,15 +160,7 @@
                 <!----------------------->
                 <div class="login_register">
                     <?php
-                        if (isset($_SESSION['usuario_id'])) {
-                            $usuario_id = $_SESSION['usuario_id'];
-                            $image_path = "php/fotos_usuarios/{$usuario_id}.png";
-                            // Verifica si el archivo de imagen existe
-                            if (file_exists($image_path)) {
-                                $image_src = $image_path;
-                            } else {
-                                $image_src = 'php/fotos_usuarios/user.png'; // Imagen por defecto
-                            }
+                        if (isset($usuario_id)) {
                             echo '
                             <div class="user-menu">
                                 <img src=' . htmlspecialchars($image_src) . ' alt="Foto de usuario" class="user-photo" onclick="toggleMenu()">
@@ -145,7 +175,7 @@
                             echo '<span class="material-icons-sharp">
                                 person
                             </span>
-                            <a href="./inisesion.html">INGRESA/REGISTRATE</a>';
+                            <a href="./inisesion.php">INGRESA/REGISTRATE</a>';
                         }
                     ?>
                 </div>
@@ -473,8 +503,22 @@
             </div>
         </section>
         <!--Productos destacados-->
-        <section class="Productos-destacados contenido">
+        <section class="Productos-destacados">
             <h2 class="titulo">PRODUCTOS DESTACADOS</h2>
+            <div class="flecha-grid_productos_destacados">
+                <div class="grid_productos_destacados">
+                </div>
+                <div class="flechas">
+                    <button class='prev_flecha prev_flecha-productos_destacados'><</button>
+                    <button class="next_flecha next_flecha-productos_destacados">></button>
+                </div>
+                <div class="overlay">
+                <div class="loader">
+                    <div class="inner one"></div>
+                    <div class="inner two"></div>
+                    <div class="inner three"></div>
+                </div>
+            </div>
         </section>
         <section class="Ofertas contenido">
             <h2 class="titulo">OFERTAS!!</h2>

@@ -34,27 +34,99 @@ export function seguridadContraseña() {
                 break;
             case 1:
                 barraSeguridad.className = 'barra-seguridad baja';
-                feedback.textContent = 'La contraseña es muy débil.';
+                feedback.innerHTML  = `
+                    <p>La contraseña es muy débil</p> 
+                    <div class="info-contraseña" onclick="container_info_contraseña_Active(this)">
+                        <span class="material-icons-sharp">info</span>
+                        <div class="container-info-contraseña">
+                            <p>Debe contener:<br>
+                            - Al menos 8 caracteres<br>
+                            - Al menos 1 caracter especial<br>
+                            - Al menos 1 mayúscula<br>
+                            - Al menos 1 número</p>
+                        </div>
+                    </div>
+                `;
                 break;
             case 2:
                 barraSeguridad.className = 'barra-seguridad baja';
-                feedback.textContent = 'La contraseña es muy débil.';
+                feedback.innerHTML  = `
+                    <p>La contraseña es muy débil</p> 
+                    <div class="info-contraseña" onclick="container_info_contraseña_Active(this)">
+                        <span class="material-icons-sharp">info</span>
+                        <div class="container-info-contraseña">
+                            <p>Debe contener:<br>
+                            - Al menos 8 caracteres<br>
+                            - Al menos 1 caracter especial<br>
+                            - Al menos 1 mayúscula<br>
+                            - Al menos 1 número</p>
+                        </div>
+                    </div>
+                `;
                 break;
             case 3:
                 barraSeguridad.className = 'barra-seguridad media';
-                feedback.textContent = 'La contraseña es moderada.';
+                feedback.innerHTML  = `
+                    <p>La contraseña es moderada</p> 
+                    <div class="info-contraseña" onclick="container_info_contraseña_Active(this)">
+                        <span class="material-icons-sharp">info</span>
+                        <div class="container-info-contraseña">
+                            <p>Debe contener:<br>
+                            - Al menos 8 caracteres<br>
+                            - Al menos 1 caracter especial<br>
+                            - Al menos 1 mayúscula<br>
+                            - Al menos 1 número</p>
+                        </div>
+                    </div>
+                `;
                 break;
             case 4:
                 barraSeguridad.className = 'barra-seguridad media';
-                feedback.textContent = 'La contraseña es moderada.';
+                feedback.innerHTML  = `
+                    <p>La contraseña es moderada</p> 
+                    <div class="info-contraseña" onclick="container_info_contraseña_Active(this)">
+                        <span class="material-icons-sharp">info</span>
+                        <div class="container-info-contraseña">
+                            <p>Debe contener:<br>
+                            - Al menos 8 caracteres<br>
+                            - Al menos 1 caracter especial<br>
+                            - Al menos 1 mayúscula<br>
+                            - Al menos 1 número</p>
+                        </div>
+                    </div>
+                `;
                 break;
             case 5:
                 barraSeguridad.className = 'barra-seguridad alta';
-                feedback.textContent = 'La contraseña es fuerte.';
+                feedback.innerHTML  = `
+                    <p>La contraseña es fuerte</p> 
+                    <div class="info-contraseña" onclick="container_info_contraseña_Active(this)">
+                        <span class="material-icons-sharp">info</span>
+                        <div class="container-info-contraseña">
+                            <p>Debe contener:<br>
+                            - Al menos 8 caracteres<br>
+                            - Al menos 1 caracter especial<br>
+                            - Al menos 1 mayúscula<br>
+                            - Al menos 1 número</p>
+                        </div>
+                    </div>
+                `;
                 break;
             default:
                 barraSeguridad.className = 'barra-seguridad baja';
-                feedback.textContent = 'La contraseña es muy débil.';
+                feedback.innerHTML  = `
+                    <p>La contraseña es muy débil</p> 
+                    <div class="info-contraseña" onclick="container_info_contraseña_Active(this)">
+                        <span class="material-icons-sharp">info</span>
+                        <div class="container-info-contraseña">
+                            <p>Debe contener:<br>
+                            - Al menos 8 caracteres<br>
+                            - Al menos 1 caracter especial<br>
+                            - Al menos 1 mayúscula<br>
+                            - Al menos 1 número</p>
+                        </div>
+                    </div>
+                `;
         }
     });
 };

@@ -1,3 +1,6 @@
+<?php
+    include('no_auth.php');
+?>
 <!DOCTYPE html>
 <html lang="es" class="inisesion">
 <head>
@@ -12,7 +15,7 @@
     <header>
         <div class="hero_1">
             <div class="contenedor">
-                <a href="./index.html"><span class="material-icons-sharp">keyboard_return</span><span class="texto-sidebar">Volver</span></a>
+                <a href="./"><span class="material-icons-sharp">keyboard_return</span><span class="texto-sidebar">Volver</span></a>
                 <div class="logo">
                     <img src="./assets/images/logo.png" alt="Logo" >
                 </div>
@@ -43,7 +46,7 @@
             <!--Formulario de Login y registro-->
             <div class="contenedor__login-register">
                 <!--Login-->
-                <form method="POST" action="php/login_cliente.php" class="formulario__login">
+                <form method="POST" class="formulario__login">
                     <h2>Iniciar Sesión</h2>
                     <div class="social-icons">
                         <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -53,7 +56,7 @@
                     </div>
                     <input type="email" placeholder="Correo Electronico" name="correo" required>
                     <input type="password" placeholder="Contraseña" name="clave" required>
-                    <button>Entrar</button>
+                    <button type="submit">Entrar</button>
                 </form>
 
                 <!--Register-->

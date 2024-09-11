@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('./modulos/modulo_notificacion.css');
 :root{
     /*estilo cuerpo total*/
     --color-body: rgb(240,242,245);
@@ -223,7 +224,8 @@ form{
 .form-group label{
     color: var(--color-titulo-contenido);
 }
-.form-group input, .form-group select{
+.form-group input{
+    width: 100%;
     padding: 10px;
     border: none;
     background: #F2F2F2;
@@ -231,119 +233,48 @@ form{
     outline: none;
     border-radius: 10px;
 }
+.form-group .password-container{
+    position: relative;
+}
+.form-group .togglePassword{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 5px;
+    color: rgb(151,194,30);
+    cursor: pointer;
+}
 .form-group h3,.form-group p{
     color: var(--color-titulo-contenido);
 }
-/*Toast*/
-.contenedor-toast{
-    position: absolute;
-    right: 40px;
-    bottom: 40px;
-    width: 100%;
-    max-width: 400px;
+#feedback{
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    align-items: center;
 }
-.toast{
-    background: #ccc;
+#feedback .info-contraseña{
     display: flex;
-    justify-content: space-between;
-    border-radius: 18px;
-    animation-name: apertura;
-    animation-duration: 200ms;
-    animation-timing-function: ease-out;/*para que la transicion inicie rapido pero termine despacio*/
+    justify-content: center;
     position: relative;
-    overflow: hidden;
 }
-.toast.exito{
-    background: var(--exito);
-}
-.toast.error{
-    background: var(--error);
-}
-.toast.warning{
-    background: var(--warning);
-}
-.toast.info{
-    background: var(--info);
-}
-.toast .contenido_toast{
-    display: grid;
-    grid-template-columns: 30px auto;
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-}
-.toast .titulo{
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-.toast .btn-cerrar{
-    background: rgba(0, 0, 0, 0.1);
+#feedback span{
     cursor: pointer;
-    padding: 0px 5px;
-    transition: 0.3s ease all;
 }
-.toast .btn-cerrar:hover{
-    background: rgba(0, 0, 0, 0.3);
-}
-.toast .icono{
-    display: flex;
-    align-items: center;
-    color: rgba(0, 0, 0, 0.3);
-}
-.toast .icono span{
-    color: rgba(0, 0, 0, 0.3);
-}
-.toast span{
-    font-size: 30px;
-    color: #fff;
-}
-@keyframes apertura{
-    from{
-        transform: translateY(100px);
-        opacity: 0;
-    }
-    to{
-        transform: translateY(0px);
-        opacity: 1;
-    }
-}
-.toast.cerrando{
-    animation-name: cierre;
-    animation-duration: 200ms;
-    animation-timing-function: ease-out;
-    animation-fill-mode: forwards;/*para que despues de la animacion se quede en la ultima posicion*/
-}
-@keyframes cierre{
-    from{
-        transform: translateX(0);
-    }
-    to{
-        transform: translateX(calc(100% + 40px));
-    }
-}
-.toast.autoCierre::after{
-    content: "";
-    width: 100%;
-    height: 4px;
-    background: rgba(0, 0, 0, 0.5);
+#feedback .container-info-contraseña{
     position: absolute;
-    bottom: 0;
-    animation-name: autoCierre;
-    animation-duration: 5s;
-    animation-timing-function: ease-out;
-    animation-fill-mode: forwards;/*para que despues de la animacion se quede en la ultima posicion*/
+    width: 150px;
+    top: 1.5rem;
+    left: 0;
+    background-color: var(--color-fondo-form);
+    padding: 5px;
+    border-radius: 10px;
+    display: none;
+    z-index: 1;
 }
-@keyframes autoCierre{
-    from{
-        width: 100%;
-    }
-    to{
-        width: 0%;
-    }
+#feedback .container-info-contraseña.active{
+    display: block;
+}
+#feedback .container-info-contraseña p{
+    color: var(--color-titulo-form);
 }
 form button{
     padding: 10px 40px;

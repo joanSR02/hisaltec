@@ -1,4 +1,5 @@
 <?php
+    header('Content-Type: application/json');
     session_start();
     include 'conexion_bd.php';
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {/*Valida si el dato enviado es tipo post*/
@@ -6,13 +7,13 @@
         $clave_confirmar=$_POST['clave'];
     }
     if ($conexion->connect_error) {/*validamos la conexion a la base de datos*/
-        echo 'Error en la conexión a la base de datos.';
+        echo json_encode(['success' => 'error', 'message' => 'Error en la conexión a la base de datos.']);
         exit();
     }
     // Preparar la consulta
     $stmt = $conexion->prepare("SELECT * FROM clientes WHERE correo = ?");
     if ($stmt === false) {
-        echo 'Error en la preparación de la consulta';
+        echo json_encode(['success' => 'error', 'message' => 'Error en la preparación de la consulta']);
         exit();
     }
     $stmt->bind_param("s", $correo);
@@ -28,19 +29,21 @@
                     $_SESSION['usuario_id'] = $usuario['id'];
                     $_SESSION['usuario_nombre'] = $usuario['nombres'];
                     $_SESSION['usuario_foto'] = $usuario['foto'];
+                    $_SESSION['usuario_correo'] = $usuario['correo'];
                     // Redirigir a la página principal
-                    header("Location: ../");
+                    //header("Location: ../");
+                    echo json_encode(['success' => 'exito', 'message' => 'Bienvenido...']);
                     exit();
                 }else{
-                    echo "Contraseña incorrecta.";
+                    echo json_encode(['success' => 'warning', 'message' => 'Contraseña incorrecta.']);
                     exit();
                 }
             }else{
-                echo 'El correo no esta validado';
+                echo json_encode(['success' => 'warning', 'message' => 'El correo no esta validado']);
                 exit();
             }
     }else{
-        echo 'El correo no existe';
+        echo json_encode(['success' => 'warning', 'message' => 'El correo no existe']);
         exit();
     }
     $stmt->close();

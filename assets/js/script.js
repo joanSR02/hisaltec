@@ -113,16 +113,160 @@ function Index(){
             elementos = Array.from(document.querySelectorAll('.elemento'));
         }, 300); // Tiempo igual al de la animación de desplazamiento
     });
-    
+    // Función para cargar más productos al hacer clic en "Ver más"
+    let paginaActual = 1;
+    document.querySelector('.next_flecha-productos_destacados').addEventListener('click', () => {
+        paginaActual++;  // Incrementa la página para la próxima carga
+        cargarProductos(paginaActual);  // Llama a la función asíncrona
+        console.log(paginaActual);
+        document.querySelector('.prev_flecha-productos_destacados').style.pointerEvents = 'auto';
+        document.querySelector('.prev_flecha-productos_destacados').style.cursor = 'pointer'; // O 'auto' para el cursor predeterminado
+    });
+    document.querySelector('.prev_flecha-productos_destacados').addEventListener('click', () => {
+        paginaActual--;  // Disminuye la página para cargar la anterior
+        console.log(paginaActual);
+        cargarProductos(paginaActual);  // Llama a la función asíncrona para cargar productos
+        document.querySelector('.next_flecha-productos_destacados').style.pointerEvents = 'auto';
+        document.querySelector('.next_flecha-productos_destacados').style.cursor = 'pointer'; // O 'auto' para el cursor predeterminado
+        if (paginaActual == 1) {
+            document.querySelector('.prev_flecha-productos_destacados').style.pointerEvents = 'none';
+            document.querySelector('.prev_flecha-productos_destacados').style.cursor = 'default';
+        }    
+    });
     // Inicia el progreso cuando se carga la página
-    window.onload = move; 
+    window.onload = function() {
+        move();
+        cargarProductos(paginaActual);
+    };    
+}
+async function cargarProductos(pagina) {
+    const cargando = document.querySelector('.overlay');
+    cargando.style.display = 'flex';
+    const data  = new URLSearchParams();
+    data .append('pagina', pagina);
+    try{
+        const response = await fetch('./php/cargar_productos.php', {
+            method: 'POST',
+            body: data
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const result= await response.json();
+        const result_productos = result.productos;
+        const result_bloquearNextFlecha = result.bloquear_next_flecha;
+        const grid_productos_destacados = document.querySelector('.grid_productos_destacados');
+        // Si no hay productos, oculta el botón
+        if (result_bloquearNextFlecha) {
+            document.querySelector('.next_flecha-productos_destacados').style.pointerEvents = 'none';
+            document.querySelector('.next_flecha-productos_destacados').style.cursor  = 'default';
+        }
+        // Elimina los productos anteriores
+        grid_productos_destacados.innerHTML = '';
+        result_productos.forEach(result_producto => {
+            // Crear el contenedor del producto
+            const productoDiv = document.createElement('div');
+            productoDiv.className = 'producto';
+            // Crear el contenedor de la imagen
+            const imagenProductoDiv = document.createElement('div');
+            imagenProductoDiv.className = 'imagen_producto';
+            // Crear el enlace para la imagen
+            const enlaceImagen = document.createElement('a');
+            enlaceImagen.href = 'detalle_producto.html';
+            // Crear la imagen
+            const imagen = document.createElement('img');
+            imagen.src = result_producto.imagen_producto;
+            imagen.alt = 'Imagen de producto';
+            // Añadir la imagen al enlace y el enlace al contenedor de la imagen
+            enlaceImagen.appendChild(imagen);
+            imagenProductoDiv.appendChild(enlaceImagen);
+            // Crear el contenedor de la información del producto
+            const informacionProductoDiv = document.createElement('div');
+            informacionProductoDiv.className = 'informacion_producto';
+            // Crear el título del producto
+            const titulo = document.createElement('h3');
+            const enlaceTitulo = document.createElement('a');
+            enlaceTitulo.href = 'detalle_producto.html';
+            enlaceTitulo.textContent = result_producto.nombre_producto;
+            titulo.appendChild(enlaceTitulo);
+            // Crear el precio del producto
+            const precio = document.createElement('span');
+            precio.className = 'precio_producto';
+            precio.innerHTML = `<bdi><span class="moneda_producto">S/</span> ${result_producto.precio}</bdi>`;
+            // Crear las opciones del producto
+            const opcionesProductoDiv = document.createElement('div');
+            opcionesProductoDiv.className = 'opciones_producto';
+            // Crear los iconos de opciones
+            const opciones = [
+                { icono: 'favorite_border', titulo: 'Añadir a favoritos' },
+                { icono: 'add_shopping_cart', titulo: 'Añadir al carrito' },
+                { icono: 'compare_arrows', titulo: 'Comparar productos' }
+            ];
+            opciones.forEach(opcion => {
+                const spanIcono = document.createElement('span');
+                spanIcono.className = 'material-icons-sharp icono_opcion_producto';
+                spanIcono.title = opcion.titulo;
+                spanIcono.textContent = opcion.icono;
+                opcionesProductoDiv.appendChild(spanIcono);
+            });
+            // Añadir los elementos creados al contenedor de información
+            informacionProductoDiv.appendChild(titulo);
+            informacionProductoDiv.appendChild(precio);
+            informacionProductoDiv.appendChild(opcionesProductoDiv);
+            // Añadir los contenedores de imagen e información al contenedor del producto
+            productoDiv.appendChild(imagenProductoDiv);
+            productoDiv.appendChild(informacionProductoDiv);
+            // Añadir el producto al contenedor principal
+            grid_productos_destacados.appendChild(productoDiv);
+            cargando.style.display = 'none';
+        });
+    }catch (error) {
+        console.error('Error al cargar productos:', error);
+        cargando.style.display = 'none';
+    }
+    /*try {
+        // Realiza la solicitud para obtener los productos de la página especificada
+        const response = await fetch(`cargar_productos.php?pagina=${pagina}`);
+        
+        // Espera la respuesta en formato JSON
+        const productos = await response.json();
+
+        // Selecciona el contenedor de productos
+        const contenedor = document.querySelector('.grid_productos_destacados');
+
+        // Si no hay productos, oculta el botón
+        if (productos.length === 0) {
+            document.getElementById('ver-mas').style.display = 'none';
+            return;
+        }
+
+        // Elimina los productos anteriores
+        contenedor.innerHTML = '';
+
+        // Añade los productos obtenidos al contenedor
+        productos.forEach(producto => {
+            const productoDiv = document.createElement('div');
+            productoDiv.className = 'producto';
+            productoDiv.innerHTML = `
+                <img src="${producto.imagen_producto}" alt="Producto">
+                <h3>${producto.nombre_producto}</h3>
+                <p>${producto.descripcion_producto}</p>
+            `;
+            contenedor.appendChild(productoDiv);
+        });
+    } catch (error) {
+        console.error('Error al cargar productos:', error);
+    }*/
 }
 function toggleMenu() {/*para que solo se ejecute al dar click a la imagen, no lo declaro antes porque al no existir causara error */
-    const userPhoto = document.querySelector('.user-photo');
     const dropdownContent = document.querySelector('.dropdown-content');
     dropdownContent.classList.toggle('show');
 };
-function Inisesion(){
+function toggleMenu_aside() {/*para que solo se ejecute al dar click a la imagen, no lo declaro antes porque al no existir causara error */
+    const dropdownContent = document.querySelector('.dropdown-content_aside');
+    dropdownContent.classList.toggle('show');
+};
+async function Inisesion(){
     const login_register = document.querySelector(".contenedor__login-register");
     const btn__registrarse = document.querySelector(".btn__registrarse");
     const iniciar_sesion = document.querySelector(".btn__iniciar-sesion");
@@ -138,6 +282,7 @@ function Inisesion(){
         formulario__login.classList.add('active')
         caja__trasera_login.classList.add('active')
         caja__trasera_register.classList.add('active')
+        contenedorToast.classList.add('registrarse')
     }
     iniciar_sesion.onclick = function(){
         login_register.classList.remove('active');
@@ -145,95 +290,135 @@ function Inisesion(){
         formulario__login.classList.remove('active')
         caja__trasera_login.classList.remove('active')
         caja__trasera_register.classList.remove('active')
+        contenedorToast.classList.remove('registrarse')
     }
-    import('./modulo_notificacion.js').then(({agregarToast, manejarClickToast }) => {
-        document.querySelector('.formulario__register').addEventListener('submit', async function (event) {
-            /*Validar email */
-            const emailInput = this.querySelector('input[name="correo"]');
-            const email = emailInput.value;
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                event.preventDefault(); // Evita el envío del formulario
-                /*Swal.fire({
-                    title: 'Error',
-                    text: 'Por favor, ingrese un correo electrónico válido.',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });*/
-                agregarToast({tipo:'warning',titulo:'Advertencia!',descripcion:'Por favor, ingrese un correo electrónico válido',autoCierre:true},contenedorToast)
-                return
+    const { agregarToast, manejarClickToast } = await import('./modulo_notificacion.js');
+    document.querySelector('.formulario__login').addEventListener('submit', async function (event) {
+        event.preventDefault();
+        const button_registro_cliente = this.querySelector('button[type="submit"]');
+        button_registro_cliente.disabled = true; // Deshabilita el botón
+        const formData = new FormData(this);
+        try {
+            cargando.style.display = 'flex';
+            const response = await fetch('./php/login_cliente.php', {
+                method: 'POST',
+                body: formData
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
+            const result = await response.json();
+            if (result.success=='warning') {
+                agregarToast({tipo:'warning',titulo:'Advertencia!',descripcion:result.message,autoCierre:true},contenedorToast)
+            } else if (result.success=='error'){
+                agregarToast({tipo:'error',titulo:'Error!',descripcion:result.message,autoCierre:true},contenedorToast)
+            } else if (result.success=='exito'){
+                agregarToast({tipo:'exito',titulo:'Exito!',descripcion:result.message,autoCierre:true},contenedorToast)
+                cargando.style.display = 'none';
+                setTimeout(() => {
+                    location = './'; // Redirige a la URL proporcionada
+                }, 500); // 2000 milisegundos = 2 segundos
+            }
+            cargando.style.display = 'none';
+        } catch (error) {
+            cargando.style.display = 'none';
+            /*Swal.fire({
+                title: 'Error',
+                text: 'No se pudo conectar con el servidor.',
+                icon: 'error',
+                confirmButtonText: 'Cool'
+            });*/
+            agregarToast({tipo:'error',titulo:'Error!',descripcion:'No se pudo conectar con el servidor',autoCierre:true},contenedorToast)
+        }finally {
+            button_registro_cliente.disabled = false; // Habilita el botón nuevamente
+        }
+    })
+    document.querySelector('.formulario__register').addEventListener('submit', async function (event) {
+        /*Validar email */
+        const emailInput = this.querySelector('input[name="correo"]');
+        const email = emailInput.value;
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            event.preventDefault(); // Evita el envío del formulario
+            /*Swal.fire({
+                title: 'Error',
+                text: 'Por favor, ingrese un correo electrónico válido.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });*/
+            agregarToast({tipo:'warning',titulo:'Advertencia!',descripcion:'Por favor, ingrese un correo electrónico válido',autoCierre:true},contenedorToast)
+            return
+        }
 
-            event.preventDefault(); // Evita el envío normal del formulario
-            const button_registro_cliente = this.querySelector('button[type="submit"]');
-            button_registro_cliente.disabled = true; // Deshabilita el botón
-            const formData = new FormData(this);
-            try {
-                cargando.style.display = 'flex';
-                const response = await fetch('./php/registro_cliente_bd.php', {//es una funcion asincrona en javascript, esto nos permite ejecutar el php sin que nos redirijamos a esa pagina
+        event.preventDefault(); // Evita el envío normal del formulario
+        const button_registro_cliente = this.querySelector('button[type="submit"]');
+        button_registro_cliente.disabled = true; // Deshabilita el botón
+        const formData = new FormData(this);
+        try {
+            cargando.style.display = 'flex';
+            const response = await fetch('./php/registro_cliente_bd.php', {//es una funcion asincrona en javascript, esto nos permite ejecutar el php sin que nos redirijamos a esa pagina
+                //const response es una constante que almacenara el resultado de la solucitud fetch
+                //await  indica que se esperara que la solicitud fetch se complete y halla recibido una respuesta, osea no se ejecutaran las demas lineas hasta que registro_cliente_bd haya terminado de ejecutar
+                //fetch() es una funcion que se utiliza para realizar solicitudes HTTP y retorna una promesa que representa a la respuesta de dicha solicitud
+                method: 'POST',//Los datos no se envian en la URL, osea no son visibles en la barra de direcciones del navegador y los datos no se almacenan en cache y queremos enviar una gran cantidad de datos
+                body: formData//es un objeto en JavaScript que se utiliza para construir un conjunto de pares clave/valor, que pueden ser enviados a través de una solicitud HTTP, sirve para enciar datos al php que estamos ejecutando asincronamente
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const result = await response.json();
+            if (result.success) {
+                /*Swal.fire({
+                    title: 'Registro Exitoso',
+                    text: result.message,
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                });*/
+                formData.append('codigo', result.codigo);
+                formData.append('correo', result.correo);
+                formData.append('nombre', result.nombre);
+                const response2 = await fetch('./enviarcorreo.php', {//es una funcion asincrona en javascript, esto nos permite ejecutar el php sin que nos redirijamos a esa pagina
                     //const response es una constante que almacenara el resultado de la solucitud fetch
                     //await  indica que se esperara que la solicitud fetch se complete y halla recibido una respuesta, osea no se ejecutaran las demas lineas hasta que registro_cliente_bd haya terminado de ejecutar
                     //fetch() es una funcion que se utiliza para realizar solicitudes HTTP y retorna una promesa que representa a la respuesta de dicha solicitud
                     method: 'POST',//Los datos no se envian en la URL, osea no son visibles en la barra de direcciones del navegador y los datos no se almacenan en cache y queremos enviar una gran cantidad de datos
                     body: formData//es un objeto en JavaScript que se utiliza para construir un conjunto de pares clave/valor, que pueden ser enviados a través de una solicitud HTTP, sirve para enciar datos al php que estamos ejecutando asincronamente
                 });
-                if (!response.ok) {
+                if (!response2.ok) {
                     throw new Error('Network response was not ok');
                 }
-                const result = await response.json();
-                if (result.success) {
-                    /*Swal.fire({
-                        title: 'Registro Exitoso',
-                        text: result.message,
-                        icon: 'success',
-                        confirmButtonText: 'Cool'
-                    });*/
-                    formData.append('codigo', result.codigo);
-                    formData.append('correo', result.correo);
-                    formData.append('nombre', result.nombre);
-                    const response2 = await fetch('./enviarcorreo.php', {//es una funcion asincrona en javascript, esto nos permite ejecutar el php sin que nos redirijamos a esa pagina
-                        //const response es una constante que almacenara el resultado de la solucitud fetch
-                        //await  indica que se esperara que la solicitud fetch se complete y halla recibido una respuesta, osea no se ejecutaran las demas lineas hasta que registro_cliente_bd haya terminado de ejecutar
-                        //fetch() es una funcion que se utiliza para realizar solicitudes HTTP y retorna una promesa que representa a la respuesta de dicha solicitud
-                        method: 'POST',//Los datos no se envian en la URL, osea no son visibles en la barra de direcciones del navegador y los datos no se almacenan en cache y queremos enviar una gran cantidad de datos
-                        body: formData//es un objeto en JavaScript que se utiliza para construir un conjunto de pares clave/valor, que pueden ser enviados a través de una solicitud HTTP, sirve para enciar datos al php que estamos ejecutando asincronamente
-                    });
-                    if (!response2.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    const result2 = await response2.json();
-                    cargando.style.display = 'none';
-                    if (result2.success) {
-                        agregarToast({tipo:'exito',titulo:'Registro Exitoso!',descripcion:result.message,autoCierre:true},contenedorToast)
-                        agregarToast({tipo:'info',titulo:'No olvidar!',descripcion:result.message,autoCierre:true},contenedorToast)
-                    }else{
-                        agregarToast({tipo:'error',titulo:'Error!',descripcion:result.message,autoCierre:true},contenedorToast)
-                    }
-                } else {
-                    /*Swal.fire({
-                        title: 'Error',
-                        text: result.message,
-                        icon: 'error',
-                        confirmButtonText: 'Cool'
-                    });*/
-                    agregarToast({tipo:'warning',titulo:'Advertencia!',descripcion:result.message,autoCierre:true},contenedorToast)
-                    cargando.style.display = 'none';
-                }
-            } catch (error) {
+                const result2 = await response2.json();
                 cargando.style.display = 'none';
+                if (result2.success) {
+                    agregarToast({tipo:'exito',titulo:'Registro Exitoso!',descripcion:result.message,autoCierre:true},contenedorToast)
+                    agregarToast({tipo:'info',titulo:'No olvidar!',descripcion:result.message,autoCierre:true},contenedorToast)
+                }else{
+                    agregarToast({tipo:'error',titulo:'Error!',descripcion:result.message,autoCierre:true},contenedorToast)
+                }
+            } else {
                 /*Swal.fire({
                     title: 'Error',
-                    text: 'No se pudo conectar con el servidor.',
+                    text: result.message,
                     icon: 'error',
                     confirmButtonText: 'Cool'
                 });*/
-                agregarToast({tipo:'error',titulo:'Error!',descripcion:'No se pudo conectar con el servidor',autoCierre:true},contenedorToast)
-            }finally {
-                button_registro_cliente.disabled = false; // Habilita el botón nuevamente
+                agregarToast({tipo:'warning',titulo:'Advertencia!',descripcion:result.message,autoCierre:true},contenedorToast)
+                cargando.style.display = 'none';
             }
-        });
-        manejarClickToast(contenedorToast);
+        } catch (error) {
+            cargando.style.display = 'none';
+            /*Swal.fire({
+                title: 'Error',
+                text: 'No se pudo conectar con el servidor.',
+                icon: 'error',
+                confirmButtonText: 'Cool'
+            });*/
+            agregarToast({tipo:'error',titulo:'Error!',descripcion:'No se pudo conectar con el servidor',autoCierre:true},contenedorToast)
+        }finally {
+            button_registro_cliente.disabled = false; // Habilita el botón nuevamente
+        }
     });
+    manejarClickToast(contenedorToast);
 }
 function Sobre_nosotros(){
     const cards= document.querySelectorAll(".card");
@@ -375,7 +560,6 @@ async function Perfil_editar() {
         paisSelect.value = datos_usuario.pais;
         generoSelect.value = datos_usuario.genero;
         biografiaSelect.value = datos_usuario.biografia;
-        console.log(datos_usuario.biografia)
         fecha_nacimientoSelect.value = datos_usuario.nacimiento;
         // Crear y disparar el evento 'change'
         await llenarSelectCiudades(ciudadSelect, paisSelect,datos_usuario);
@@ -414,6 +598,7 @@ async function Perfil_editar() {
 }
 function Perfil_ajustes(){
     const contenedorToast=document.getElementById('contenedor-toast');
+    container_info_contraseña=document.querySelector('.container-info-contraseña');
     /*import('./modulo_seguridad-contraseña.js').then(({ingresarClave }) => {
         document.getElementById('contraseña').addEventListener('input',ingresarClave);//Este evento se activa cuando ingreso algun valor al input de contraseña
 
@@ -451,7 +636,18 @@ function Perfil_ajustes(){
         });
         manejarClickToast(contenedorToast);
     });
+    document.querySelectorAll('.togglePassword').forEach(icon => {
+        icon.addEventListener('click', function () {//Se le añade el evento de click a cada funcion
+            const passwordField = this.previousElementSibling;// selecciona el elemento hermano anterior al ícono, que se supone que es el campo de entrada de la contraseña (input).
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';//Obtiene el atributo type del input, si es tipo password se cambia a text y viceversa, ? funciona como else, si el atributo type es igual a password 
+            passwordField.setAttribute('type', type);//Establece el nuevo valor del atributo type del campo de entrada
+            this.textContent = type === 'password' ? 'visibility' : 'visibility_off'; //Cambia el texto del ícono según el estado actual
+        });
+    });
 };
+function container_info_contraseña_Active(){
+    document.querySelector('.container-info-contraseña').classList.toggle('active');
+}
 function Perfil_borrar(){
     const contenedorToast=document.getElementById('contenedor-toast');
     import('./modulo_notificacion.js').then(({agregarToast, manejarClickToast }) => {
@@ -505,6 +701,8 @@ function initCommon(){
 }
 // Ejecutar código dependiendo de la página actual
 document.addEventListener('DOMContentLoaded', function() {
+    // Ejecutar código común a todas las páginas
+    initCommon();
     if (document.documentElement.classList.contains('index')) {
         Index();
     } else if (document.documentElement.classList.contains('inisesion')) {
@@ -524,7 +722,4 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (document.documentElement.classList.contains('Perfil_borrar')) {
         Perfil_borrar();
     }
-
-    // Ejecutar código común a todas las páginas
-    initCommon();
 });

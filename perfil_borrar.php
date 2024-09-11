@@ -16,7 +16,7 @@
     <header>
         <div class="hero_1">
             <div class="contenedor">
-                <a href="./index.php"><span class="material-icons-sharp">keyboard_return</span><span class="texto-sidebar">Volver</span></a>
+                <a href="./"><span class="material-icons-sharp">keyboard_return</span><span class="texto-sidebar">Volver</span></a>
                 <div class="logo">
                     <img src="./assets/images/logo.png" alt="Logo" >
                 </div>
