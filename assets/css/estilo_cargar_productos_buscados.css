@@ -1,0 +1,293 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('./modulos/modulo_iniciador.css');
+@import url('./modulos/modulo_encabezado.css');
+@import url('./modulos/modulo_aside.css');
+@import url('./modulos/modulo_cargando.css');
+@import url('./modulos/modulo_footer.css');
+:root{
+    /*estilo cuerpo total*/
+    --color-body: rgb(240,242,245);
+    --color-contenido: rgb(255,255,255);
+    --color-titulo-contenido: rgb(5,5,29);
+    --color-parrafo-contenido: rgb(58,59,60);
+    --color-fondo-icono: rgb(228,230,235);
+    --color-icono-menu: rgb(5,5,5);
+    --color-fondo-hover-icono: rgb(216,218,223);
+    --color-icono: rgb(132,132,132);
+    /*estilos encabezado*/
+    --color-fondo-hero_1:rgb(255,255,255);
+    --color-texto-hero_1: rgb(101,103,107);
+    --color-texto-secundario: rgb(132,132,132);
+    --color-texto-h3: rgb(5,5,5);
+
+    /*Estilos de carousel*/
+    --color-carrousel-topic: rgb(0,0,0);
+    --color-carrousel-des: rgba(85,85,85,0.6);
+    --color-carrousel-title: rgb(5,5,29);
+    --color-carrousel-seeMore: (5,5,29);
+    --color-carrousel-seeMore_hover: rgb(238,238,238);
+    --color-carrousel-back: rgb(5,5,29);
+    --color-carrousel-specifications: rgb(5,5,29);
+    --item1-transform: translateX(-100%) translateY(-5%) scale(1.5);
+    --item1-filter: blur(30px);
+    --item1-zIndex: 11;
+    --item1-opacity: 0;
+
+    --item2-transform: translateX(0);
+    --item2-filter: blur(0px);
+    --item2-zIndex: 10;
+    --item2-opacity: 1;
+
+    --item3-transform: translate(50%,10%) scale(0.8);
+    --item3-filter: blur(10px);
+    --item3-zIndex: 9;
+    --item3-opacity: 1;
+
+    --item4-transform: translate(90%,20%) scale(0.5);
+    --item4-filter: blur(30px);
+    --item4-zIndex: 8;
+    --item4-opacity: 1;
+    
+    --item5-transform: translate(120%,30%) scale(0.3);
+    --item5-filter: blur(40px);
+    --item5-zIndex: 7;
+    --item5-opacity: 0;
+    /*Estilo sidebar*/
+    --color-barra-lateral:rgb(255,255,255);
+
+    --color-texto:rgb(0,0,0);
+    --color-texto-menu:rgb(134,136,144);
+
+    --color-menu-hover:rgb(238,238,238);
+    --color-menu-hover-texto:rgb(0,0,0);
+
+    --color-boton:rgb(0,0,0);
+    --color-boton-texto:rgb(255,255,255);
+
+    --color-linea:rgb(180,180,180);
+
+    --color-switch-base :rgb(201,202,206);
+    --color-switch-circulo:rgb(241,241,241);
+
+    --color-scroll:rgb(192,192,192);
+    --color-scroll-hover:rgb(134,134,134);
+    /*estilo footer*/
+    --color-footer: rgb(97,97,96);
+    --color-contenido-footer: rgb(97,97,96);
+
+    /*Estilo del menu usuario*/
+    --color-menu-usuario: rgba(57,57,58, 0.95);
+    --color-texto-menu-usuario: rgb(228,230,235);
+
+    /*Estilo de productos*/
+    --color-fondo-producto: rgb(255,255,255);
+    --color-fondo-icono-producto: rgb(228,230,235);
+    --color-icono-producto: rgb(5,5,5);
+    /*--color-borde-producto: rgb(225,225,225);*/
+    --color-sombreado-producto: 0 4px 8px rgba(0, 0, 0, 0.2);
+    --color-borde-icono-producto: rgb(5,5,5);
+    --color-texto-informacion_producto: rgb(5,5,5);
+}
+.dark-mode{
+    /*estilo cuerpo total*/
+    --color-body: rgb(24,25,26);
+    --color-contenido: rgb(36,37,38);
+    --color-titulo-contenido: rgb(228,230,223);
+    --color-parrafo-contenido: rgb(212,212,212);
+    --color-fondo-icono: rgb(58,59,60);
+    --color-icono: rgb(132,132,132);
+    --color-fondo-hover-icono: rgb(78,79,80);
+    --color-icono-menu: rgb(228,230,235);
+    /*estilos encabezado*/
+    --color-fondo-hero_1:rgb(36,37,38);
+    --color-texto-hero_1: rgb(176,179,184);
+    --color-texto-secundario: rgb(132,132,132);
+    --color-texto-h3: rgb(228,230,235);
+    /*Estilos de carousel*/
+    --color-carrousel-topic: rgb(255,255,255);
+    --color-carrousel-des: rgb(176,179,184);
+    --color-carrousel-title: rgb(228,230,223);
+    --color-carrousel-seeMore: rgb(228,230,223);
+    --color-carrousel-seeMore_hover: rgb(36,37,38);
+    --color-carrousel-back: rgb(228,230,223);
+    --color-carrousel-specifications: rgb(228,230,223);
+    /*Estilo sidebar*/
+    --color-barra-lateral:rgb(44,45,49);
+
+    --color-texto:rgb(255,255,255);
+    --color-texto-menu:rgb(110,110,117);
+
+    --color-menu-hover:rgb(0,0,0);
+    --color-menu-hover-texto:rgb(238,238,238);
+
+    --color-boton:rgb(255,255,255);
+    --color-boton-texto:rgb(0,0,0);
+
+    --color-linea:rgb(90,90,90);
+
+    --color-switch-base :rgb(39,205,64);
+    --color-switch-circulo:rgb(255,255,255);
+
+    --color-scroll:rgb(68,69,74);
+    --color-scroll-hover:rgb(85,85,85);
+    /*estilo footer*/
+    --color-footer: var(--color-body);
+    --color-contenido-footer: rgb(36,37,38);
+    /*Estilo del menu usuario*/
+    --color-menu-usuario: rgba(200, 200, 200, 0.95);
+    --color-texto-menu-usuario: rgb(5,5,5);
+    /*Estilo de productos*/
+    --color-fondo-producto: rgb(36,37,38);
+    /*--color-fondo-producto: rgb(255,255,255);*/
+    --color-fondo-icono-producto: rgb(58,59,60);
+    --color-icono-producto: rgb(228,230,235);
+    /*--color-borde-producto: rgb(24,25,26);*/
+    --color-sombreado-producto: 0 4px 8px rgba(200, 200, 200, 0.2);
+    --color-borde-icono-producto: rgb(228,230,235);
+    --color-texto-informacion_producto: rgb(228,230,235);
+}
+/****************************************main****************************************/
+.Productos{
+    width: 95%;
+    max-width: 1200px;
+    margin: 0.5rem auto;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;/*centrar horizontalmente*/
+    flex-direction: column;
+    align-items: center;/*centrar verticalmente*/
+}
+.Productos .titulo{
+    margin-right: auto;
+    color: var(--color-titulo-contenido);
+    font-size: 1.5rem;
+}
+.flecha-grid_productos{
+    margin-top: 2rem;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;/*centrar verticalmente*/
+}
+.grid_productos{/*El grupo de productos destacados sera un display grid lo cual nos permitira poner los productos en recuadros*/
+    display: grid;/*Declaro que el display es de tiupo grid*/
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;/*declaro el numero de columnas y la porcion que tendra cada una*/
+    gap: 2px;
+}
+.grid_productos .producto {
+    display: grid;/*aqui pongo display grid para separar la imagen del contenido*/
+    grid-template-columns: 1fr;/*solo tendra una columna*/
+    grid-template-rows: 2fr 1fr;/*tendremos 2 filas, una de la imagen y otra del contenido, donde la imagen sera el dobre de alto que el contenido*/
+    /*border: 1px solid var(--color-borde-producto);borde*/
+    max-width: 220px;
+    max-height: 300px;
+    padding: 10px;/*espaciado entre el contenido y el elemento de cada producto*/
+    transition: transform 0.2s ease-in-out, 
+            box-shadow 0.2s ease-in-out, 
+            border-top-left-radius 0.2s ease-in-out, 
+            border-top-right-radius 0.2s ease-in-out;
+    /*se utiliza para aplicar un efecto de transición suave a los cambios en la propiedad transform de un elemento, la duracion de la transicion sera 3 segundos y la transicion comienza lento , cuego acelera y se desacelera al final*/
+    background-color: var(--color-fondo-producto);
+    color: var(--color-texto-informacion_producto);
+}
+.grid_productos .producto:hover {
+    transform: scale(1.05) translateY(-10px);/*En conjunto, transform: scale(1.05) translateY(-10px); hará que el elemento se agrande un 5% y se desplace 10 píxeles hacia arriba, creando un efecto de resalte y elevación del elemento*/
+    /*Modifica el elemento: Cambia la apariencia o posición del elemento de manera inmediata, sin animación por sí sola*/
+    /*Añade animación: Se utiliza para suavizar los cambios de una propiedad, controlando la duración, el momento y la aceleración de la transición*/
+    box-shadow: var(--color-sombreado-producto);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+.grid_productos .imagen_producto{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    max-height: 100%;
+}
+.grid_productos .imagen_producto img {
+    max-width: 100%;/*la imagen tendra un ancho maximo del 100% del ancho del contenedor*/
+    max-height: 100%;/*la imagen tendra un alto maximo del 100% del alto del contenedor*/
+    object-fit: contain;  /* Ajusta la imagen dentro del contenedor sin distorsionarla */
+}
+.informacion_producto {/*el texto del elemento informacion_producto se centrara y mantendra una distancia de 10px respecto a la imagen*/
+    text-align: center;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.informacion_producto a{
+    color: var(--color-texto-informacion_producto);
+}
+.precio_producto {
+    font-size: 1.2em;
+}
+
+.opciones_producto{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+.opciones_producto .icono_opcion_producto {
+    position: relative;
+    cursor: pointer;
+    color: var(--color-icono-producto);
+}
+.opciones_producto .icono_opcion_producto:first-child {
+    width: 100%;
+    padding-right: auto;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.opciones_producto .icono_opcion_producto:not(:first-child):not(:last-child) {
+    width: 100%;
+    padding: 0 auto;
+    border-left: 1px solid var(--color-borde-icono-producto);
+    border-right: 1px solid var(--color-borde-icono-producto);
+}
+.opciones_producto .icono_opcion_producto:last-child {
+    width: 100%;
+    padding-left: auto;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.opciones_producto .icono_opcion_producto:hover{
+    background-color: var(--color-fondo-icono-producto);
+}
+.flechas{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.flechas .prev_flecha, .flechas .next_flecha{/*estan con # porque se pusieron como id*/
+    width: 40px;/*los botones de prev y next tendrán un ancho de 40 pixeles*/
+    height: 40px;/*los botones de prev y next tendrán un alto de 40 pixeles*/
+    border-radius: 50%;/*los botones de prev y next tendrán un borde circular del 50% del borde más pequeño del bloque*/
+    font-family: monospace;/* indica al navegador que utilice una fuente de espaciado fijo donde cada carácter tiene el mismo ancho, ideal para mostrar código, datos tabulares o para lograr efectos visuales específicos. Esto nos asegura que el caracter prev y next tengan el mismo ancho*/
+    border: 1px solid #5555;/*el boton tendra un ancho de 11 pixel*/
+    font-size: large;/*se aplica un tamaño de fuente más grande que el tamaño predeterminado o normal del navegador.*/
+    bottom: 20%;/*esta posicionado a un 20% de la altura del bloque padre*/
+    left: 10%;/*esta posicionado con left 10%, osea de izquierda a derecha un 10 % dek bloque padre*/
+    cursor: pointer;
+}
+.prev_flecha-productos{
+    pointer-events: none;
+    cursor: default;
+}
+@media screen and (max-width: 900px){/*solo se aplicará cuando la pantalla del dispositivo tenga un ancho máximo de 900 píxeles*/
+    .hero_1 .icono-menu,.hero_1 .logo,.hero_1 .favoritos_compras{
+        display: flex;
+    }
+    .hero_1 nav,.hero_1 .modo-oscuro,.hero_2,.hero_3{
+        display: none;
+    }
+    .grid_productos{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}

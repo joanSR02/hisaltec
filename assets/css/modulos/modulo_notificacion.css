@@ -101,6 +101,9 @@
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;/*para que despues de la animacion se quede en la ultima posicion*/
 }
+.contenedor-toast .descripcion{
+    padding: 0;
+}
 @keyframes autoCierre{
     from{
         width: 100%;

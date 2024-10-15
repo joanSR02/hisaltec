@@ -1,0 +1,264 @@
+/**********hero_1**********/
+.hero_1{
+    background-color: var(--color-fondo-hero_1);
+    width: 100%;
+    transition: background 0.5s;
+    padding: 0.2rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.hero_1 .contenedor nav ul{
+    display: flex;
+    gap: 1rem;
+}
+.hero_1 .contenedor nav ul li a{
+    color: var(--color-texto-hero_1);
+    font-weight: bold; /* Texto en negrita */
+    position: relative;
+}
+.hero_1 .contenedor nav ul li a::after{
+    content: " ";
+    width: 0;
+    height: 2px;
+    background-color: rgb(151,194,30);
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    transition: all .5s;
+    will-change: width;
+}
+.hero_1 .contenedor nav ul li a:hover:after{
+    width: 100%;
+    right: 0;
+}
+.hero_1 .icono-menu{
+    cursor: pointer;
+    background-color: var(--color-fondo-icono);
+    color: var(--color-icono-menu);
+    height: 40px;
+    width: 40px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.hero_1 .icono-menu:hover{
+    background-color: var(--color-fondo-hover-icono);
+}
+.favoritos_compras{
+    color: var(--color-icono);
+    display: flex;
+    gap: 1rem;
+}
+.hero_1 .logo,.hero_1 .favoritos_compras{
+    display: none;
+}
+/*--->switch*/
+.hero_1 .modo-oscuro .switch{/*el switch esta en el bloque de modo oscuro*/
+    display: flex;/*display flex para que los hijos bloque se coloque horizontalmente*/
+    align-items: center;/*centraremos horizontalmente los elementos hijos*/
+    justify-content: center;/*centraremos verticalmente los elementos hijos(solo esta base)*/
+    min-width: 50px;/*el ancho minimo sera de 45 pixeles*/
+    cursor: pointer;/*cuando el cursor este sobre este elemento pasara a ser un puntero*/
+}
+.hero_1 .modo-oscuro .base{
+    position: relative;/*tendra position relative porque estarea en su posicion normal respecto a la posicion del documento, ademas esto me permite decir que el bloque hijo se posicione respecto a este bloque padre, la verdad no habria diferencia entre que sea position absolute o position relative en este caso porque el elemento que se posicionara sobre este es el hijo*/
+    display: flex;/*display flex para poder centrar su elemento hijo horizontalmente*/
+    align-items: center;
+    width: 35px;/*el switch tendra un ancho de 35 pixeles*/
+    height: 20px;/*el switch tendra un alto de 20 pixeles*/
+    background-color: var(--color-switch-base);/*el color de fondo del switch*/
+    border-radius: 50px;/*el radio de los bordes*/
+}
+.hero_1 .modo-oscuro .circulo{/*es el circulo del */
+    position: absolute;/*se posicionara sobre el ultimo elemento posicionado*/
+    width: 18px;/*el ancho del circulo sera 18 pixeles*/
+    height: 90%;/*el alto del circulo sera el 90% del alto del contenedor padre*/
+    background-color: var(--color-switch-circulo);/*el color de fondo del circulo*/
+    border-radius: 50%;/*el radio sera del 50% del lado mas largo del bloque*/
+    left: 2px;/*un desplazamiento de izquierda a derecha de 2 pixeles*/
+    transition: left 0.5s ease;/*transicion de left*/
+}
+aside .modo-oscuro .circulo.prendido{/*cuando se presione left tendra este valor*/
+    left: 15px;
+}
+/**********hero_2**********/
+.hero_2{
+    padding: 0.2rem 0;
+}
+/******************Buscador (temporal)***********************/
+.search_box {
+    position: relative; /* Establece el contenedor como posición relativa */
+    display: inline-block; /* Para que ocupe solo el ancho necesario */
+}
+.search_box input[type="search"] {
+    padding: 8px 15px; /* Ajusta el espacio entre las letras y los bordes */
+    /*padding-right: 30px;  Ajusta el espacio para el icono */
+    border-radius: 20px; /* Aplica bordes circulares */
+    border: 1px solid #ccc; /* Añade un borde */
+}
+.search_box .fa-search {
+    position: absolute; /* Posiciona el icono absolutamente */
+    top: 50%; /* Lo coloca verticalmente en el centro */
+    right: 10px; /* Ajusta la distancia desde el borde derecho entre el icono y el borde del buscador*/
+    transform: translateY(-50%); /* Corrige la posición vertical */
+    color: #333; /* Cambia el color del icono según sea necesario */
+}
+/* Eliminar el botón de borrar predeterminado */
+.search_box input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+.search_box input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+/**********hero_3**********/
+.hero_3 .contenedor nav ul{
+    display: flex;
+    gap: 1rem;
+}
+.hero_3 a{
+    color: var(--color-texto-h3);
+    font-weight: bold; /* Texto en negrita */
+}
+.user-menu {
+    position: relative;
+}
+
+.user-photo {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+.dropdown-content {
+    position: absolute;
+    top: 45px; /* Ubicación inicial */
+    left: -120px;
+    background-color: var(--color-menu-usuario);
+    width: 160px;
+    border-radius: 10px;
+    overflow: hidden;
+    max-height: 0; /* Ocultamos el menú inicialmente */
+    z-index: 1;
+    transition: max-height 0.4s ease-out;/*cuando la propiedad max-height cambie, este aplicara una animacion de 0.4s con una curva de desaeleración, primero rapido, luego lento*/
+}
+.dropdown-content a, .dropdown-content p{
+    color: var(--color-texto-menu-usuario) !important;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+.dropdown-content.show {
+    max-height: 120px; /* Altura máxima del menú */
+}
+
+
+
+
+/*Favoritos*/
+.favoritos {
+    position: relative;
+    display: inline-block;
+}
+
+.icon-favoritos-counter {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: rgb(151,194,30);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+}
+/*Favoritos*/
+.favoritos {
+    position: relative;
+    display: inline-block;
+}
+
+.icon-favoritos-counter {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: rgb(151,194,30);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+}
+/*Carrito*/
+.compras {
+    position: relative;
+    display: inline-block;
+}
+
+.icon-compras-counter {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: rgb(151,194,30);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+.search-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    height: 35px;
+    padding: 0;
+}
+  
+.search-input {
+    padding: 10px;
+    flex: 1;
+    border-right: 1px solid #ccc;
+    outline: none;
+    font-size: 12px;
+}
+  
+.category-select {
+    border: none;
+    padding: 10px;
+    border-right: 1px solid #ccc;
+    outline: none;
+    font-size: 12px;
+    width: 120px;
+}
+  
+.search-button {
+    height: 100%;
+    width: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.search-icon {
+    width: 20px;
+    height: 20px;
+}
+  

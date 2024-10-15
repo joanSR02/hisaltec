@@ -1,0 +1,67 @@
+/*footer*/
+footer{
+    width: 100%;
+    /*background-color: var(--color-footer);*/
+    display: flex;
+    justify-content: center;/*centrar horizontalmente*/
+}
+.contenido-footer{
+    width: 95%;
+    margin: 20px 0;
+    border-radius: 20px;
+    background-color: var(--color-contenido);
+    display: flex;
+    justify-content: center;/*centrar horizontalmente*/
+    flex-direction: column;
+    align-items: center;/*centrar verticalmente*/
+    box-sizing: border-box;/*esto hace que el ancho total, osea contenido, padding y borde sea del ancho anteriormente configurado, encambio box-sizing: content-box; que es por defecto sumaria el padding y el ancho del borde al tamaño total del bloque*/
+    transition: background 0.5s;
+}
+.espaciado-footer{
+    height: 20px;
+}
+footer img{
+    text-align: center;
+    margin: 20px 0;
+    overflow: hidden;
+}
+.bloques-footer{
+    max-width: 90%;
+    display: flex;
+    flex-wrap: wrap;/*se distribuye automaticamente a la siguiente linea*/
+    justify-content: center;/*centrar horizontalmente*/
+    gap: 50px;/*espaciado entre bloques de 50px*/
+    margin-bottom: 40px;
+    overflow: hidden;
+}
+.bloque-footer{
+    max-width: 250px;
+    min-width: 250px;
+    overflow: hidden;
+}
+.bloque-footer h4{/*estilo de la letra*/
+    font-size: 1.5rem;
+    color: var(--color-titulo-contenido);
+    font-weight: bold; /* Texto en negrita */
+    overflow: hidden;
+}
+.bloque-footer p{
+    color: var(--color-parrafo-contenido);
+    margin: 0;
+    font-size: 1.2rem;
+    overflow: hidden;
+}
+.subbloque-footer{
+    display: flex;
+    align-content: center;/*centrar horizontalmente*/
+    gap: 0.5rem;
+    overflow: hidden;
+}
+.subbloque-footer span{
+    color: var(--color-body-principal);
+    font-size: 50px;
+    align-content: center;/*centrar horizontalmente*/
+}
+.contacto-footer p span, .tipos_envio-footer p span{
+    font-size: 1.2rem;
+}

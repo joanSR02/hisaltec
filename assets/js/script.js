@@ -113,18 +113,18 @@ function Index(){
             elementos = Array.from(document.querySelectorAll('.elemento'));
         }, 300); // Tiempo igual al de la animación de desplazamiento
     });
+
+    /*PRODUCTOS EN LA PAGINA PRINCIPAL */
     // Función para cargar más productos al hacer clic en "Ver más"
     let paginaActual = 1;
     document.querySelector('.next_flecha-productos_destacados').addEventListener('click', () => {
         paginaActual++;  // Incrementa la página para la próxima carga
         cargarProductos(paginaActual);  // Llama a la función asíncrona
-        console.log(paginaActual);
         document.querySelector('.prev_flecha-productos_destacados').style.pointerEvents = 'auto';
         document.querySelector('.prev_flecha-productos_destacados').style.cursor = 'pointer'; // O 'auto' para el cursor predeterminado
     });
     document.querySelector('.prev_flecha-productos_destacados').addEventListener('click', () => {
         paginaActual--;  // Disminuye la página para cargar la anterior
-        console.log(paginaActual);
         cargarProductos(paginaActual);  // Llama a la función asíncrona para cargar productos
         document.querySelector('.next_flecha-productos_destacados').style.pointerEvents = 'auto';
         document.querySelector('.next_flecha-productos_destacados').style.cursor = 'pointer'; // O 'auto' para el cursor predeterminado
@@ -137,7 +137,21 @@ function Index(){
     window.onload = function() {
         move();
         cargarProductos(paginaActual);
-    };    
+        validarSesion('./php/validar_sesion.php');
+    };
+
+    
+    /*FAVORITOS*/
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+    if (isLoggedIn === null || isLoggedIn === 'false') {
+        document.querySelector('.icon-favoritos-counter').textContent = favoritos.length;
+    }
+    /*COMPRAS*/
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    if (isLoggedIn === null || isLoggedIn === 'false') {
+        document.querySelector('.icon-compras-counter').textContent = carrito.length;
+    } 
 }
 async function cargarProductos(pagina) {
     const cargando = document.querySelector('.overlay');
@@ -172,10 +186,10 @@ async function cargarProductos(pagina) {
             imagenProductoDiv.className = 'imagen_producto';
             // Crear el enlace para la imagen
             const enlaceImagen = document.createElement('a');
-            enlaceImagen.href = 'detalle_producto.html';
+            enlaceImagen.href = `./producto/producto.php?id=${result_producto.id_producto}`;
             // Crear la imagen
             const imagen = document.createElement('img');
-            imagen.src = result_producto.imagen_producto;
+            imagen.src = result_producto.imagen;
             imagen.alt = 'Imagen de producto';
             // Añadir la imagen al enlace y el enlace al contenedor de la imagen
             enlaceImagen.appendChild(imagen);
@@ -186,13 +200,14 @@ async function cargarProductos(pagina) {
             // Crear el título del producto
             const titulo = document.createElement('h3');
             const enlaceTitulo = document.createElement('a');
-            enlaceTitulo.href = 'detalle_producto.html';
+            enlaceTitulo.href = `./producto/producto.php?id=${result_producto.id_producto}`;
             enlaceTitulo.textContent = result_producto.nombre_producto;
             titulo.appendChild(enlaceTitulo);
             // Crear el precio del producto
             const precio = document.createElement('span');
             precio.className = 'precio_producto';
-            precio.innerHTML = `<bdi><span class="moneda_producto">S/</span> ${result_producto.precio}</bdi>`;
+            //precio.innerHTML = `<bdi><span class="moneda_producto">S/</span> ${result_producto.precio}</bdi>`;
+            precio.innerHTML = `<bdi><span class="moneda_producto">S/</span>${result_producto.precio}</bdi>`;
             // Crear las opciones del producto
             const opcionesProductoDiv = document.createElement('div');
             opcionesProductoDiv.className = 'opciones_producto';
@@ -221,47 +236,33 @@ async function cargarProductos(pagina) {
             cargando.style.display = 'none';
         });
     }catch (error) {
-        console.error('Error al cargar productos:', error);
         cargando.style.display = 'none';
     }
-    /*try {
-        // Realiza la solicitud para obtener los productos de la página especificada
-        const response = await fetch(`cargar_productos.php?pagina=${pagina}`);
-        
-        // Espera la respuesta en formato JSON
-        const productos = await response.json();
-
-        // Selecciona el contenedor de productos
-        const contenedor = document.querySelector('.grid_productos_destacados');
-
-        // Si no hay productos, oculta el botón
-        if (productos.length === 0) {
-            document.getElementById('ver-mas').style.display = 'none';
-            return;
-        }
-
-        // Elimina los productos anteriores
-        contenedor.innerHTML = '';
-
-        // Añade los productos obtenidos al contenedor
-        productos.forEach(producto => {
-            const productoDiv = document.createElement('div');
-            productoDiv.className = 'producto';
-            productoDiv.innerHTML = `
-                <img src="${producto.imagen_producto}" alt="Producto">
-                <h3>${producto.nombre_producto}</h3>
-                <p>${producto.descripcion_producto}</p>
-            `;
-            contenedor.appendChild(productoDiv);
-        });
-    } catch (error) {
-        console.error('Error al cargar productos:', error);
-    }*/
 }
 function toggleMenu() {/*para que solo se ejecute al dar click a la imagen, no lo declaro antes porque al no existir causara error */
     const dropdownContent = document.querySelector('.dropdown-content');
     dropdownContent.classList.toggle('show');
 };
+async function cerrar_sesion(){
+    // Crear FormData y añadir el product_id
+    const formData = new FormData();
+    try {
+        const response = await fetch('./php/logout.php', {
+            method: 'POST',
+            body: formData
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const result = await response.json();
+        if (result.success){
+            localStorage.setItem('isLoggedIn', false);
+            location.reload(); // Recarga la página actual
+        }
+    } catch (error) {
+        console.log("aea")
+    }
+}
 function toggleMenu_aside() {/*para que solo se ejecute al dar click a la imagen, no lo declaro antes porque al no existir causara error */
     const dropdownContent = document.querySelector('.dropdown-content_aside');
     dropdownContent.classList.toggle('show');
@@ -314,6 +315,8 @@ async function Inisesion(){
                 agregarToast({tipo:'error',titulo:'Error!',descripcion:result.message,autoCierre:true},contenedorToast)
             } else if (result.success=='exito'){
                 agregarToast({tipo:'exito',titulo:'Exito!',descripcion:result.message,autoCierre:true},contenedorToast)
+                /*Establecer que me eh logeado*/
+                localStorage.setItem('isLoggedIn', true);
                 cargando.style.display = 'none';
                 setTimeout(() => {
                     location = './'; // Redirige a la URL proporcionada
@@ -477,8 +480,9 @@ function Preguntas_frecuentes(){
     window.addEventListener('resize', setResponsiveVariables);
     window.addEventListener('load', setResponsiveVariables);
 }
-function Contacto(){
+async function Contacto(){
     let body = document.body;
+    const contenedorToast=document.getElementById('contenedor-toast');
     menu.addEventListener("click",()=>{
         aside.classList.add("mostrar-sidebar");
     });
@@ -491,7 +495,32 @@ function Contacto(){
         }else{
             body.classList.remove("redimension-mode")
         }
-      }
+    }
+    const { agregarToast, manejarClickToast } = await import('./modulo_notificacion.js');
+    document.getElementById('form_contacto').addEventListener('submit', async function (event) {
+        event.preventDefault();
+        const button_envio = this.querySelector('button[type="submit"]');
+        button_envio.disabled = true; // Deshabilita el botón
+        button_envio.style.pointerEvents = 'none';
+        const formData = new FormData(this);
+        try {
+            const response = await fetch('./php/guardar_contacto.php', {
+                method: 'POST',
+                body: formData
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            result = await response.json()
+            agregarToast({tipo:result.success,titulo:result.titulo,descripcion:result.message,autoCierre:true},contenedorToast)
+        } catch (error) {
+            agregarToast({tipo:'error',titulo:'Error!',descripcion:'No se pudo conectar con el servidor',autoCierre:true},contenedorToast)
+        }finally {
+            button_envio.disabled = false; // Habilita el botón nuevamente
+            button_envio.style.pointerEvents = 'auto';
+        }
+    });
+    manejarClickToast(contenedorToast);
     window.addEventListener('resize', setResponsiveVariables);
     window.addEventListener('load', setResponsiveVariables);
 }
@@ -675,6 +704,359 @@ function Perfil_borrar(){
         manejarClickToast(contenedorToast);
     });
 };
+async function Producto(){
+    const cards= document.querySelectorAll(".card");
+    const cantidad = document.getElementById('cantidad');
+    const enlaces_tabs = document.querySelectorAll('.descripcion-especificacion-documentacion nav a');
+    const descripcion = document.querySelector('.descripcion');
+    const especificaciones = document.querySelector('.especificaciones');
+    const documentacion = document.querySelector('.documentacion');
+    const contenedorToast=document.getElementById('contenedor-toast');
+
+
+    menu.addEventListener("click",()=>{
+        aside.classList.add("mostrar-sidebar");
+    });
+    menu_sidebar.addEventListener("click",()=>{
+        aside.classList.remove("mostrar-sidebar");
+    });
+    cards.forEach(card => {
+        card.addEventListener('click', function() {
+            const comun_cards = this.querySelectorAll('.comun-card');
+            comun_cards.forEach((comun_card) => {
+                comun_card.classList.toggle('active');
+            });
+        });
+    });
+    enlaces_tabs.forEach((enlace_tabs, index_enlaces_tabs) => {
+        enlace_tabs.addEventListener('click', function(event) {
+            event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+            
+            // Restablece el estilo predeterminado a todos los enlaces
+            enlaces_tabs.forEach((enlace) => {
+                enlace.style.color = 'var(--color-titulo-contenido)';
+                enlace.style.fontSize = '1rem';
+            });
+
+            // Aplica el estilo al enlace clicado
+            enlace_tabs.style.color = 'rgb(151,194,30)';
+            enlace_tabs.style.fontSize = '1.5rem';
+            if (index_enlaces_tabs === 0) {
+                descripcion.style.display = 'block';
+                especificaciones.style.display = 'none';
+                documentacion.style.display = 'none';
+            } else if (index_enlaces_tabs === 1) {
+                descripcion.style.display = 'none';
+                especificaciones.style.display = 'flex';
+                documentacion.style.display = 'none';
+            } else if (index_enlaces_tabs === 2) {
+                descripcion.style.display = 'none';
+                especificaciones.style.display = 'none';
+                documentacion.style.display = 'flex';
+            }
+        });
+    });
+    const { agregarToast, manejarClickToast } = await import('./modulo_notificacion.js');
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    document.getElementById('form_carrito').addEventListener('submit', async function (event) {
+        event.preventDefault();
+        const productId_carrito = this.getAttribute('data-producto-id');
+        const cantidad = document.getElementById("cantidad").value;
+        const button_carrito = this.querySelector('button[type="submit"]');
+        button_carrito.disabled = true; // Deshabilita el botón
+        button_carrito.style.pointerEvents = 'none';
+        if (isLoggedIn=='true') {
+            const formData = new FormData(this);
+            formData.append('producto_id', productId_carrito);
+            formData.append('cantidad', cantidad);
+            try {
+                const response = await fetch('../php/carrito.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                result = await response.json()
+                if (result.success){
+                    document.querySelector('.icon-compras-counter').textContent = result.total_carrito;
+                }
+
+            } catch (error) {
+                agregarToast({tipo:'error',titulo:'Error!',descripcion:'No se pudo conectar con el servidor',autoCierre:true},contenedorToast)
+            }finally {
+                button_carrito.disabled = false; // Habilita el botón nuevamente
+                button_carrito.style.pointerEvents = 'auto';
+            }
+        } else if (isLoggedIn === null || isLoggedIn === 'false') {
+            let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            let productoExistente = carrito.find(item => item.productId === productId_carrito);
+            if (productoExistente) {
+                productoExistente.cantidad += cantidad;
+            }else{
+                carrito.push({ productId: productId_carrito, cantidad: cantidad });
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+            }
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            document.querySelector('.icon-compras-counter').textContent = carrito.length;
+        }
+    });
+    /*Carrito */
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    if (isLoggedIn === null || isLoggedIn === 'false') {
+        document.querySelector('.icon-compras-counter').textContent = carrito.length;
+    }    
+
+
+
+
+    if (isLoggedIn=='true') {
+        document.getElementById('form_comentar').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const ratingSelected = document.querySelector('input[name="rating"]:checked');
+            if (!ratingSelected) {
+                alert("Por favor selecciona una calificación.");
+                return
+            }
+            const button_enviar_comentario = this.querySelector('button[type="submit"]');
+            button_enviar_comentario.disabled = true; // Deshabilita el botón
+            const formData = new FormData(this);
+            try {
+                const response = await fetch('../php/enviar_comentario_producto.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                if (result.success=='exito') {
+                    agregarToast({tipo:'exito',titulo:'Exito!',descripcion:result.message,autoCierre:true},contenedorToast)
+                } else if (result.success=='error'){
+                    agregarToast({tipo:'error',titulo:'Error!',descripcion:result.message,autoCierre:true},contenedorToast)
+                } else if (result.success=='exito'){
+                    agregarToast({tipo:'warning',titulo:'Advertencia!',descripcion:result.message,autoCierre:true},contenedorToast)
+                }
+            } catch (error) {
+                agregarToast({tipo:'error',titulo:'Error!',descripcion:'No se pudo conectar con el servidor',autoCierre:true},contenedorToast)
+            }finally {
+                button_enviar_comentario.disabled = false; // Habilita el botón nuevamente
+            }
+            setTimeout(() => {
+                location.reload();
+            }, 3000)
+            
+        })
+    }
+    manejarClickToast(contenedorToast);
+    document.querySelector('.agregar_favorito_producto').addEventListener('click',async function() {
+        this.style.pointerEvents = 'none';
+        const icon = this.querySelector('.material-icons-sharp');
+        const productId = this.getAttribute('data-producto-id');
+        if (isLoggedIn=='true') {
+            // Crear FormData y añadir el product_id
+            const formData = new FormData();
+            formData.append('producto_id', productId);
+            // Cambia entre "favorite_border" y "favorite" al hacer clic
+            if (icon.textContent === 'favorite_border') {
+                icon.textContent = 'favorite';
+                formData.append('funcion', 'agregar');
+                this.classList.add('activar');
+            } else {
+                icon.textContent = 'favorite_border';
+                formData.append('funcion', 'quitar');
+                this.classList.remove('activar');
+            }
+            try {
+                const response = await fetch('../php/producto_favorito.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await response.json();
+                if (result.success){
+                    document.querySelector('.icon-favoritos-counter').textContent = result.total_favoritos;
+                }
+            } catch (error) {
+                console.log("aea")
+            }finally {
+                this.style.pointerEvents = 'auto';
+            }
+        } else if (isLoggedIn === null || isLoggedIn === 'false') {
+            let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+            if (icon.textContent === 'favorite_border') {
+                icon.textContent = 'favorite';
+                this.classList.add('activar');
+                if (!favoritos.includes(productId)) {
+                    favoritos.push(productId);
+                    localStorage.setItem('favoritos', JSON.stringify(favoritos));
+                    document.querySelector('.icon-favoritos-counter').textContent = favoritos.length;
+                }
+            } else {
+                icon.textContent = 'favorite_border';
+                this.classList.remove('activar');
+                if (favoritos.includes(productId)) {
+                    favoritos = favoritos.filter(favorito => favorito !== productId);
+                    // Guarda el nuevo arreglo en localStorage
+                    localStorage.setItem('favoritos', JSON.stringify(favoritos));
+                    document.querySelector('.icon-favoritos-counter').textContent = favoritos.length;
+                }
+            }
+            this.style.pointerEvents = 'auto';
+        }
+    });
+    /*favorito */
+    const productId = document.querySelector('.agregar_favorito_producto').getAttribute('data-producto-id');
+    const icon = document.querySelector('.agregar_favorito_producto').querySelector('.material-icons-sharp');
+    let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];/*Si tengo datos o si es null que me de []*/
+    if (isLoggedIn === null || isLoggedIn === 'false') {
+        document.querySelector('.icon-favoritos-counter').textContent = favoritos.length;
+        if (favoritos.includes(productId)) {
+            icon.textContent = 'favorite';
+            document.querySelector('.agregar_favorito_producto').classList.add('activar');
+        }else{
+            icon.textContent = 'favorite_border';
+            document.querySelector('.agregar_favorito_producto').classList.remove('activar');
+        }
+    }    
+}
+async function Buscador(){
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q') || '';
+    const categoria = params.get('categoria') || '';
+    const totalDiv = document.getElementById('total');
+    const total = totalDiv.getAttribute('data-total');
+    let paginaActual = 1;
+    document.querySelector('.next_flecha-productos').addEventListener('click', () => {
+        paginaActual++;  // Incrementa la página para la próxima carga
+        cargarProductosBuscados(paginaActual,q,categoria,total);  // Llama a la función asíncrona
+        document.querySelector('.prev_flecha-productos').style.pointerEvents = 'auto';
+        document.querySelector('.prev_flecha-productos').style.cursor = 'pointer'; // O 'auto' para el cursor predeterminado
+    });
+    document.querySelector('.prev_flecha-productos').addEventListener('click', () => {
+        paginaActual--;  // Disminuye la página para cargar la anterior
+        cargarProductosBuscados(paginaActual,q,categoria,total);  // Llama a la función asíncrona para cargar productos
+        document.querySelector('.next_flecha-productos').style.pointerEvents = 'auto';
+        document.querySelector('.next_flecha-productos').style.cursor = 'pointer'; // O 'auto' para el cursor predeterminado
+        if (paginaActual == 1) {
+            document.querySelector('.prev_flecha-productos').style.pointerEvents = 'none';
+            document.querySelector('.prev_flecha-productos').style.cursor = 'default';
+        }    
+    });
+    window.onload = function() {
+        cargarProductosBuscados(paginaActual,q,categoria,total);
+        validarSesion('./php/validar_sesion.php');
+    };
+    /*FAVORITOS*/
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+    if (isLoggedIn === null || isLoggedIn === 'false') {
+        document.querySelector('.icon-favoritos-counter').textContent = favoritos.length;
+    }
+    /*COMPRAS*/
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    if (isLoggedIn === null || isLoggedIn === 'false') {
+        document.querySelector('.icon-compras-counter').textContent = carrito.length;
+    } 
+}
+async function cargarProductosBuscados(pagina,q,categoria,total) {
+    const cargando = document.querySelector('.overlay');
+    cargando.style.display = 'flex';
+    const data  = new URLSearchParams();
+    data .append('pagina', pagina);
+    data .append('q', q);
+    data .append('categoria', categoria);
+    data .append('total', total);
+    try{
+        const response = await fetch('./php/cargar_productos_buscados.php', {
+            method: 'POST',
+            body: data
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const result= await response.json();
+        const result_productos = result.productos;
+        const result_bloquearNextFlecha = result.bloquear_next_flecha;
+        const grid_productos_destacados = document.querySelector('.grid_productos');
+        // Si no hay productos, oculta el botón
+        if (result_bloquearNextFlecha) {
+            document.querySelector('.next_flecha-productos').style.pointerEvents = 'none';
+            document.querySelector('.next_flecha-productos').style.cursor  = 'default';
+        }
+        // Elimina los productos anteriores
+        grid_productos_destacados.innerHTML = '';
+        result_productos.forEach(result_producto => {
+            // Crear el contenedor del producto
+            const productoDiv = document.createElement('div');
+            productoDiv.className = 'producto';
+            // Crear el contenedor de la imagen
+            const imagenProductoDiv = document.createElement('div');
+            imagenProductoDiv.className = 'imagen_producto';
+            // Crear el enlace para la imagen
+            const enlaceImagen = document.createElement('a');
+            enlaceImagen.href = `./producto/producto.php?id=${result_producto.id_producto}`;
+            // Crear la imagen
+            const imagen = document.createElement('img');
+            imagen.src = result_producto.imagen;
+            imagen.alt = 'Imagen de producto';
+            // Añadir la imagen al enlace y el enlace al contenedor de la imagen
+            enlaceImagen.appendChild(imagen);
+            imagenProductoDiv.appendChild(enlaceImagen);
+            // Crear el contenedor de la información del producto
+            const informacionProductoDiv = document.createElement('div');
+            informacionProductoDiv.className = 'informacion_producto';
+            // Crear el título del producto
+            const titulo = document.createElement('h3');
+            const enlaceTitulo = document.createElement('a');
+            enlaceTitulo.href = `./producto/producto.php?id=${result_producto.id_producto}`;
+            enlaceTitulo.textContent = result_producto.nombre_producto;
+            titulo.appendChild(enlaceTitulo);
+            // Crear el precio del producto
+            const precio = document.createElement('span');
+            precio.className = 'precio_producto';
+            //precio.innerHTML = `<bdi><span class="moneda_producto">S/</span> ${result_producto.precio}</bdi>`;
+            precio.innerHTML = `<bdi><span class="moneda_producto">S/</span>${result_producto.precio}</bdi>`;
+            // Crear las opciones del producto
+            const opcionesProductoDiv = document.createElement('div');
+            opcionesProductoDiv.className = 'opciones_producto';
+            // Crear los iconos de opciones
+            const opciones = [
+                { icono: 'favorite_border', titulo: 'Añadir a favoritos' },
+                { icono: 'add_shopping_cart', titulo: 'Añadir al carrito' },
+                { icono: 'compare_arrows', titulo: 'Comparar productos' }
+            ];
+            opciones.forEach(opcion => {
+                const spanIcono = document.createElement('span');
+                spanIcono.className = 'material-icons-sharp icono_opcion_producto';
+                spanIcono.title = opcion.titulo;
+                spanIcono.textContent = opcion.icono;
+                opcionesProductoDiv.appendChild(spanIcono);
+            });
+            // Añadir los elementos creados al contenedor de información
+            informacionProductoDiv.appendChild(titulo);
+            informacionProductoDiv.appendChild(precio);
+            informacionProductoDiv.appendChild(opcionesProductoDiv);
+            // Añadir los contenedores de imagen e información al contenedor del producto
+            productoDiv.appendChild(imagenProductoDiv);
+            productoDiv.appendChild(informacionProductoDiv);
+            // Añadir el producto al contenedor principal
+            grid_productos_destacados.appendChild(productoDiv);
+            cargando.style.display = 'none';
+        });
+    }catch (error) {
+        cargando.style.display = 'none';
+    }
+}
+function cambiarImagen(imgElemento) {
+    // Obtener la URL de la miniatura seleccionada
+    var nuevaSrc = imgElemento.src;
+    
+    // Cambiar la imagen principal
+    document.getElementById('imagenPrincipal').src = nuevaSrc;
+}
 function initCommon(){
     let body = document.body;
     /*Esto aplica el modo oscuro si ya estaba aplicado, osea si el modo oscuro ya estaba guardado en el navegador al recargar o volver a abrir la pagina se volvera a aplicar*/
@@ -699,27 +1081,59 @@ function initCommon(){
         });
     });
 }
+async function validarSesion(validar_sesion) {
+    /*Si no necesito enviar datos en la solicitud puedo omitir el objeto Formdata*/
+    let isLoggedIn = localStorage.getItem('isLoggedIn');;
+    try {
+        const response = await fetch(validar_sesion, {
+            method: 'POST',
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const result = await response.json();
+        if (result.sesion_activa) {
+            if (isLoggedIn === null || isLoggedIn === 'false') {
+                localStorage.setItem('isLoggedIn', 'true');/*agregar llave y elemento*/
+            }else{
+                localStorage.setItem('isLoggedIn', 'true');/*agregar llave y elemento*/
+            }
+            console.log("Esta con la sesion abierta")
+        } else {
+            if (isLoggedIn === 'true'){
+                localStorage.setItem('isLoggedIn', 'false');
+            }
+            console.log("Esta con la sesion cerrada")
+        }
+    } catch (error) {
+        console.log("Errorcito sabroson: ", error)
+    }
+}
 // Ejecutar código dependiendo de la página actual
 document.addEventListener('DOMContentLoaded', function() {
     // Ejecutar código común a todas las páginas
     initCommon();
-    if (document.documentElement.classList.contains('index')) {
-        Index();
-    } else if (document.documentElement.classList.contains('inisesion')) {
-        Inisesion();
-    } else if (document.documentElement.classList.contains('Sobre_nosotros')) {
-        Sobre_nosotros();
-    } else if (document.documentElement.classList.contains('Preguntas_frecuentes')) {
-        Preguntas_frecuentes();
-    } else if (document.documentElement.classList.contains('Contacto')) {
-        Contacto();
-    } else if (document.documentElement.classList.contains('Blog')) {
-        Blog();
-    } else if (document.documentElement.classList.contains('Perfil_editar')) {
-        Perfil_editar();
-    } else if (document.documentElement.classList.contains('Perfil_ajustes')) {
-        Perfil_ajustes();
-    } else if (document.documentElement.classList.contains('Perfil_borrar')) {
-        Perfil_borrar();
+
+    // Obtener la clase principal que identifica la página actual
+    const pageClass = document.documentElement.classList[0];
+
+    // Mapear las clases a sus respectivas funciones
+    const pageFunctions = {
+        'index': Index,
+        'inisesion': Inisesion,
+        'Sobre_nosotros': Sobre_nosotros,
+        'Preguntas_frecuentes': Preguntas_frecuentes,
+        'Contacto': Contacto,
+        'Blog': Blog,
+        'Perfil_editar': Perfil_editar,
+        'Perfil_ajustes': Perfil_ajustes,
+        'Perfil_borrar': Perfil_borrar,
+        'Producto': Producto,
+        'buscador': Buscador
+    };
+
+    // Llamar a la función correspondiente si existe
+    if (pageFunctions[pageClass]) {
+        pageFunctions[pageClass]();
     }
 });

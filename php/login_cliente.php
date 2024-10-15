@@ -25,6 +25,22 @@
             if ($validacion==1){
                 $clave = $usuario ['clave'];
                 if (password_verify($clave_confirmar, $clave)){
+                    // Consulta para contar los favoritos
+                    $stmt = $conexion->prepare("SELECT COUNT(*) as total_favoritos FROM Productos_favoritos WHERE id_usuario = ?");
+                    $stmt->bind_param("i", $usuario['id']);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    $row = $result->fetch_assoc();
+                    // Inicializa la cantidad de favoritos en la sesión
+                    $_SESSION['cantidad_favoritos'] = $row['total_favoritos'];
+                    // Consulta para contar los productos que estan en carrito
+                    $stmt = $conexion->prepare("SELECT COUNT(*) as total_carrito FROM Productos_carrito WHERE id_usuario = ?");
+                    $stmt->bind_param("i", $usuario['id']);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    $row = $result->fetch_assoc();
+                    // Inicializa la cantidad de favoritos en la sesión
+                    $_SESSION['cantidad_carrito'] = $row['total_carrito'];
                     // Iniciar la sesión y almacenar información del usuario
                     $_SESSION['usuario_id'] = $usuario['id'];
                     $_SESSION['usuario_nombre'] = $usuario['nombres'];

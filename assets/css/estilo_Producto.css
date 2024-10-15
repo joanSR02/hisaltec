@@ -1,0 +1,647 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('./modulos/modulo_iniciador.css');
+@import url('./modulos/modulo_encabezado.css');
+@import url('./modulos/modulo_aside.css');
+@import url('./modulos/modulo_footer.css');
+@import url('./modulos/modulo_notificacion.css');
+:root{
+    /*estilo cuerpo total*/
+    --color-body: rgb(240,242,245);
+    --color-contenido: rgb(255,255,255);
+    --color-titulo-contenido: rgb(5,5,29);
+    --color-parrafo-contenido: rgb(58,59,60);
+    --color-fondo-icono: rgb(228,230,235);
+    --color-icono-menu: rgb(5,5,5);
+    --color-fondo-hover-icono: rgb(216,218,223);
+    --color-icono: rgb(132,132,132);
+    /*estilos encabezado*/
+    --color-fondo-hero_1:rgb(255,255,255);
+    --color-texto-hero_1: rgb(101,103,107);
+    --color-texto-secundario: rgb(132,132,132);
+    --color-texto-h3: rgb(5,5,5);
+
+    /*Estilos de carousel*/
+    --color-carrousel-topic: rgb(0,0,0);
+    --color-carrousel-des: rgba(85,85,85,0.6);
+    --color-carrousel-title: rgb(5,5,29);
+    --color-carrousel-seeMore: (5,5,29);
+    --color-carrousel-seeMore_hover: rgb(238,238,238);
+    --color-carrousel-back: rgb(5,5,29);
+    --color-carrousel-specifications: rgb(5,5,29);
+    --item1-transform: translateX(-100%) translateY(-5%) scale(1.5);
+    --item1-filter: blur(30px);
+    --item1-zIndex: 11;
+    --item1-opacity: 0;
+
+    --item2-transform: translateX(0);
+    --item2-filter: blur(0px);
+    --item2-zIndex: 10;
+    --item2-opacity: 1;
+
+    --item3-transform: translate(50%,10%) scale(0.8);
+    --item3-filter: blur(10px);
+    --item3-zIndex: 9;
+    --item3-opacity: 1;
+
+    --item4-transform: translate(90%,20%) scale(0.5);
+    --item4-filter: blur(30px);
+    --item4-zIndex: 8;
+    --item4-opacity: 1;
+    
+    --item5-transform: translate(120%,30%) scale(0.3);
+    --item5-filter: blur(40px);
+    --item5-zIndex: 7;
+    --item5-opacity: 0;
+    /*Estilo sidebar*/
+    --color-barra-lateral:rgb(255,255,255);
+
+    --color-texto:rgb(0,0,0);
+    --color-texto-menu:rgb(134,136,144);
+
+    --color-menu-hover:rgb(238,238,238);
+    --color-menu-hover-texto:rgb(0,0,0);
+
+    --color-boton:rgb(0,0,0);
+    --color-boton-texto:rgb(255,255,255);
+
+    --color-linea:rgb(180,180,180);
+
+    --color-switch-base :rgb(201,202,206);
+    --color-switch-circulo:rgb(241,241,241);
+
+    --color-scroll:rgb(192,192,192);
+    --color-scroll-hover:rgb(134,134,134);
+    /*estilo footer*/
+    --color-footer: rgb(97,97,96);
+    --color-contenido-footer: rgb(97,97,96);
+
+    /*Estilo del menu usuario*/
+    --color-menu-usuario: rgba(57,57,58, 0.95);
+    --color-texto-menu-usuario: rgb(228,230,235);
+
+    /*Estilo de productos*/
+    --color-fondo-producto: rgb(255,255,255);
+    --color-fondo-icono-producto: rgb(228,230,235);
+    --color-icono-producto: rgb(5,5,5);
+    /*--color-borde-producto: rgb(225,225,225);*/
+    --color-sombreado-producto: 0 4px 8px rgba(0, 0, 0, 0.2);
+    --color-borde-icono-producto: rgb(5,5,5);
+    --color-texto-informacion_producto: rgb(5,5,5);
+    /*alarma*/
+    --exito: #3ab65c;
+	--error: #bf333b;
+	--info: #1898c0;
+	--warning: #bc8c12;
+	--exito-hover: #2d8a46;
+	--error-hover: #962a31;
+	--info-hover: #147fa0;
+	--warning-hover: #9b7512;
+}
+.dark-mode{
+    /*estilo cuerpo total*/
+    --color-body: rgb(24,25,26);
+    --color-contenido: rgb(36,37,38);
+    --color-titulo-contenido: rgb(228,230,223);
+    --color-parrafo-contenido: rgb(212,212,212);
+    --color-fondo-icono: rgb(58,59,60);
+    --color-icono: rgb(132,132,132);
+    --color-fondo-hover-icono: rgb(78,79,80);
+    --color-icono-menu: rgb(228,230,235);
+    /*estilos encabezado*/
+    --color-fondo-hero_1:rgb(36,37,38);
+    --color-texto-hero_1: rgb(176,179,184);
+    --color-texto-secundario: rgb(132,132,132);
+    --color-texto-h3: rgb(228,230,235);
+    /*Estilos de carousel*/
+    --color-carrousel-topic: rgb(255,255,255);
+    --color-carrousel-des: rgb(176,179,184);
+    --color-carrousel-title: rgb(228,230,223);
+    --color-carrousel-seeMore: rgb(228,230,223);
+    --color-carrousel-seeMore_hover: rgb(36,37,38);
+    --color-carrousel-back: rgb(228,230,223);
+    --color-carrousel-specifications: rgb(228,230,223);
+    /*Estilo sidebar*/
+    --color-barra-lateral:rgb(44,45,49);
+
+    --color-texto:rgb(255,255,255);
+    --color-texto-menu:rgb(110,110,117);
+
+    --color-menu-hover:rgb(0,0,0);
+    --color-menu-hover-texto:rgb(238,238,238);
+
+    --color-boton:rgb(255,255,255);
+    --color-boton-texto:rgb(0,0,0);
+
+    --color-linea:rgb(90,90,90);
+
+    --color-switch-base :rgb(39,205,64);
+    --color-switch-circulo:rgb(255,255,255);
+
+    --color-scroll:rgb(68,69,74);
+    --color-scroll-hover:rgb(85,85,85);
+    /*estilo footer*/
+    --color-footer: var(--color-body);
+    --color-contenido-footer: rgb(36,37,38);
+    /*Estilo del menu usuario*/
+    --color-menu-usuario: rgba(200, 200, 200, 0.95);
+    --color-texto-menu-usuario: rgb(5,5,5);
+    /*Estilo de productos*/
+    --color-fondo-producto: rgb(36,37,38);
+    /*--color-fondo-producto: rgb(255,255,255);*/
+    --color-fondo-icono-producto: rgb(58,59,60);
+    --color-icono-producto: rgb(228,230,235);
+    /*--color-borde-producto: rgb(24,25,26);*/
+    --color-sombreado-producto: 0 4px 8px rgba(200, 200, 200, 0.2);
+    --color-borde-icono-producto: rgb(228,230,235);
+    --color-texto-informacion_producto: rgb(228,230,235);
+}
+main{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    position: relative;
+}
+.producto{
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 95%;
+}
+.producto .galeria {
+    display: grid;
+    grid-template-columns: 1fr 8fr;
+    aspect-ratio: 9/6; /* Mantiene la altura igual al ancho */
+    overflow: hidden;
+}
+.producto .galeria .miniaturas{
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    margin: auto 0;
+}
+.producto .galeria .miniaturas .imagen_miniatura-fondo{
+    padding: 2px;
+}
+.producto .galeria .miniaturas .imagen_miniatura{
+    width: 100%; /* O ajusta según el diseño deseado */
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Asegura que no haya desbordamientos */
+    background-color: var(--color-contenido);
+    border-radius: 10px;
+}
+.producto .galeria .miniaturas .imagen_miniatura img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Asegura que la imagen cubra el área sin deformarse */
+}
+.producto .galeria figure{
+    width: 100%; /* O ajusta según el diseño deseado */
+    aspect-ratio: 8 / 6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Asegura que no haya desbordamientos */
+}
+.producto .galeria figure img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Asegura que la imagen cubra el área sin deformarse */
+}
+/*.producto  {
+    aspect-ratio: 3 / 2; /* Mantiene la altura igual al ancho 
+}*/
+/*.producto figure img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Asegura que la imagen cubra el área sin deformarse 
+}*/
+.informacion{
+    display: flex;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: var(--color-contenido);
+    flex-direction: column;
+    justify-content: space-between;
+}
+.informacion_producto{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.informacion_producto h1{
+    font-size: 2rem;
+    color: var(--color-titulo-contenido);
+}
+.informacion_producto #precio,.informacion_producto .moneda_producto{
+    font-size: 1.5rem;
+    color: var(--color-texto-informacion_producto);
+}
+.stock{
+    display: flex;
+    color: rgb(151,194,30);
+    align-items: center;
+}
+.stock span{
+    color: rgb(151,194,30);
+}
+/*.informacion_producto form{
+    margin-top: 1rem;
+}*/
+.informacion_producto form label{
+    font-size: 1.5rem;
+    color: var(--color-texto-informacion_producto);
+}
+.informacion_producto form input{
+    height: 2rem;
+    width: 1rem;
+    margin: 0;
+}
+#cantidad{
+    width: 1.5rem;
+    border-top: 2px solid rgb(240,242,245);
+    border-bottom: 2px solid rgb(240,242,245);
+}
+.cantidad_producto{
+    display: inline-flex;
+    vertical-align: top;
+    white-space: nowrap;
+    font-size: 0;
+}
+#cantidad[type="number"] {
+    text-align: center;
+}
+#cantidad[type="number"]::-webkit-outer-spin-button,#cantidad[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.cantidad_producto #menos_cantidad_producto{
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    background-color: rgb(240,242,245);
+    cursor: pointer;
+}
+.cantidad_producto #menos_cantidad_producto:hover,.cantidad_producto #mas_cantidad_producto:hover{
+    background-color: rgb(151,194,30);
+}
+.cantidad_producto #mas_cantidad_producto{
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    background-color: rgb(240,242,245);
+    cursor: pointer;
+}
+.informacion_producto form button{
+    height: 2rem;
+    padding: 0 10px;
+    border-radius: 2rem;
+    background-color: rgb(151,194,30);
+    color: azure;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+/*Precios por cantidad*/
+.precio_por_cantidad table{
+    table-layout: fixed;
+    border-collapse: collapse;/*Colapsa los bordes de las celdas, hace que los bordes de las celdas adyacentes se fusionen en un solo borde*/
+}
+.precio_por_cantidad th{
+    padding: 5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: solid 1px #ccc;
+    color: var(--color-parrafo-contenido);
+}
+/*.documentacion tbody tr{
+    cursor: pointer;
+}*/
+.precio_por_cantidad tr td {
+    padding: 5px;
+    color: var(--color-parrafo-contenido);
+}
+.precio_por_cantidad tr:not(:last-child) td {
+    border-bottom: solid 1px #ccc;
+}
+/************************************************/
+.iconos_informacion_producto {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en una nueva línea si el espacio es insuficiente */
+    align-items: center; /* Alinea verticalmente los íconos y textos */
+    font-size: 1rem;
+    gap: 0.5rem;
+}
+.agregar_favorito_producto,.comparar_producto{
+    display: flex;
+    color: var(--color-parrafo-contenido);
+    align-items: center;
+    cursor: pointer;
+}
+/*.material-icons-sharp{
+    color: var(--color-parrafo-contenido);
+}*/
+hr {
+    border: 1px solid #ccc; /* Color y grosor de la línea */
+    margin: 20px 0; /* Espacio arriba y abajo */
+    width: 100%; /* Ancho de la línea */
+    margin: 0.5rem 0;
+}
+.agregar_favorito_producto:hover,.comparar_producto:hover,.agregar_favorito_producto.activar{
+    color: rgb(151,194,30);
+}
+
+
+.SKU{
+    display: flex;
+    color: var(--color-parrafo-contenido);
+    align-items: center;
+    gap: 0.5rem;
+}
+.compartir_producto{
+    display: flex;
+    color: var(--color-parrafo-contenido);
+    align-items: center;
+    gap: 0.5rem;
+}
+.compartir_producto .social-icons .icon i {
+    color: var(--color-parrafo-contenido);
+}
+.compartir_producto .social-icons .icon i:hover {
+    color: rgb(151,194,30);
+}
+.descripcion-especificacion-documentacion nav {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente los enlaces */
+    align-items: center; /* Alinea verticalmente los elementos dentro del contenedor */
+    gap: 1rem;
+}
+.descripcion-especificacion-documentacion nav a{
+    position: relative;
+    font-weight: bold;
+    color: var(--color-titulo-contenido);
+}
+.descripcion-especificacion-documentacion nav a::after{
+    content: " ";
+    width: 0;
+    height: 2px;
+    background-color: rgb(151,194,30);
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    transition: all .5s;
+    will-change: width;
+}
+.descripcion-especificacion-documentacion nav a:hover::after{
+    width: 100%;
+    right: 0;
+}
+.descripcion-especificacion-documentacion nav a:nth-child(1) {
+    color: rgb(151,194,30);
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+.contenido{
+    width: 95%;
+    max-width: 1200px;
+    margin: 0.5rem auto;
+    padding: 1rem;
+    border-radius: 20px;
+    background-color: var(--color-contenido);
+    display: flex;
+    justify-content: center;/*centrar horizontalmente*/
+    flex-direction: column;
+    align-items: center;/*centrar verticalmente*/
+    transition: background-color 0.5s ease;
+}
+.descripcion{
+    display: block;
+    padding: 2rem 5rem;
+}
+.especificaciones{
+    display: none;
+    align-items: center;
+}
+.documentacion{
+    display: none;
+    align-items: center;
+}
+.especificaciones table{
+    table-layout: fixed;
+    border-collapse: collapse;/*Colapsa los bordes de las celdas, hace que los bordes de las celdas adyacentes se fusionen en un solo borde*/
+}
+.especificaciones th{
+    padding: 20px 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: solid 1px #ccc;
+    color: var(--color-parrafo-contenido);
+}
+/*.especificaciones tbody tr{
+    cursor: pointer;
+}*/
+.especificaciones tr td {
+    padding: 15px;
+    color: var(--color-parrafo-contenido);
+}
+.especificaciones tr:not(:last-child) td {
+    padding: 15px;
+    border-bottom: solid 1px #ccc;
+}
+.descripcion p{
+    text-align: justify;
+    color: var(--color-parrafo-contenido);
+}
+.descripcion ul{
+    padding-left: 20px; /* Ajusta el espacio a la izquierda para los marcadores */
+}
+.descripcion ul li::marker{/*solo afecta al tamaño del marcador*/
+    content: "✓"; /* Cambia el marcador a un símbolo de verificación */
+    font-size: 20px; /* Cambia el tamaño del marcador */
+    color: var(--color-parrafo-contenido);
+}
+.descripcion h3{
+    margin-top: 1rem;
+    color: var(--color-titulo-contenido);
+}
+
+
+
+
+
+.documentacion table{
+    table-layout: fixed;
+    border-collapse: collapse;/*Colapsa los bordes de las celdas, hace que los bordes de las celdas adyacentes se fusionen en un solo borde*/
+}
+.documentacion th{
+    padding: 20px 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: solid 1px #ccc;
+    color: var(--color-parrafo-contenido);
+}
+/*.documentacion tbody tr{
+    cursor: pointer;
+}*/
+.documentacion tr td {
+    padding: 15px;
+    color: var(--color-parrafo-contenido);
+}
+.documentacion tr:not(:last-child) td {
+    padding: 15px;
+    border-bottom: solid 1px #ccc;
+}
+.btn-download {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-download:hover {
+    background-color: #45a049;
+}
+/*Comentarios*/
+.comentar-comentarios .titulo{
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.comentar-comentarios .comentar{
+    width: 100%;
+}
+/*Comentar*/
+#form_comentar{
+    /*display: flex;*/
+    width: 100%;
+}
+#form_comentar .comentar_button{
+    display: flex;
+    width: 100%;
+}
+#form_comentar textarea{
+    width: 100%;
+    max-height: 5rem;
+    border-radius: 1rem;
+    border: 1px solid #ccc;
+    padding: 10px;
+    resize: none;
+    overflow-y: auto;
+}
+.contenedor_button_comentar{
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    position: relative;
+}
+.contenedor_button_comentar button{
+    width: 80px;
+    height: 35px;
+    border-radius: 10px;
+    background-color: rgb(151,194,30);
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    color: azure;
+    font-weight: bold;
+    position: absolute;
+    bottom: 0;
+}
+.comentarios{
+    width: 100%;
+}
+.contenedor_button_comentar button:hover{
+    background-color: rgb(137, 175, 33);;
+}
+.comentarios .comentario{
+    display: flex;
+    width: 100%;
+    gap: 0.5rem;
+}
+.comentarios .comentario .foto_comentario img{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+.comentarios .comentario .stars_texto{
+    width: 100%;
+}
+.comentarios .comentario .stars_texto .texto{
+    width: 100%;
+    max-height: 7rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    overflow-y: auto;
+}
+.rating {
+    display: flex;
+    flex-direction: row-reverse;/*Los elementos se organizaran de derecha a izquierda*/
+    justify-content: flex-end;/*Este estilo alinea los elementos hijos al final del contenedor en el eje, y como utilizo reverza esta esta estan alineadas a la derecha del contenedor raiting, osea las estrellas estaran pegadas a la izquierda*/
+    align-items: center;
+    gap: 5px; /* Separación entre estrellas */
+}
+.rating p{
+    color: var(--color-parrafo-contenido);
+}
+.rating input {
+    position: absolute;
+    left: -9999px;
+}
+
+.rating label {
+    font-size: 20px;/*tamaño de la estrella*/
+    color: #ccc; /* Color de las estrellas inactivas */
+    cursor: pointer;
+    transition: color 0.3s ease;/*transiccion de color*/
+}
+
+.rating input:checked ~ label/*selecciona los label que tienen su input seleccionado, "~" nos permite seleccionar elementos que son hermanos de un elemento especifico, en este caso seleccionamos label que es hermano de input, por lo tanto seleccionamos el label del input marcado y todos los label que estan despues en el mismo contenedor, osea las estrellas de menor valor. Esto nos permite aplicar el estilo a todos los label anteriores a este y este mismo, osea si seleccionamos 4 estrellas se seleccionaran las estrellas 1,2,3 y 4,*/
+/*Esto aplica estilo a todos los label que estan despues del elemento label con input seleccionado y como el input esta seleccionado por una extraña razon tambien se incluye al label del input seleccionado, solo en este caso*/,
+.rating label:hover/*Aplica el estilo cuando el usuario pasa el ratón sobre una estrella. Esto cambia temporalmente el color de la estrella*/,
+.rating label:hover ~ label /*Aplica el estilo solo a los labels que se encuentren despues del label con puntero sobre este, sin incluir al elemento seleccionado*/{
+    color: #ffcc00; /* Color de las estrellas activas */
+}
+
+
+
+
+
+.rating span {
+    font-size: 20px;
+}
+span.filled {
+    color: gold;
+}
+span.empty {
+    color: lightgray;
+}
+
+
+
+
+/*Estilos a las miniaturas*/
+.imagen_miniatura img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer; /* Para indicar que la miniatura es clickeable */
+}
+
+.imagen_miniatura img:hover {
+    transform: scale(1.1); /* Agranda la imagen un 10% */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Aplica una sombra */
+}
+
+@media screen and (max-width: 900px){/*solo se aplicará cuando la pantalla del dispositivo tenga un ancho máximo de 900 píxeles*/
+    .hero_1 .icono-menu,.hero_1 .logo,.hero_1 .favoritos_compras{
+        display: flex;
+    }
+    .hero_1 nav,.hero_1 .modo-oscuro,.hero_2,.hero_3{
+        display: none;
+    }
+}
